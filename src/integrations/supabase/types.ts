@@ -53,6 +53,39 @@ export type Database = {
         }
         Relationships: []
       }
+      leads: {
+        Row: {
+          consentimento_em: string
+          consentimento_texto: string
+          criado_em: string
+          email: string
+          id: string
+          nome: string
+          origem: string
+          perfil: string
+        }
+        Insert: {
+          consentimento_em?: string
+          consentimento_texto: string
+          criado_em?: string
+          email: string
+          id?: string
+          nome: string
+          origem?: string
+          perfil: string
+        }
+        Update: {
+          consentimento_em?: string
+          consentimento_texto?: string
+          criado_em?: string
+          email?: string
+          id?: string
+          nome?: string
+          origem?: string
+          perfil?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
