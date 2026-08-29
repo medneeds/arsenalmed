@@ -2,7 +2,7 @@ const ITENS = [
   "33 casos no formato completo",
   "Catálogo de fármacos com dose por quilo e ajuste renal",
   "Dez tabelas de referência",
-  "PDF navegável, com sumário clicável e marcadores",
+  "PDF navegável e off-line, com sumário clicável e marcadores — retaguarda sem internet",
   "Atualizações da versão 3.x sem custo adicional",
 ];
 
@@ -23,6 +23,14 @@ export function Preco() {
             </li>
           ))}
         </ul>
+
+        <div className="mt-7 border-t border-musgo-600 pt-5">
+          <p className="label text-ocre">BÔNUS INCLUSO</p>
+          <p className="mt-2 text-[15px] leading-relaxed text-musgo-100">
+            Guia de Bolso com as principais cenas do paciente grave — retaguarda off-line para o momento em
+            que a internet falta.
+          </p>
+        </div>
 
         <a
           href="/comprar"
