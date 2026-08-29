@@ -27,8 +27,8 @@ export function Preco() {
         <div className="mt-7 border-t border-musgo-600 pt-5">
           <p className="label text-ocre">BÔNUS INCLUSO</p>
           <p className="mt-2 text-[15px] leading-relaxed text-musgo-100">
-            Guia de Bolso com as principais cenas do paciente grave — retaguarda off-line para o momento em
-            que a internet falta.
+            Guia de Bolso — os principais cenários do paciente grave, organizados para levar no bolso e
+            consultar off-line quando a internet falta.
           </p>
         </div>
 
