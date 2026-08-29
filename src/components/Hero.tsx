@@ -34,7 +34,7 @@ export function Hero() {
             </LeadCaptureModal>
           </div>
           <p className="mt-6 font-heading text-[11px] font-semibold uppercase tracking-[0.1em] text-musgo-500 md:text-xs">
-            33 CENÁRIOS · CATÁLOGO DE FÁRMACOS · 10 TABELAS · RETAGUARDA OFF-LINE
+            33 CASOS · CATÁLOGO DE FÁRMACOS · 10 TABELAS · RETAGUARDA OFF-LINE
           </p>
           <p className="mt-3 font-heading text-[11px] font-semibold uppercase tracking-[0.1em] text-ocre md:text-xs">
             + GUIA DE BOLSO: OS PRINCIPAIS CENÁRIOS DO PACIENTE GRAVE
