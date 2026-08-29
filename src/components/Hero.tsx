@@ -7,7 +7,7 @@ export function Hero() {
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-12 md:flex-row md:gap-10">
         <div className="w-full md:w-[58%]">
           <p className="label text-ocre">EMERGÊNCIA E TERAPIA INTENSIVA</p>
-          <h1 className="mt-6 text-papel leading-[1.08]">
+          <h1 className="mt-6 text-[34px] leading-[1.12] tracking-[0.03em] text-papel md:text-[46px]">
             O manual de plantão
             <br />
             organizado por cena
