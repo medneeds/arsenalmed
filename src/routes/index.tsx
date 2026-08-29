@@ -42,6 +42,11 @@ function Index() {
         <Problema />
         <Anatomia />
         <Amostra />
+        <Conteudo />
+        <ParaQuem />
+        <Autor />
+        <Preco />
+        <Faq />
       </main>
     </div>
   );
