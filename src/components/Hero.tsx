@@ -1,4 +1,5 @@
 import { CrateIllustration } from "./CrateIllustration";
+import { LeadCaptureModal } from "./LeadCaptureModal";
 
 export function Hero() {
   return (
@@ -22,12 +23,14 @@ export function Hero() {
             >
               QUERO O ARSENAL MED 3.0 — R$ 69,90
             </a>
-            <a
-              href="#amostra"
-              className="border border-musgo-500 px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-100 transition-colors hover:border-musgo-300"
-            >
-              BAIXAR 5 CASOS DE GRAÇA
-            </a>
+            <LeadCaptureModal>
+              <button
+                type="button"
+                className="border border-musgo-500 px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-100 transition-colors hover:border-musgo-300"
+              >
+                BAIXAR 5 CASOS DE GRAÇA
+              </button>
+            </LeadCaptureModal>
           </div>
           <p className="mt-6 font-heading text-[11px] font-semibold uppercase tracking-[0.1em] text-musgo-500 md:text-xs">
             33 CASOS · CATÁLOGO DE FÁRMACOS · 10 TABELAS · PDF NAVEGÁVEL
