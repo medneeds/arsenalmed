@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ComprarRouteImport } from './routes/comprar'
 import { Route as DownloadRouteImport } from './routes/download'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
+import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as ApiPublicDownloadRouteImport } from './routes/api/public/download'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 
@@ -36,6 +37,11 @@ const ObrigadoRoute = ObrigadoRouteImport.update({
   path: '/obrigado',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacidadeRoute = PrivacidadeRouteImport.update({
+  id: '/privacidade',
+  path: '/privacidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicDownloadRoute = ApiPublicDownloadRouteImport.update({
   id: '/api/public/download',
   path: '/api/public/download',
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/comprar': typeof ComprarRoute
   '/download': typeof DownloadRoute
   '/obrigado': typeof ObrigadoRoute
+  '/privacidade': typeof PrivacidadeRoute
   '/api/public/download': typeof ApiPublicDownloadRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/comprar': typeof ComprarRoute
   '/download': typeof DownloadRoute
   '/obrigado': typeof ObrigadoRoute
+  '/privacidade': typeof PrivacidadeRoute
   '/api/public/download': typeof ApiPublicDownloadRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
@@ -70,6 +78,7 @@ export interface FileRoutesById {
   '/comprar': typeof ComprarRoute
   '/download': typeof DownloadRoute
   '/obrigado': typeof ObrigadoRoute
+  '/privacidade': typeof PrivacidadeRoute
   '/api/public/download': typeof ApiPublicDownloadRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
 }
@@ -80,6 +89,7 @@ export interface FileRouteTypes {
     | '/comprar'
     | '/download'
     | '/obrigado'
+    | '/privacidade'
     | '/api/public/download'
     | '/api/public/payments/webhook'
   fileRoutesByTo: FileRoutesByTo
@@ -88,6 +98,7 @@ export interface FileRouteTypes {
     | '/comprar'
     | '/download'
     | '/obrigado'
+    | '/privacidade'
     | '/api/public/download'
     | '/api/public/payments/webhook'
   id:
@@ -96,6 +107,7 @@ export interface FileRouteTypes {
     | '/comprar'
     | '/download'
     | '/obrigado'
+    | '/privacidade'
     | '/api/public/download'
     | '/api/public/payments/webhook'
   fileRoutesById: FileRoutesById
@@ -105,6 +117,7 @@ export interface RootRouteChildren {
   ComprarRoute: typeof ComprarRoute
   DownloadRoute: typeof DownloadRoute
   ObrigadoRoute: typeof ObrigadoRoute
+  PrivacidadeRoute: typeof PrivacidadeRoute
   ApiPublicDownloadRoute: typeof ApiPublicDownloadRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
 }
@@ -139,6 +152,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ObrigadoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacidade': {
+      id: '/privacidade'
+      path: '/privacidade'
+      fullPath: '/privacidade'
+      preLoaderRoute: typeof PrivacidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/download': {
       id: '/api/public/download'
       path: '/api/public/download'
@@ -161,6 +181,7 @@ const rootRouteChildren: RootRouteChildren = {
   ComprarRoute: ComprarRoute,
   DownloadRoute: DownloadRoute,
   ObrigadoRoute: ObrigadoRoute,
+  PrivacidadeRoute: PrivacidadeRoute,
   ApiPublicDownloadRoute: ApiPublicDownloadRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
 }

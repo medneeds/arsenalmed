@@ -9,6 +9,7 @@ import { ParaQuem } from "../components/ParaQuem";
 import { Autor } from "../components/Autor";
 import { Preco } from "../components/Preco";
 import { Faq } from "../components/Faq";
+import { Compacto } from "../components/Compacto";
 import { PaymentTestModeBanner } from "../components/PaymentTestModeBanner";
 
 
@@ -49,6 +50,7 @@ function Index() {
         <Autor />
         <Preco />
         <Faq />
+        <Compacto />
       </main>
     </div>
   );
