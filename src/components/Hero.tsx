@@ -7,10 +7,11 @@ export function Hero() {
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-12 md:flex-row md:gap-10">
         <div className="w-full md:w-[58%]">
           <p className="label text-ocre">EMERGÊNCIA E TERAPIA INTENSIVA</p>
-          <h1 className="mt-5 text-papel">
-            São 3h40. A pressão é 88 por 54.
+          <h1 className="mt-6 text-papel leading-[1.08]">
+            O manual de plantão
             <br />
-            <span className="text-ocre">E você precisa intubar.</span>
+            organizado por cena
+            <span className="mt-2 block text-ocre">— não por classe farmacológica.</span>
           </h1>
           <p className="mt-6 max-w-[52ch] text-musgo-100">
             O Arsenal Med é um manual de plantão organizado por cena, não por classe farmacológica. Você
