@@ -39,30 +39,23 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
         ...(data.customerEmail && { customer_email: data.customerEmail }),
       };
 
-      // Pix exige conta com Pix habilitado; automatic_tax exige endereço fiscal.
-      // Tenta o máximo de recursos e recua com segurança se a conta ainda não suporta.
+      // Conta Stripe no Brasil: Stripe Tax não é suportado, então nenhuma
+      // automação de imposto é enviada. Pix exige a conta com Pix habilitado;
+      // se ainda não estiver, recua para cartão apenas.
       let session;
       try {
         session = await stripe.checkout.sessions.create({
           ...base,
           payment_method_types: ["card", "pix"],
-          automatic_tax: { enabled: true },
+          metadata: { managed_payments: "false" },
         });
       } catch (firstError) {
         console.warn("checkout retry without pix:", getStripeErrorMessage(firstError));
-        try {
-          session = await stripe.checkout.sessions.create({
-            ...base,
-            payment_method_types: ["card"],
-            automatic_tax: { enabled: true },
-          });
-        } catch (secondError) {
-          console.warn("checkout retry without automatic_tax:", getStripeErrorMessage(secondError));
-          session = await stripe.checkout.sessions.create({
-            ...base,
-            payment_method_types: ["card"],
-          });
-        }
+        session = await stripe.checkout.sessions.create({
+          ...base,
+          payment_method_types: ["card"],
+          metadata: { managed_payments: "false" },
+        });
       }
 
       return { clientSecret: session.client_secret ?? "" };
