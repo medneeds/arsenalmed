@@ -1,14 +1,14 @@
 const BLOCOS = [
-  { n: "01", titulo: "O CASO", desc: "A cena real, com o ponto exato em que a decisão trava" },
+  { n: "01", titulo: "O CASO", desc: "O cenário real, com o ponto exato em que a decisão trava" },
   {
     n: "02",
     titulo: "O QUE ESTÁ EM JOGO",
     desc: "A fisiopatologia que explica por que a ordem importa",
   },
-  { n: "03", titulo: "RECONHECER", desc: "O que define a cena e o que a diferencia das parecidas" },
+  { n: "03", titulo: "RECONHECER", desc: "O que define o cenário e o que o diferencia das parecidas" },
   { n: "04", titulo: "PRIMEIROS MINUTOS", desc: "As ações numeradas, na ordem de execução" },
   { n: "05", titulo: "PRESCRIÇÃO", desc: "Bloco pronto para transcrever" },
-  { n: "06", titulo: "ARMADILHAS", desc: "Os erros que mais acontecem nesta cena" },
+  { n: "06", titulo: "ARMADILHAS", desc: "Os erros que mais acontecem neste cenário" },
   { n: "07", titulo: "ESCALAR QUANDO", desc: "Critério objetivo para chamar ajuda" },
 ];
 

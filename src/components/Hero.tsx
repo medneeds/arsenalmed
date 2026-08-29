@@ -10,12 +10,12 @@ export function Hero() {
           <h1 className="mt-6 text-[34px] leading-[1.12] tracking-[0.03em] text-papel md:text-[46px]">
             O manual de plantão
             <br />
-            organizado por cena
+            organizado por cenário
             <span className="mt-2 block text-ocre">— não por classe farmacológica.</span>
           </h1>
           <p className="mt-6 max-w-[52ch] text-musgo-100">
-            O Arsenal Med é um manual de plantão organizado por cena, não por classe farmacológica. Você
-            não procura a diluição da fenitoína. Você abre a crise convulsiva e lê, na ordem, o que fazer.
+            Você não procura a diluição da fenitoína. Abre o cenário da crise convulsiva e lê, na ordem, o que
+            fazer.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
@@ -37,7 +37,7 @@ export function Hero() {
             33 CASOS · CATÁLOGO DE FÁRMACOS · 10 TABELAS · RETAGUARDA OFF-LINE
           </p>
           <p className="mt-3 font-heading text-[11px] font-semibold uppercase tracking-[0.1em] text-ocre md:text-xs">
-            + GUIA DE BOLSO COM AS PRINCIPAIS CENAS DO PACIENTE GRAVE
+            + GUIA DE BOLSO: OS PRINCIPAIS CENÁRIOS DO PACIENTE GRAVE
           </p>
         </div>
         <div className="w-full md:w-[42%]">

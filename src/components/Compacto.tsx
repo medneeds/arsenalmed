@@ -7,7 +7,7 @@ export function Compacto() {
         <p className="label text-musgo-500">GRATUITO</p>
         <h2 className="mt-5 text-tinta">Antes de comprar, use cinco casos hoje à noite</h2>
         <p className="mt-6 text-tinta">
-          O Arsenal Compacto traz cinco cenas na íntegra — intubação, choque séptico, estado de mal
+          O Arsenal Compacto traz cinco cenários na íntegra — intubação, choque séptico, estado de mal
           epiléptico, cetoacidose e hipercalemia — mais as 11 armadilhas que mais custam caro no
           plantão. É o mesmo formato da edição completa, sem versão reduzida.
         </p>

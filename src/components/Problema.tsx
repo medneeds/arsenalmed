@@ -14,7 +14,7 @@ export function Problema() {
             fazer com a taquicardia instável que está no monitor agora, e em que ordem.
           </p>
           <p>
-            O Arsenal inverte a entrada. Primeiro a cena, depois o fármaco. E cada cena cabe em uma tela: o
+            O Arsenal inverte a entrada. Primeiro o cenário, depois o fármaco. E cada cenário cabe em uma tela: o
             que reconhecer, o que fazer nos primeiros minutos, a prescrição pronta, as armadilhas e o
             critério para chamar ajuda.
           </p>

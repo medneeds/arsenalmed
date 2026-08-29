@@ -45,7 +45,7 @@ export function Amostra() {
         </article>
 
         <p className="mt-5 max-w-[560px] font-heading text-[13px] leading-relaxed text-musgo-500">
-          Esta é uma das cinco cenas do Arsenal Compacto, gratuito. As outras 28 estão na edição completa.
+          Este é um dos cinco cenários do Arsenal Compacto, gratuito. As outras 28 estão na edição completa.
         </p>
       </div>
     </section>
