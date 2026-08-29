@@ -1,6 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "../components/Header";
-import { Logo } from "../components/Logo";
+import { Hero } from "../components/Hero";
+import { Problema } from "../components/Problema";
+import { Anatomia } from "../components/Anatomia";
+import { Amostra } from "../components/Amostra";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
