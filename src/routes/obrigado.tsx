@@ -31,7 +31,7 @@ export const Route = createFileRoute("/obrigado")({
 });
 
 function ObrigadoPage() {
-  const { session_id: sessionId } = Route.useSearch();
+  const { session_id: sessionId } = Route.useSearch() as { session_id?: string };
   const [state, setState] = useState<State>({ kind: "verificando" });
   const startRef = useRef(Date.now());
 
