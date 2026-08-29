@@ -33,11 +33,10 @@ function Index() {
     <div className="min-h-screen bg-papel text-tinta">
       <Header />
       <main className="pt-16">
-        {/* HERO — placeholder, substituído no próximo passo */}
-        <section className="flex h-[70vh] flex-col items-center justify-center gap-8 bg-musgo-800 px-4">
-          <Logo size={96} variant="musgo" />
-          <p className="label text-musgo-300">Hero em construção</p>
-        </section>
+        <Hero />
+        <Problema />
+        <Anatomia />
+        <Amostra />
       </main>
     </div>
   );
