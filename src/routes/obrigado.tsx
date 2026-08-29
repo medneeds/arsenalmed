@@ -16,8 +16,8 @@ type State =
   | { kind: "invalido" };
 
 export const Route = createFileRoute("/obrigado")({
-  validateSearch: (search: Record<string, unknown>): { session_id?: string } => ({
-    session_id: typeof search.session_id === "string" ? search.session_id : undefined,
+  validateSearch: (search: Record<string, unknown>): { session_id: string | undefined } => ({
+    session_id: typeof search["session_id"] === "string" ? (search["session_id"] as string) : undefined,
   }),
   head: () => ({
     meta: [
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/obrigado")({
 });
 
 function ObrigadoPage() {
-  const { session_id: sessionId } = Route.useSearch() as { session_id?: string };
+  const sessionId = Route.useSearch()["session_id"];
   const [state, setState] = useState<State>({ kind: "verificando" });
   const startRef = useRef(Date.now());
 

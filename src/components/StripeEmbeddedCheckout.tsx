@@ -10,7 +10,7 @@ export function StripeEmbeddedCheckout({ customerEmail }: StripeEmbeddedCheckout
   const fetchClientSecret = async (): Promise<string> => {
     const result = await createCheckoutSession({
       data: {
-        customerEmail,
+        ...(customerEmail ? { customerEmail } : {}),
         returnUrl: `${window.location.origin}/obrigado?session_id={CHECKOUT_SESSION_ID}`,
         environment: getStripeEnvironment(),
       },

@@ -69,7 +69,7 @@ function ComprarPage() {
           </div>
         ) : (
           <div className="mt-6">
-            <StripeEmbeddedCheckout customerEmail={email || undefined} />
+            <StripeEmbeddedCheckout {...(email ? { customerEmail: email } : {})} />
           </div>
         )}
 

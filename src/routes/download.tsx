@@ -9,8 +9,8 @@ type State =
   | { kind: "erro"; message: string };
 
 export const Route = createFileRoute("/download")({
-  validateSearch: (search: Record<string, unknown>): { token?: string } => ({
-    token: typeof search.token === "string" ? search.token : undefined,
+  validateSearch: (search: Record<string, unknown>): { token: string | undefined } => ({
+    token: typeof search["token"] === "string" ? (search["token"] as string) : undefined,
   }),
   head: () => ({
     meta: [

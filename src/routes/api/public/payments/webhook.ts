@@ -61,7 +61,7 @@ async function fulfill(session: CheckoutSession): Promise<void> {
       .maybeSingle();
     // Se foi criado há menos de 2 min, não reenvia e-mail (já enviado).
     if (existing?.criado_em && Date.now() - new Date(existing.criado_em).getTime() < 120_000) return;
-    token = existing?.token_download;
+    token = existing?.token_download ?? undefined;
   }
 
   if (token) {
