@@ -14,7 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      compras: {
+        Row: {
+          criado_em: string
+          downloads: number
+          email: string
+          expira_em: string
+          id: string
+          status: string
+          stripe_payment_intent: string | null
+          stripe_session_id: string
+          token_download: string | null
+          valor_centavos: number
+        }
+        Insert: {
+          criado_em?: string
+          downloads?: number
+          email: string
+          expira_em?: string
+          id?: string
+          status?: string
+          stripe_payment_intent?: string | null
+          stripe_session_id: string
+          token_download?: string | null
+          valor_centavos: number
+        }
+        Update: {
+          criado_em?: string
+          downloads?: number
+          email?: string
+          expira_em?: string
+          id?: string
+          status?: string
+          stripe_payment_intent?: string | null
+          stripe_session_id?: string
+          token_download?: string | null
+          valor_centavos?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
