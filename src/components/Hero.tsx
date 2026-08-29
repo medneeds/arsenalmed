@@ -14,8 +14,10 @@ export function Hero() {
             <span className="mt-2 block text-ocre">— não por classe farmacológica.</span>
           </h1>
           <p className="mt-6 max-w-[52ch] text-musgo-100">
-            Você não procura a diluição da fenitoína. Abre o cenário da crise convulsiva e lê, na ordem, o que
-            fazer.
+            <em className="italic">
+              Você não procura a diluição da fenitoína. Abre o cenário da crise convulsiva e lê, na ordem, o que
+              fazer.
+            </em>
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
