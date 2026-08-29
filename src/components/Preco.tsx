@@ -25,7 +25,7 @@ export function Preco() {
         </ul>
 
         <a
-          href="#comprar"
+          href="/comprar"
           className="mt-8 block bg-ocre px-5 py-4 text-center font-heading text-base font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-100"
         >
           COMPRAR AGORA

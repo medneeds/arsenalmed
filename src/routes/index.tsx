@@ -9,6 +9,7 @@ import { ParaQuem } from "../components/ParaQuem";
 import { Autor } from "../components/Autor";
 import { Preco } from "../components/Preco";
 import { Faq } from "../components/Faq";
+import { PaymentTestModeBanner } from "../components/PaymentTestModeBanner";
 
 
 export const Route = createFileRoute("/")({
@@ -38,6 +39,7 @@ function Index() {
     <div className="min-h-screen bg-papel text-tinta">
       <Header />
       <main className="pt-16">
+        <PaymentTestModeBanner />
         <Hero />
         <Problema />
         <Anatomia />
