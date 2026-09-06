@@ -61,19 +61,23 @@ function ComprarPage() {
         {!started ? (
           <div className="mt-6 border border-musgo-300 p-5">
             <label htmlFor="email" className="label block text-musgo-600">
-              E-mail para receber o manual (opcional)
+              E-mail para receber o manual
             </label>
             <input
               id="email"
               type="email"
+              required
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setErro(null);
+              }}
               placeholder="voce@exemplo.com"
-              className="mt-3 w-full border border-musgo-300 bg-papel px-4 py-3 font-mono text-sm text-tinta outline-none placeholder:text-musgo-300 focus:border-musgo-500"
+              className="mt-3 w-full border bg-papel px-4 py-3 font-mono text-sm text-tinta outline-none placeholder:text-musgo-300 focus:border-musgo-500 border-musgo-300"
             />
             <p className="mt-2 text-sm leading-relaxed text-musgo-600">
-              Se deixar em branco, você informa o e-mail na tela de pagamento. O link de download
-              chega por e-mail e também aparece logo após a confirmação.
+              É nele que o link de download chega. Ele também fica estampado no rodapé do seu PDF,
+              junto ao CPF, como identificação da licença pessoal.
             </p>
 
             <label htmlFor="cpf" className="label mt-6 block text-musgo-600">
