@@ -21,8 +21,9 @@ export function Anatomia() {
         <h2 className="mt-5 max-w-[680px] text-tinta">Todos os 33 casos têm a mesma anatomia</h2>
         <p className="mt-6 max-w-[680px] text-tinta">
           Depois do primeiro, você já sabe onde olhar sem precisar ler a página inteira. Previsibilidade de
-          layout é o que permite consultar com uma mão só.
+          layout é o que transforma o arquivo em consulta de segundos.
         </p>
+
 
         <ol className="mt-12 grid grid-cols-1 gap-px border-t border-musgo-300 md:grid-cols-4">
           {BLOCOS.map((b) => (
