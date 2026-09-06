@@ -11,27 +11,27 @@ import { loadEnv } from "vite";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-export default defineConfig(({ mode }) => {
-  // Populate process.env for server routes/functions (SUPABASE_SERVICE_ROLE_KEY etc.).
-  // Client code still only receives VITE_* vars via the template's env injection.
-  const serverEnv = loadEnv(mode, process.cwd(), "");
-  Object.assign(process.env, serverEnv);
+// Populate process.env for server routes/functions (SUPABASE_SERVICE_ROLE_KEY etc.).
+// Client code still only receives VITE_* vars via the template's env injection.
+Object.assign(
+  process.env,
+  loadEnv(process.env.NODE_ENV ?? "development", process.cwd(), ""),
+);
 
-  return {
-    tanstackStart: {
-      // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-      // nitro/vite builds from this
-      server: { entry: "server" },
-    },
-    vite: {
-      resolve: {
-        alias: {
-          // Force entities to the hoisted v4.5.0 copy (nested v7 breaks SSR deep imports).
-          "entities/lib/decode.js": path.resolve(__dirname, "node_modules/entities/lib/decode.js"),
-          "entities/lib/encode.js": path.resolve(__dirname, "node_modules/entities/lib/encode.js"),
-          entities: path.resolve(__dirname, "node_modules/entities"),
-        },
+export default defineConfig({
+  tanstackStart: {
+    // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
+    // nitro/vite builds from this
+    server: { entry: "server" },
+  },
+  vite: {
+    resolve: {
+      alias: {
+        // Force entities to the hoisted v4.5.0 copy (nested v7 breaks SSR deep imports).
+        "entities/lib/decode.js": path.resolve(__dirname, "node_modules/entities/lib/decode.js"),
+        "entities/lib/encode.js": path.resolve(__dirname, "node_modules/entities/lib/encode.js"),
+        entities: path.resolve(__dirname, "node_modules/entities"),
       },
     },
-  };
+  },
 });
