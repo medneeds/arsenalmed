@@ -10,11 +10,11 @@ const PRODUCAO = [
     desc: "Plataforma de gestão assistencial usada em instituições de saúde.",
   },
   {
-    nome: "Med Needs",
+    nome: "MedNeeds",
     desc: "Aplicativo de gestão de plantões e finanças médicas.",
   },
   {
-    nome: "Med Station",
+    nome: "MedStation",
     desc: "Copiloto médico de documentação e fluxo de trabalho com inteligência artificial.",
   },
 ];
