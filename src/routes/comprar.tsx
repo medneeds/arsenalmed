@@ -4,6 +4,8 @@ import { Header } from "../components/Header";
 import { Logo } from "../components/Logo";
 import { PaymentTestModeBanner } from "../components/PaymentTestModeBanner";
 import { StripeEmbeddedCheckout } from "../components/StripeEmbeddedCheckout";
+import { formatCpf, isValidCpf, onlyDigits } from "@/lib/cpf";
+
 
 export const Route = createFileRoute("/comprar")({
   head: () => ({
@@ -21,7 +23,18 @@ export const Route = createFileRoute("/comprar")({
 
 function ComprarPage() {
   const [email, setEmail] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [erro, setErro] = useState<string | null>(null);
   const [started, setStarted] = useState(false);
+
+  const avancar = () => {
+    if (!isValidCpf(cpf)) {
+      setErro("Informe um CPF válido — ele é usado para identificar sua cópia do manual.");
+      return;
+    }
+    setErro(null);
+    setStarted(true);
+  };
 
   return (
     <div className="min-h-screen bg-papel text-tinta">
@@ -57,8 +70,34 @@ function ComprarPage() {
               Se deixar em branco, você informa o e-mail na tela de pagamento. O link de download
               chega por e-mail e também aparece logo após a confirmação.
             </p>
+
+            <label htmlFor="cpf" className="label mt-6 block text-musgo-600">
+              CPF
+            </label>
+            <input
+              id="cpf"
+              inputMode="numeric"
+              autoComplete="off"
+              value={cpf}
+              onChange={(e) => {
+                setCpf(formatCpf(e.target.value));
+                setErro(null);
+              }}
+              placeholder="000.000.000-00"
+              maxLength={14}
+              aria-invalid={erro ? true : undefined}
+              className={`mt-3 w-full border bg-papel px-4 py-3 font-mono text-sm text-tinta outline-none placeholder:text-musgo-300 focus:border-musgo-500 ${
+                erro ? "border-alerta" : "border-musgo-300"
+              }`}
+            />
+            <p className="mt-2 text-sm leading-relaxed text-musgo-600">
+              Sua cópia do manual sai identificada com seu e-mail e CPF no rodapé. É uma licença
+              pessoal e intransferível.
+            </p>
+            {erro ? <p className="mt-2 text-sm font-semibold text-alerta">{erro}</p> : null}
+
             <button
-              onClick={() => setStarted(true)}
+              onClick={avancar}
               className="mt-5 block w-full bg-ocre px-5 py-4 text-center font-heading text-base font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
             >
               CONTINUAR PARA PAGAMENTO
@@ -69,8 +108,12 @@ function ComprarPage() {
           </div>
         ) : (
           <div className="mt-6">
-            <StripeEmbeddedCheckout {...(email ? { customerEmail: email } : {})} />
+            <StripeEmbeddedCheckout
+              {...(email ? { customerEmail: email } : {})}
+              cpf={onlyDigits(cpf)}
+            />
           </div>
+
         )}
 
         <p className="mt-8 text-center text-sm text-musgo-600">

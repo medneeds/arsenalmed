@@ -7,15 +7,21 @@ type CheckoutSessionResult =
   | { error: string };
 
 export const createCheckoutSession = createServerFn({ method: "POST" })
-  .inputValidator((data: { customerEmail?: string; returnUrl: string; environment: StripeEnv }) =>
+  .inputValidator((data: { customerEmail?: string; cpf?: string; returnUrl: string; environment: StripeEnv }) =>
     z
       .object({
         customerEmail: z.string().email().optional().or(z.literal("").transform(() => undefined)),
+        cpf: z
+          .string()
+          .transform((v) => v.replace(/\D/g, ""))
+          .refine((v) => v.length === 11, { message: "CPF inválido" })
+          .optional(),
         returnUrl: z.string().url(),
         environment: z.enum(["sandbox", "live"]),
       })
       .parse(data),
   )
+
   .handler(async ({ data }): Promise<CheckoutSessionResult> => {
     // O produto e o valor são fixos no servidor. Nada de preço vindo do cliente.
     const PRICE_ID = "arsenal_med_3_onetime";
@@ -29,6 +35,11 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
       const productId =
         typeof stripePrice.product === "string" ? stripePrice.product : stripePrice.product.id;
       const product = await stripe.products.retrieve(productId);
+
+      const metadata = {
+        managed_payments: "false",
+        ...(data.cpf ? { cpf: data.cpf } : {}),
+      };
 
       const base = {
         line_items: [{ price: stripePrice.id, quantity: 1 }],
@@ -47,16 +58,17 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
         session = await stripe.checkout.sessions.create({
           ...base,
           payment_method_types: ["card", "pix"],
-          metadata: { managed_payments: "false" },
+          metadata,
         });
       } catch (firstError) {
         console.warn("checkout retry without pix:", getStripeErrorMessage(firstError));
         session = await stripe.checkout.sessions.create({
           ...base,
           payment_method_types: ["card"],
-          metadata: { managed_payments: "false" },
+          metadata,
         });
       }
+
 
       return { clientSecret: session.client_secret ?? "" };
     } catch (error) {
