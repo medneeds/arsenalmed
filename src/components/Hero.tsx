@@ -6,14 +6,20 @@ export function Hero() {
     <section className="bg-musgo-800 px-4 py-20 md:px-6 md:py-28">
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-12 md:flex-row md:gap-10">
         <div className="w-full md:w-[58%]">
-          <p className="label text-ocre">EMERGÊNCIA E TERAPIA INTENSIVA</p>
+          <div className="flex items-center gap-2.5">
+            <span className="inline-block h-2.5 w-2.5 bg-alerta" aria-hidden="true" />
+            <p className="label text-ocre">EMERGÊNCIA E TERAPIA INTENSIVA</p>
+          </div>
           <h1 className="mt-6 text-[34px] leading-[1.12] tracking-[0.03em] text-papel md:text-[46px]">
             O manual de plantão
             <br />
             organizado por cenário
             <span className="mt-2 block text-ocre">— não por classe farmacológica.</span>
           </h1>
-          <p className="mt-6 max-w-[52ch] text-musgo-100">
+          <p className="mt-6 font-heading text-[13px] font-semibold uppercase tracking-[0.12em] text-alerta-claro">
+            Para o paciente grave — ou potencialmente grave.
+          </p>
+          <p className="mt-4 max-w-[52ch] text-musgo-100">
             <em className="italic">
               Você não procura a diluição da fenitoína. Abre o cenário da crise convulsiva e lê, na ordem, o que
               fazer.
