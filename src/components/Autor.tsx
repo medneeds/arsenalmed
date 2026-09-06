@@ -1,4 +1,4 @@
-import { autorFoto } from "@/assets/artur-batista.webp";
+import autorFoto from "@/assets/artur-batista.webp";
 
 const PRODUCAO = [
   {
