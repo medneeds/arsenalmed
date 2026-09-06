@@ -27,12 +27,13 @@ export function Preco() {
         </ul>
 
         <div className="mt-7 border-t border-musgo-600 pt-5">
-          <p className="label text-ocre">BÔNUS INCLUSO</p>
+          <p className="label text-ocre">O QUE ELE É</p>
           <p className="mt-2 text-[15px] leading-relaxed text-musgo-100">
-            Guia de Bolso — os principais cenários do paciente grave, organizados para levar no bolso e
-            consultar off-line quando a internet falta.
+            Um guia de bolso: os principais cenários do paciente grave, na ordem em que você precisa deles,
+            para abrir no celular à beira do leito — com ou sem internet.
           </p>
         </div>
+
 
         <a
           href="/comprar"
