@@ -41,14 +41,15 @@ export const registrarLead = createServerFn({ method: "POST" })
       return { ok: false, error: "Não conseguimos registrar seu e-mail agora. Tente novamente." };
     }
 
-    const { sendCompactoEmail } = await import("@/lib/compacto-email.server");
-    await sendCompactoEmail(data.nome, email);
-
     const { data: signed } = await supabaseAdmin.storage
       .from("downloads")
       .createSignedUrl("arsenal-compacto.pdf", 60 * 60 * 24, {
         download: "ArsenalMed-Compacto-Manual-de-Plantao.pdf",
       });
+    const url = signed?.signedUrl ?? null;
 
-    return { ok: true, url: signed?.signedUrl ?? null };
+    const { sendCompactoEmail } = await import("@/lib/compacto-email.server");
+    await sendCompactoEmail(data.nome, email, url);
+
+    return { ok: true, url };
   });
