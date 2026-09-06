@@ -7,15 +7,21 @@ type CheckoutSessionResult =
   | { error: string };
 
 export const createCheckoutSession = createServerFn({ method: "POST" })
-  .inputValidator((data: { customerEmail?: string; returnUrl: string; environment: StripeEnv }) =>
+  .inputValidator((data: { customerEmail?: string; cpf?: string; returnUrl: string; environment: StripeEnv }) =>
     z
       .object({
         customerEmail: z.string().email().optional().or(z.literal("").transform(() => undefined)),
+        cpf: z
+          .string()
+          .transform((v) => v.replace(/\D/g, ""))
+          .refine((v) => v.length === 11, { message: "CPF inválido" })
+          .optional(),
         returnUrl: z.string().url(),
         environment: z.enum(["sandbox", "live"]),
       })
       .parse(data),
   )
+
   .handler(async ({ data }): Promise<CheckoutSessionResult> => {
     // O produto e o valor são fixos no servidor. Nada de preço vindo do cliente.
     const PRICE_ID = "arsenal_med_3_onetime";
