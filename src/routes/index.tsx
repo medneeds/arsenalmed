@@ -20,13 +20,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "O manual prático de conduta clínica para o plantão brasileiro. Direto, prescritivo, sem enrolação.",
+          "O guia de bolso do plantão brasileiro: 33 cenários do paciente grave, off-line. De R$ 149,90 por R$ 99,90, pagamento único.",
       },
       { property: "og:title", content: "Arsenal Med — Manual de Sobrevivência Clínica" },
       {
         property: "og:description",
         content:
-          "O manual prático de conduta clínica para o plantão brasileiro. Direto, prescritivo, sem enrolação.",
+          "O guia de bolso do plantão brasileiro: 33 cenários do paciente grave, off-line. De R$ 149,90 por R$ 99,90, pagamento único.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

@@ -13,11 +13,14 @@ export function Preco() {
         <p className="label text-ocre">GUIA DE BOLSO DO PLANTÃO</p>
         <h2 className="mt-4 text-papel">Arsenal Med 3.0</h2>
 
-        <div className="mt-6 flex items-baseline gap-3">
+        <div className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-2">
           <span className="font-mono text-2xl font-medium text-musgo-400 line-through decoration-alerta/60">
             R$ 149,90
           </span>
           <span className="font-mono text-5xl font-semibold text-papel md:text-6xl">R$ 99,90</span>
+          <span className="font-heading text-[12px] font-bold uppercase tracking-[0.12em] text-ocre">
+            −33% · economize R$ 50
+          </span>
         </div>
         <p className="mt-3 text-sm text-musgo-300">pagamento único · acesso vitalício ao arquivo</p>
 

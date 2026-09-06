@@ -41,7 +41,7 @@ async function fulfill(session: CheckoutSession): Promise<void> {
         cpf,
         stripe_session_id: session.id,
         stripe_payment_intent: sessionPaymentIntent(session),
-        valor_centavos: session.amount_total ?? 6990,
+        valor_centavos: session.amount_total ?? 9990,
         status: "pago",
       },
       { onConflict: "stripe_session_id", ignoreDuplicates: true },

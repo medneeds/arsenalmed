@@ -56,6 +56,9 @@ function ComprarPage() {
             </h1>
             <p className="font-mono text-lg font-semibold text-tinta">
               <span className="font-medium text-musgo-400 line-through decoration-alerta/60">R$ 149,90</span> R$ 99,90
+              <span className="ml-2 font-heading text-[12px] font-bold uppercase tracking-[0.12em] text-ocre">
+                −33% · economize R$ 50
+              </span>
             </p>
           </div>
         </div>
