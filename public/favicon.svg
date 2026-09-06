@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39 50" role="img" aria-label="Arsenal Med">
+  <rect width="39" height="50" fill="#28331F"/>
+  <path d="M3 3 H36 V26 C36 37 28 44 19.5 47.5 C11 44 3 37 3 26 Z" stroke="#A1B18A" stroke-width="3" fill="none" stroke-linejoin="round"/>
+  <path d="M9 13 L19.5 8.5 L30 13" stroke="#C89B3C" stroke-width="3.5" fill="none" stroke-linejoin="round"/>
+  <path d="M9 19 L19.5 14.5 L30 19" stroke="#C89B3C" stroke-width="3.5" fill="none" stroke-linejoin="round"/>
+  <path d="M17 24 h5 v5 h5 v5 h-5 v5 h-5 v-5 h-5 v-5 h5 z" fill="#8E2A20" stroke="#8E2A20" stroke-width="1" stroke-linejoin="round"/>
+</svg>
