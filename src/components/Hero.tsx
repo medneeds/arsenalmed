@@ -11,7 +11,7 @@ export function Hero() {
             <p className="label text-ocre">EMERGÊNCIA E TERAPIA INTENSIVA</p>
           </div>
           <h1 className="mt-6 text-[34px] leading-[1.12] tracking-[0.03em] text-papel md:text-[46px]">
-            O manual de plantão
+            O guia de bolso do plantão,
             <br />
             organizado por cenário
             <span className="mt-2 block text-ocre">— não por classe farmacológica.</span>
@@ -19,6 +19,7 @@ export function Hero() {
           <p className="mt-6 font-heading text-[13px] font-semibold uppercase tracking-[0.12em] text-alerta-claro">
             Para o paciente grave — ou potencialmente grave.
           </p>
+
           <p className="mt-4 max-w-[52ch] text-musgo-100">
             <em className="italic">
               Você não procura a diluição da fenitoína. Abre o cenário da crise convulsiva e lê, na ordem, o que
