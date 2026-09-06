@@ -43,11 +43,12 @@ export function Hero() {
             </LeadCaptureModal>
           </div>
           <p className="mt-6 font-heading text-[11px] font-semibold uppercase tracking-[0.1em] text-musgo-500 md:text-xs">
-            33 CASOS · CATÁLOGO DE FÁRMACOS · 10 TABELAS · RETAGUARDA OFF-LINE
+            33 CENÁRIOS DO PACIENTE GRAVE · CATÁLOGO DE FÁRMACOS · 10 TABELAS
           </p>
           <p className="mt-3 font-heading text-[11px] font-semibold uppercase tracking-[0.1em] text-ocre md:text-xs">
-            + GUIA DE BOLSO: OS PRINCIPAIS CENÁRIOS DO PACIENTE GRAVE
+            RETAGUARDA OFF-LINE — ABRE SEM INTERNET
           </p>
+
         </div>
         <div className="w-full md:w-[42%]">
           <CrateIllustration className="h-auto w-full" />
