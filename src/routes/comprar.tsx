@@ -28,6 +28,11 @@ function ComprarPage() {
   const [started, setStarted] = useState(false);
 
   const avancar = () => {
+    const emailTrim = email.trim();
+    if (!emailTrim || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailTrim)) {
+      setErro("Informe um e-mail válido — é nele que o link de download do manual chega.");
+      return;
+    }
     if (!isValidCpf(cpf)) {
       setErro("Informe um CPF válido — ele é usado para identificar sua cópia do manual.");
       return;
