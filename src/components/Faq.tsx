@@ -7,7 +7,7 @@ const FAQS = [
   },
   {
     q: "É PDF OU PLATAFORMA?",
-    a: "PDF. Funciona sem internet, no celular, no tablet e no computador. O sumário é clicável e o arquivo tem marcadores, então você chega em qualquer caso com um toque.",
+    a: "PDF. Funciona sem internet, no celular, no tablet e no computador. O sumário inteligente é clicável e o arquivo tem marcadores, então você chega em qualquer caso com um toque.",
   },
   {
     q: "POSSO IMPRIMIR?",

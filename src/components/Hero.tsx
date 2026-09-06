@@ -31,7 +31,7 @@ export function Hero() {
               href="#comprar"
               className="bg-ocre px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-100"
             >
-              QUERO O ARSENAL MED 3.0 — R$ 69,90
+              QUERO O ARSENAL MED 3.0 — R$ 99,90
             </a>
             <LeadCaptureModal>
               <button
@@ -43,7 +43,7 @@ export function Hero() {
             </LeadCaptureModal>
           </div>
           <p className="mt-6 font-heading text-[11px] font-semibold uppercase tracking-[0.1em] text-musgo-500 md:text-xs">
-            33 CENÁRIOS DO PACIENTE GRAVE · CATÁLOGO DE FÁRMACOS · 10 TABELAS
+            33 CENÁRIOS DO PACIENTE GRAVE · CATÁLOGO + 10 TABELAS EM BÔNUS
           </p>
           <p className="mt-3 font-heading text-[11px] font-semibold uppercase tracking-[0.1em] text-ocre md:text-xs">
             RETAGUARDA OFF-LINE — ABRE SEM INTERNET

@@ -107,8 +107,8 @@ function CompactoEmail({
           </Text>
           <Text style={{ color: tinta, fontSize: 15, lineHeight: '22px', margin: '0 0 8px' }}>
             O Compacto tem cinco cenários. O <strong>Arsenal Med 3.0</strong> tem todos os 33
-            cenários do paciente grave, o catálogo de fármacos e as 10 tabelas de referência — o
-            guia de bolso completo do plantão, off-line, por R$ 69,90.
+            cenários do paciente grave — e, de bônus, o catálogo de fármacos e as 10 tabelas de
+            referência num livro separado. O guia de bolso completo do plantão, off-line, por R$ 99,90.
           </Text>
           <Section style={{ textAlign: 'center', margin: '16px 0 8px' }}>
             <Button

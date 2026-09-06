@@ -18,7 +18,7 @@ export function Conteudo() {
     <section className="bg-musgo-800 px-4 py-20 md:px-6 md:py-28">
       <div className="mx-auto max-w-5xl">
         <p className="label text-ocre">CONTEÚDO</p>
-        <h2 className="mt-5 max-w-[680px] text-papel">33 casos, o catálogo de fármacos e dez tabelas</h2>
+        <h2 className="mt-5 max-w-[680px] text-papel">33 cenários do paciente grave — e, de bônus, o catálogo de fármacos e as dez tabelas</h2>
 
         <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3">
           {CARDS.map((c) => (

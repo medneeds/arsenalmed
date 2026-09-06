@@ -1,8 +1,7 @@
 const ITENS = [
   "33 cenários do paciente grave no formato completo",
-  "Catálogo de fármacos com dose por quilo e ajuste renal",
-  "Dez tabelas de referência",
-  "PDF navegável e off-line, com sumário clicável e marcadores — retaguarda sem internet",
+  "Sumário inteligente para consulta rápida guiada por toque",
+  "PDF navegável e off-line, com marcadores — retaguarda sem internet",
   "Atualizações da versão 3.x sem custo adicional",
 ];
 
@@ -14,7 +13,7 @@ export function Preco() {
         <p className="label text-ocre">GUIA DE BOLSO DO PLANTÃO</p>
         <h2 className="mt-4 text-papel">Arsenal Med 3.0</h2>
 
-        <p className="mt-6 font-mono text-5xl font-semibold text-papel md:text-6xl">R$ 69,90</p>
+        <p className="mt-6 font-mono text-5xl font-semibold text-papel md:text-6xl">R$ 99,90</p>
         <p className="mt-3 text-sm text-musgo-300">pagamento único · acesso vitalício ao arquivo</p>
 
         <ul className="mt-8 space-y-3">
@@ -25,6 +24,14 @@ export function Preco() {
             </li>
           ))}
         </ul>
+
+        <div className="mt-7 border-t border-musgo-600 pt-5">
+          <p className="label text-ocre">BÔNUS · LIVRO SEPARADO</p>
+          <p className="mt-2 text-[15px] leading-relaxed text-musgo-100">
+            O catálogo de fármacos (dose por quilo e ajuste renal) e as dez tabelas de referência vêm
+            num arquivo próprio — um segundo volume, não um anexo.
+          </p>
+        </div>
 
         <div className="mt-7 border-t border-musgo-600 pt-5">
           <p className="label text-ocre">O QUE ELE É</p>
