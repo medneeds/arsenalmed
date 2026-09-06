@@ -4,6 +4,8 @@ import { Header } from "../components/Header";
 import { Logo } from "../components/Logo";
 import { PaymentTestModeBanner } from "../components/PaymentTestModeBanner";
 import { StripeEmbeddedCheckout } from "../components/StripeEmbeddedCheckout";
+import { formatCpf, isValidCpf, onlyDigits } from "@/lib/cpf";
+
 
 export const Route = createFileRoute("/comprar")({
   head: () => ({
