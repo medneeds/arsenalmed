@@ -15,7 +15,7 @@ export function Amostra() {
             CASO 05
           </span>
           <h2 className="mt-5 text-tinta">HIPERCALEMIA GRAVE</h2>
-          <p className="mt-2 font-heading text-sm font-semibold uppercase tracking-[0.16em] text-ferrugem">
+          <p className="mt-2 font-heading text-sm font-semibold uppercase tracking-[0.16em] text-alerta">
             JANELA DE MINUTOS
           </p>
 
@@ -26,8 +26,8 @@ export function Amostra() {
             <p className="mt-3 text-tinta">
               Homem de 61 anos, doença renal crônica em hemodiálise, faltou às duas últimas sessões porque
               "estava se sentindo bem". Potássio 7,4. Onda T alta e simétrica. QRS de 130 milissegundos.
-              Ele está consciente, orientado e conversando com você. E está a poucos minutos de uma
-              arritmia fatal.
+              Ele está consciente, orientado e conversando com você. E está{" "}
+              <span className="font-semibold text-alerta">a poucos minutos de uma arritmia fatal</span>.
             </p>
           </div>
 
@@ -35,7 +35,7 @@ export function Amostra() {
           <ul className="mt-4 space-y-4">
             {ARMADILHAS.map((item) => (
               <li key={item} className="flex gap-3">
-                <span className="mt-1 inline-flex h-5 w-5 shrink-0 items-center justify-center bg-ferrugem font-heading text-xs font-bold text-papel">
+                <span className="mt-1 inline-flex h-5 w-5 shrink-0 items-center justify-center bg-alerta font-heading text-xs font-bold text-papel">
                   ×
                 </span>
                 <span className="text-[16px] leading-relaxed text-tinta">{item}</span>

@@ -10,8 +10,9 @@ export function Problema() {
             via de administração. Anti-hipertensivos juntos. Endovenosos juntos. Faz sentido na prova.
           </p>
           <p>
-            Não faz sentido no plantão. Às três da manhã ninguém procura "antiarrítmico". Procura-se o que
-            fazer com a taquicardia instável que está no monitor agora, e em que ordem.
+            Não faz sentido no plantão. Às três da manhã, diante do paciente grave — ou potencialmente grave —
+            ninguém procura "antiarrítmico". Procura-se o que fazer com a taquicardia instável que está no
+            monitor agora, e em que ordem.
           </p>
           <p>
             O Arsenal inverte a entrada. Primeiro o cenário, depois o fármaco. E cada cenário cabe em uma tela: o
