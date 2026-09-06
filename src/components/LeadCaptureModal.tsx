@@ -17,6 +17,7 @@ export function LeadCaptureModal({ children }: { children: ReactNode }) {
   const [enviando, setEnviando] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
   const [enviado, setEnviado] = useState(false);
+  const [url, setUrl] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -26,7 +27,10 @@ export function LeadCaptureModal({ children }: { children: ReactNode }) {
       const res = await registrarLead({
         data: { nome: nome.trim(), email: email.trim(), perfil, consentimento: true },
       });
-      if (res.ok) setEnviado(true);
+      if (res.ok) {
+        setUrl(res.url);
+        setEnviado(true);
+      }
       else setErro(res.error);
     } catch {
       setErro("Não conseguimos registrar seu e-mail agora. Tente novamente.");
@@ -42,6 +46,7 @@ export function LeadCaptureModal({ children }: { children: ReactNode }) {
         setOpen(next);
         if (!next && enviado) {
           setEnviado(false);
+          setUrl(null);
           setNome("");
           setEmail("");
           setPerfil("");
@@ -58,6 +63,16 @@ export function LeadCaptureModal({ children }: { children: ReactNode }) {
             <p className="mt-3 text-[16px] leading-relaxed text-tinta">
               Confira sua caixa de entrada — e o spam, se não chegar em dois minutos.
             </p>
+            {url && (
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 block w-full bg-ocre px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
+              >
+                BAIXAR AGORA
+              </a>
+            )}
           </div>
         ) : (
           <form onSubmit={handleSubmit}>

@@ -6,7 +6,7 @@ export const CONSENT_TEXT =
 
 const PERFIS = ["Estudante de medicina", "Interno", "Residente", "Médico(a)", "Outro"] as const;
 
-type LeadResult = { ok: true } | { ok: false; error: string };
+type LeadResult = { ok: true; url: string | null } | { ok: false; error: string };
 
 export const registrarLead = createServerFn({ method: "POST" })
   .inputValidator(
@@ -44,5 +44,11 @@ export const registrarLead = createServerFn({ method: "POST" })
     const { sendCompactoEmail } = await import("@/lib/compacto-email.server");
     await sendCompactoEmail(data.nome, email);
 
-    return { ok: true };
+    const { data: signed } = await supabaseAdmin.storage
+      .from("downloads")
+      .createSignedUrl("arsenal-compacto.pdf", 60 * 60 * 24, {
+        download: "ArsenalMed-Compacto-Manual-de-Plantao.pdf",
+      });
+
+    return { ok: true, url: signed?.signedUrl ?? null };
   });
