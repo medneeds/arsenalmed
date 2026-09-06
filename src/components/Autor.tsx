@@ -27,7 +27,7 @@ export function Autor() {
         <figure className="mx-auto w-full max-w-[360px]">
           <div className="overflow-hidden border border-musgo-300 bg-musgo-100">
             <img
-              src={autorFoto.src}
+              src={autorFoto}
               alt="Foto de Artur Batista, médico intensivista"
               width={1080}
               height={1350}
