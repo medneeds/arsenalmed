@@ -9,6 +9,7 @@ type CheckoutSession = {
   amount_total?: number | null;
   customer_details?: { email?: string | null } | null;
   customer_email?: string | null;
+  metadata?: Record<string, string> | null;
 };
 
 function sessionEmail(session: CheckoutSession): string | null {
@@ -27,6 +28,7 @@ async function fulfill(session: CheckoutSession): Promise<void> {
     console.error("checkout session sem e-mail do comprador:", session.id);
     return;
   }
+  const cpf = session.metadata?.["cpf"] ?? null;
 
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
@@ -36,6 +38,7 @@ async function fulfill(session: CheckoutSession): Promise<void> {
     .upsert(
       {
         email,
+        cpf,
         stripe_session_id: session.id,
         stripe_payment_intent: sessionPaymentIntent(session),
         valor_centavos: session.amount_total ?? 6990,
@@ -43,7 +46,7 @@ async function fulfill(session: CheckoutSession): Promise<void> {
       },
       { onConflict: "stripe_session_id", ignoreDuplicates: true },
     )
-    .select("token_download")
+    .select("id, token_download")
     .maybeSingle();
 
   if (error) {
@@ -52,22 +55,34 @@ async function fulfill(session: CheckoutSession): Promise<void> {
   }
 
   let token = data?.token_download as string | undefined;
+  let compraId = data?.id as string | undefined;
   if (!token) {
     // Já existia (evento duplicado ou async após completed) — só busca o token.
     const { data: existing } = await supabaseAdmin
       .from("compras")
-      .select("token_download, criado_em")
+      .select("id, token_download, criado_em")
       .eq("stripe_session_id", session.id)
       .maybeSingle();
     // Se foi criado há menos de 2 min, não reenvia e-mail (já enviado).
     if (existing?.criado_em && Date.now() - new Date(existing.criado_em).getTime() < 120_000) return;
     token = existing?.token_download ?? undefined;
+    compraId = existing?.id ?? undefined;
+  }
+
+  // Cópia individual do e-book, com e-mail e CPF estampados no rodapé.
+  if (compraId) {
+    const { generatePersonalizedPdf } = await import("@/lib/pdf-personalize.server");
+    const arquivoPath = await generatePersonalizedPdf({ compraId, email, cpf });
+    if (arquivoPath) {
+      await supabaseAdmin.from("compras").update({ arquivo_path: arquivoPath }).eq("id", compraId);
+    }
   }
 
   if (token) {
     await sendDeliveryEmail(email, token);
   }
 }
+
 
 async function handleWebhook(req: Request, env: StripeEnv) {
   const event = await verifyWebhook(req, env);

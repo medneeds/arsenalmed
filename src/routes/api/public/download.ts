@@ -18,9 +18,10 @@ export const Route = createFileRoute("/api/public/download")({
 
         const { data: compra, error } = await supabaseAdmin
           .from("compras")
-          .select("id, downloads, expira_em, status")
+          .select("id, downloads, expira_em, status, arquivo_path")
           .eq("token_download", token)
           .maybeSingle();
+
 
         if (error || !compra) {
           return Response.json({ error: "Link de download inválido." }, { status: 404 });
