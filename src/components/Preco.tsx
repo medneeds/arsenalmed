@@ -1,10 +1,11 @@
 const ITENS = [
-  "33 casos no formato completo",
+  "33 cenários do paciente grave no formato completo",
   "Catálogo de fármacos com dose por quilo e ajuste renal",
   "Dez tabelas de referência",
   "PDF navegável e off-line, com sumário clicável e marcadores — retaguarda sem internet",
   "Atualizações da versão 3.x sem custo adicional",
 ];
+
 
 export function Preco() {
   return (
