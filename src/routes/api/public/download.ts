@@ -50,9 +50,11 @@ export const Route = createFileRoute("/api/public/download")({
           console.error("falha ao incrementar downloads:", updateError);
         }
 
+        // Serve a cópia personalizada quando existir; senão, o arquivo mestre.
         const { data: signed, error: signError } = await supabaseAdmin.storage
           .from(BUCKET)
-          .createSignedUrl(FILE_PATH, SIGNED_URL_SECONDS);
+          .createSignedUrl(compra.arquivo_path ?? FILE_PATH, SIGNED_URL_SECONDS);
+
         if (signError || !signed?.signedUrl) {
           console.error("falha ao assinar URL:", signError);
           return Response.json({ error: "Arquivo indisponível no momento." }, { status: 500 });
