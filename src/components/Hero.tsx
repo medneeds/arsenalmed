@@ -31,7 +31,7 @@ export function Hero() {
               href="#comprar"
               className="bg-ocre px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-100"
             >
-              QUERO O ARSENAL MED 3.0 — R$ 99,90
+              QUERO O ARSENAL MED 3.0 — DE R$ 149,90 POR R$ 99,90
             </a>
             <LeadCaptureModal>
               <button

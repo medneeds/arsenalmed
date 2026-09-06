@@ -11,9 +11,9 @@ export const Route = createFileRoute("/comprar")({
   head: () => ({
     meta: [
       { title: "Comprar — Arsenal Med 3.0" },
-      { name: "description", content: "Pagamento único de R$ 99,90. Pix ou cartão. Acesso imediato ao manual." },
+      { name: "description", content: "De R$ 149,90 por R$ 99,90. Pagamento único. Pix ou cartão. Acesso imediato ao manual." },
       { property: "og:title", content: "Comprar — Arsenal Med 3.0" },
-      { property: "og:description", content: "Pagamento único de R$ 99,90. Pix ou cartão. Acesso imediato ao manual." },
+      { property: "og:description", content: "De R$ 149,90 por R$ 99,90. Pagamento único. Pix ou cartão. Acesso imediato ao manual." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -54,7 +54,9 @@ function ComprarPage() {
             <h1 className="font-heading text-xl font-bold uppercase tracking-wide text-tinta">
               Arsenal Med 3.0
             </h1>
-            <p className="font-mono text-lg font-semibold text-tinta">R$ 99,90</p>
+            <p className="font-mono text-lg font-semibold text-tinta">
+              <span className="font-medium text-musgo-400 line-through decoration-alerta/60">R$ 149,90</span> R$ 99,90
+            </p>
           </div>
         </div>
 
