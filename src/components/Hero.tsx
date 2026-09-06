@@ -16,7 +16,7 @@ export function Hero() {
             organizado por cenário
             <span className="mt-2 block text-ocre">— não por classe farmacológica.</span>
           </h1>
-          <p className="mt-6 font-heading text-[13px] font-semibold uppercase tracking-[0.12em] text-alerta">
+          <p className="mt-6 font-heading text-[13px] font-semibold uppercase tracking-[0.12em] text-alerta-claro">
             Para o paciente grave — ou potencialmente grave.
           </p>
           <p className="mt-4 max-w-[52ch] text-musgo-100">

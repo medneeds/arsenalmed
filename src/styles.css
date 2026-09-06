@@ -28,6 +28,7 @@
   --color-destructive: var(--ferrugem);
   --color-destructive-foreground: var(--papel);
   --color-alerta: var(--alerta);
+  --color-alerta-claro: var(--alerta-claro);
   --color-border: var(--musgo-300);
   --color-input: var(--musgo-300);
   --color-ring: var(--musgo-500);
@@ -46,6 +47,7 @@
   --color-ferrugem: var(--ferrugem);
   --color-ocre: var(--ocre);
   --color-alerta: var(--alerta);
+  --color-alerta-claro: var(--alerta-claro);
   --color-tinta: var(--tinta);
 }
 
@@ -63,6 +65,7 @@
   --ferrugem: #A0522D;
   --ocre: #B08A3E;
   --alerta: #8E2A20;
+  --alerta-claro: #C84A30;
   --tinta: #222A1C;
 
   --radius: 2px;
