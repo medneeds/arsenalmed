@@ -11,7 +11,7 @@ export function Header() {
           href="/comprar"
           className="hidden bg-ocre px-4 py-2 font-heading text-sm font-bold uppercase tracking-[0.14em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel sm:inline-block"
         >
-          R$ 99,90 — Comprar
+          <span className="line-through decoration-alerta/60 opacity-70">R$ 149,90</span> R$ 99,90 — Comprar
         </a>
         <a
           href="/comprar"
