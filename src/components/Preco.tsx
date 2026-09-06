@@ -11,8 +11,9 @@ export function Preco() {
   return (
     <section id="preco" className="bg-musgo-800 px-4 py-20 md:px-6 md:py-28">
       <div className="mx-auto max-w-[520px] border-2 border-ocre bg-musgo-900 p-6 md:p-10">
-        <p className="label text-ocre">EDIÇÃO COMPLETA</p>
+        <p className="label text-ocre">GUIA DE BOLSO DO PLANTÃO</p>
         <h2 className="mt-4 text-papel">Arsenal Med 3.0</h2>
+
         <p className="mt-6 font-mono text-5xl font-semibold text-papel md:text-6xl">R$ 69,90</p>
         <p className="mt-3 text-sm text-musgo-300">pagamento único · acesso vitalício ao arquivo</p>
 
