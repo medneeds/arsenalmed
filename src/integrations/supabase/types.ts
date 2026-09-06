@@ -16,6 +16,8 @@ export type Database = {
     Tables: {
       compras: {
         Row: {
+          arquivo_path: string | null
+          cpf: string | null
           criado_em: string
           downloads: number
           email: string
@@ -28,6 +30,8 @@ export type Database = {
           valor_centavos: number
         }
         Insert: {
+          arquivo_path?: string | null
+          cpf?: string | null
           criado_em?: string
           downloads?: number
           email: string
@@ -40,6 +44,8 @@ export type Database = {
           valor_centavos: number
         }
         Update: {
+          arquivo_path?: string | null
+          cpf?: string | null
           criado_em?: string
           downloads?: number
           email?: string
