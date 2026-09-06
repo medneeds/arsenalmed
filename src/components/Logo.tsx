@@ -35,8 +35,8 @@ export function Logo({ size = 36, variant = "papel", className }: LogoProps) {
         {/* Cruz médica sólida */}
         <path
           d="M17 24 h5 v5 h5 v5 h-5 v5 h-5 v-5 h-5 v-5 h5 z"
-          fill="var(--musgo-100)"
-          stroke="var(--musgo-100)"
+          fill="var(--alerta)"
+          stroke="var(--alerta)"
           strokeWidth="1"
           strokeLinejoin="round"
         />

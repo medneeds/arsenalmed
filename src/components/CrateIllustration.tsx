@@ -42,7 +42,7 @@ export function CrateIllustration({ className }: { className?: string }) {
       {/* Cruz médica estenciada */}
       <path
         d="M186 156 h28 v24 h24 v28 h-24 v24 h-28 v-24 h-24 v-28 h24 z"
-        fill="var(--musgo-100)"
+        fill="var(--alerta-claro)"
       />
 
       {/* Marcação de estêncil — três barras à direita da cruz */}
