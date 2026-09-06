@@ -48,9 +48,10 @@ export function Autor() {
           <p className="mt-3 font-mono text-sm text-musgo-600">CRM/MA 11788</p>
 
           <p className="mt-8 text-tinta">
-            Médico com atuação em medicina intensiva e UTI. Autor do Arsenal Med e responsável por um
-            conjunto de plataformas e aplicativos médicos: gestão assistencial, gestão de plantões e
-            finanças, e copiloto de documentação com inteligência artificial.
+            Médico com 5 anos de experiência em Medicina de Emergência e Terapia Intensiva. Autor do
+            Arsenal Med e responsável por um conjunto de plataformas e aplicativos médicos: gestão
+            assistencial, gestão de plantões e finanças, e copiloto de documentação com inteligência
+            artificial.
           </p>
 
           <dl className="mt-8 divide-y divide-musgo-300 border-y border-musgo-300">
