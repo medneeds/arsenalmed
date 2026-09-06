@@ -5,7 +5,7 @@ export function Compacto() {
     <section id="compacto" className="bg-papel-2 px-4 py-20 md:px-6 md:py-28">
       <div className="mx-auto max-w-[680px]">
         <p className="label text-musgo-500">GRATUITO</p>
-        <h2 className="mt-5 text-tinta">Antes de comprar, use cinco casos hoje à noite</h2>
+        <h2 className="mt-5 text-tinta">Antes de comprar, use cinco casos hoje</h2>
         <p className="mt-6 text-tinta">
           O Arsenal Compacto traz cinco cenários na íntegra — intubação, choque séptico, estado de mal
           epiléptico, cetoacidose e hipercalemia — mais as 11 armadilhas que mais custam caro no
