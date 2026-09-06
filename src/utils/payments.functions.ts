@@ -36,6 +36,11 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
         typeof stripePrice.product === "string" ? stripePrice.product : stripePrice.product.id;
       const product = await stripe.products.retrieve(productId);
 
+      const metadata = {
+        managed_payments: "false",
+        ...(data.cpf ? { cpf: data.cpf } : {}),
+      };
+
       const base = {
         line_items: [{ price: stripePrice.id, quantity: 1 }],
         mode: "payment" as const,
@@ -53,16 +58,17 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
         session = await stripe.checkout.sessions.create({
           ...base,
           payment_method_types: ["card", "pix"],
-          metadata: { managed_payments: "false" },
+          metadata,
         });
       } catch (firstError) {
         console.warn("checkout retry without pix:", getStripeErrorMessage(firstError));
         session = await stripe.checkout.sessions.create({
           ...base,
           payment_method_types: ["card"],
-          metadata: { managed_payments: "false" },
+          metadata,
         });
       }
+
 
       return { clientSecret: session.client_secret ?? "" };
     } catch (error) {
