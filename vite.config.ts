@@ -15,7 +15,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // Client code still only receives VITE_* vars via the template's env injection.
 Object.assign(
   process.env,
-  loadEnv(process.env.NODE_ENV ?? "development", process.cwd(), ""),
+  loadEnv(process.env["NODE_ENV"] ?? "development", process.cwd(), ""),
 );
 
 export default defineConfig({
