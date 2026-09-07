@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { registrarLead, CONSENT_TEXT } from "@/utils/leads.functions";
+import { track } from "@/lib/analytics";
 
 const PERFIS = ["Estudante de medicina", "Interno", "Residente", "Médico(a)", "Outro"];
 
@@ -8,7 +9,13 @@ const inputClass =
   "mt-2 w-full border border-musgo-300 bg-papel px-3 py-2.5 font-body text-[16px] text-tinta outline-none transition-colors placeholder:text-musgo-500 focus:border-musgo-700";
 const labelClass = "font-heading text-xs font-bold uppercase tracking-[0.14em] text-musgo-700";
 
-export function LeadCaptureModal({ children }: { children: ReactNode }) {
+export function LeadCaptureModal({
+  children,
+  origem = "landing",
+}: {
+  children: ReactNode;
+  origem?: string;
+}) {
   const [open, setOpen] = useState(false);
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
@@ -30,6 +37,7 @@ export function LeadCaptureModal({ children }: { children: ReactNode }) {
       if (res.ok) {
         setUrl(res.url);
         setEnviado(true);
+        track("submit_compacto", { origem });
       }
       else setErro(res.error);
     } catch {
@@ -44,6 +52,7 @@ export function LeadCaptureModal({ children }: { children: ReactNode }) {
       open={open}
       onOpenChange={(next) => {
         setOpen(next);
+        if (next) track("open_compacto", { origem });
         if (!next && enviado) {
           setEnviado(false);
           setUrl(null);
