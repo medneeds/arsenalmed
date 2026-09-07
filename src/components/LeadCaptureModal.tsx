@@ -2,6 +2,7 @@ import { useState, type ReactNode } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { registrarLead, CONSENT_TEXT } from "@/utils/leads.functions";
 import { track } from "@/lib/analytics";
+import { ARSENAL_PRICE } from "@/lib/product";
 
 const PERFIS = ["Estudante de medicina", "Interno", "Residente", "Médico(a)", "Outro"];
 
@@ -191,7 +192,7 @@ export function LeadCaptureModal({
             <button
               type="submit"
               disabled={enviando}
-              className="mt-6 w-full bg-ocre px-5 py-3 font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel disabled:opacity-60"
+              className="mt-6 min-h-12 w-full bg-ocre px-5 py-3 font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel disabled:opacity-60"
             >
               {enviando ? "ENVIANDO…" : "RECEBER O ARSENAL COMPACTO"}
             </button>
