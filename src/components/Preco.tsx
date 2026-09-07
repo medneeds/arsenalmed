@@ -4,6 +4,7 @@ import {
   ARSENAL_PRICE,
   ARSENAL_SAVINGS,
 } from "@/lib/product";
+import { track } from "@/lib/analytics";
 
 const ITENS = [
   "Manual Completo com 33 cenários do paciente grave",
@@ -11,6 +12,7 @@ const ITENS = [
   "Sumário inteligente, links internos e marcadores para consulta rápida",
   "Arquivos para consulta off-line no celular, tablet ou computador",
   "Correções e atualizações da versão 3.x sem custo adicional",
+  "Acesso de entrega ativo por 7 dias, com até 5 downloads por volume",
 ];
 
 export function Preco() {
@@ -56,15 +58,16 @@ export function Preco() {
 
         <a
           href="/comprar"
-          className="mt-8 block bg-ocre px-5 py-4 text-center font-heading text-base font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-100"
+          onClick={() => track("click_buy", { origem: "preco" })}
+          className="mt-8 flex min-h-14 items-center justify-center bg-ocre px-5 py-4 text-center font-heading text-base font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-100"
         >
           COMPRAR O PACOTE COMPLETO
         </a>
 
         <p className="mt-5 text-center text-sm leading-relaxed text-musgo-300">
-          Pagamento processado pela Stripe
+          Pagamento único · Pix ou cartão · processado pela Stripe
           <br />
-          Garantia de 7 dias: reembolso integral
+          Garantia de 7 dias: reembolso integral, sem justificativa
         </p>
       </div>
     </section>

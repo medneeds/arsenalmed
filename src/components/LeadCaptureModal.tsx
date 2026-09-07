@@ -1,6 +1,8 @@
 import { useState, type ReactNode } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { registrarLead, CONSENT_TEXT } from "@/utils/leads.functions";
+import { track } from "@/lib/analytics";
+import { ARSENAL_PRICE } from "@/lib/product";
 
 const PERFIS = ["Estudante de medicina", "Interno", "Residente", "Médico(a)", "Outro"];
 
@@ -8,7 +10,13 @@ const inputClass =
   "mt-2 w-full border border-musgo-300 bg-papel px-3 py-2.5 font-body text-[16px] text-tinta outline-none transition-colors placeholder:text-musgo-500 focus:border-musgo-700";
 const labelClass = "font-heading text-xs font-bold uppercase tracking-[0.14em] text-musgo-700";
 
-export function LeadCaptureModal({ children }: { children: ReactNode }) {
+export function LeadCaptureModal({
+  children,
+  origem = "landing",
+}: {
+  children: ReactNode;
+  origem?: string;
+}) {
   const [open, setOpen] = useState(false);
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
@@ -30,6 +38,7 @@ export function LeadCaptureModal({ children }: { children: ReactNode }) {
       if (res.ok) {
         setUrl(res.url);
         setEnviado(true);
+        track("submit_compacto", { origem });
       }
       else setErro(res.error);
     } catch {
@@ -44,6 +53,7 @@ export function LeadCaptureModal({ children }: { children: ReactNode }) {
       open={open}
       onOpenChange={(next) => {
         setOpen(next);
+        if (next) track("open_compacto", { origem });
         if (!next && enviado) {
           setEnviado(false);
           setUrl(null);
@@ -68,16 +78,33 @@ export function LeadCaptureModal({ children }: { children: ReactNode }) {
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 block w-full bg-ocre px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
+                className="mt-6 flex min-h-12 w-full items-center justify-center bg-ocre px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
               >
                 BAIXAR AGORA
               </a>
             )}
+            <div className="mt-6 border-t border-musgo-300 pt-5">
+              <p className="text-[15px] leading-relaxed text-musgo-700">
+                O Compacto traz 5 dos 33 cenários. A edição completa entrega os 2 volumes — Manual Completo e
+                Catálogo de Fármacos e Tabelas em bônus.
+              </p>
+              <a
+                href="/comprar"
+                onClick={() => track("click_buy", { origem: "compacto_modal" })}
+                className="mt-4 flex min-h-12 w-full items-center justify-center border border-musgo-600 px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-800 transition-colors hover:bg-musgo-800 hover:text-papel"
+              >
+                VER A EDIÇÃO COMPLETA — {ARSENAL_PRICE}
+              </a>
+            </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
-            <p className="label text-musgo-500">GRATUITO</p>
+            <p className="label text-musgo-500">GRATUITO · SEM CARTÃO</p>
             <h3 className="mt-4 text-tinta">RECEBER O ARSENAL COMPACTO</h3>
+            <p className="mt-3 text-[15px] leading-relaxed text-musgo-700">
+              Dois campos e o PDF chega no seu e-mail. 5 cenários na íntegra + as 11 armadilhas.
+            </p>
+
 
             <div className="mt-6 space-y-5">
               <div>
@@ -165,7 +192,7 @@ export function LeadCaptureModal({ children }: { children: ReactNode }) {
             <button
               type="submit"
               disabled={enviando}
-              className="mt-6 w-full bg-ocre px-5 py-3 font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel disabled:opacity-60"
+              className="mt-6 min-h-12 w-full bg-ocre px-5 py-3 font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel disabled:opacity-60"
             >
               {enviando ? "ENVIANDO…" : "RECEBER O ARSENAL COMPACTO"}
             </button>

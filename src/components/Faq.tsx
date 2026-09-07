@@ -35,7 +35,7 @@ const FAQS = [
   },
   {
     q: "POR QUANTO TEMPO POSSO BAIXAR?",
-    a: "O acesso de entrega fica ativo por 7 dias. Cada volume tem até 5 liberações de download. Depois de baixar, guarde os arquivos no seu dispositivo para consulta off-line.",
+    a: "O acesso de entrega fica ativo por 7 dias a partir da confirmação do pagamento. Cada volume tem até 5 liberações de download. Depois de baixar, guarde os arquivos no seu dispositivo para consulta off-line.",
   },
 ];
 

@@ -1,4 +1,6 @@
 import { LeadCaptureModal } from "./LeadCaptureModal";
+import { track } from "@/lib/analytics";
+import { ARSENAL_PRICE } from "@/lib/product";
 
 export function Compacto() {
   return (
@@ -11,16 +13,27 @@ export function Compacto() {
           epiléptico, cetoacidose e hipercalemia — mais as 11 armadilhas que mais custam caro no
           plantão. É o mesmo formato da edição completa, sem versão reduzida.
         </p>
-        <div className="mt-8">
-          <LeadCaptureModal>
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <LeadCaptureModal origem="secao_compacto">
             <button
               type="button"
-              className="border border-musgo-600 px-5 py-3 font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-800 transition-colors hover:bg-musgo-800 hover:text-papel"
+              className="flex min-h-12 items-center justify-center border border-musgo-600 px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-800 transition-colors hover:bg-musgo-800 hover:text-papel"
             >
               RECEBER O ARSENAL COMPACTO
             </button>
           </LeadCaptureModal>
+          <a
+            href="/comprar"
+            onClick={() => track("click_buy", { origem: "secao_compacto" })}
+            className="flex min-h-12 items-center justify-center bg-ocre px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
+          >
+            IR DIRETO PARA OS 33 CENÁRIOS — {ARSENAL_PRICE}
+          </a>
         </div>
+        <p className="mt-4 text-sm text-musgo-600">
+          O Compacto é um recorte do mesmo material. A edição completa entrega 2 volumes: Manual Completo com
+          33 cenários e o Catálogo de Fármacos e Tabelas em bônus.
+        </p>
       </div>
     </section>
   );

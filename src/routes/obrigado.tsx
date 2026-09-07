@@ -4,6 +4,7 @@ import { Header } from "../components/Header";
 import { Logo } from "../components/Logo";
 import { confirmPurchase } from "@/utils/payments.functions";
 import { getStripeEnvironment } from "@/lib/stripe";
+import { track } from "@/lib/analytics";
 
 const POLL_INTERVAL_MS = 10_000;
 const POLL_TIMEOUT_MS = 5 * 60_000;
@@ -40,6 +41,7 @@ function ObrigadoPage() {
       return;
     }
 
+    track("payment_return");
     let cancelled = false;
     let timer: ReturnType<typeof setTimeout>;
 
@@ -51,6 +53,7 @@ function ObrigadoPage() {
         if (cancelled) return;
         if (result.status === "pago") {
           setState({ kind: "pago", token: result.token });
+          track("payment_confirmed");
           return;
         }
         if (result.status === "erro") {
@@ -108,8 +111,10 @@ function ObrigadoPage() {
               <p className="mt-3 text-[16px] leading-relaxed text-musgo-600">
                 Isso é comum no Pix. Esta página verifica automaticamente a confirmação a cada 10 segundos.
               </p>
-              <p className="mt-6 font-mono text-xs uppercase tracking-widest text-musgo-300">
-                pode manter esta página aberta
+              <p className="mt-4 text-[15px] leading-relaxed text-musgo-600">
+                Você não perdeu a compra. Pode manter esta página aberta, atualizá-la ou fechá-la: assim que o
+                pagamento é compensado, o acesso é liberado e o e-mail de entrega é enviado automaticamente para o
+                endereço informado no checkout.
               </p>
             </>
           )}
@@ -121,12 +126,14 @@ function ObrigadoPage() {
                 Seu Arsenal está liberado
               </h1>
               <p className="mt-3 text-[16px] leading-relaxed text-musgo-600">
-                Você recebe dois volumes: o Manual Completo e o Catálogo de Fármacos e Tabelas. O acesso de entrega também foi enviado para seu e-mail e fica disponível por 7 dias.
+                Você recebe dois volumes: o Manual Completo (33 cenários) e o Catálogo de Fármacos e Tabelas, em
+                bônus. O mesmo acesso foi enviado para o seu e-mail. Ele fica ativo por 7 dias, com até 5 downloads
+                por volume — guarde os PDFs no aparelho para consulta off-line.
               </p>
               <Link
                 to="/download"
                 search={{ token: state.token }}
-                className="mt-8 block bg-ocre px-5 py-4 text-center font-heading text-base font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
+                className="mt-8 flex min-h-14 items-center justify-center bg-ocre px-5 py-4 text-center font-heading text-base font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
               >
                 ACESSAR MEUS DOIS ARQUIVOS
               </Link>
@@ -139,6 +146,18 @@ function ObrigadoPage() {
                 Não foi possível confirmar agora
               </h1>
               <p className="mt-3 text-[16px] leading-relaxed text-musgo-600">{state.message}</p>
+              <p className="mt-4 text-[15px] leading-relaxed text-musgo-600">
+                Se o valor foi debitado, a compra está registrada: o e-mail de entrega é enviado assim que a Stripe
+                confirmar. Não pague de novo — atualize esta página em alguns minutos ou responda ao e-mail da
+                Stripe para falar com o suporte.
+              </p>
+              <button
+                type="button"
+                onClick={() => window.location.reload()}
+                className="mt-6 inline-flex min-h-12 items-center justify-center border border-musgo-600 px-5 py-3 font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-800 transition-colors hover:bg-musgo-800 hover:text-papel"
+              >
+                Verificar novamente
+              </button>
             </>
           )}
 
@@ -148,7 +167,9 @@ function ObrigadoPage() {
                 Link inválido
               </h1>
               <p className="mt-3 text-[16px] leading-relaxed text-musgo-600">
-                Não encontramos uma sessão de compra neste endereço. Se você acabou de pagar, use a página para a qual a Stripe redirecionou ou o e-mail de entrega.
+                Não encontramos uma sessão de compra neste endereço. Se você acabou de pagar, abra o link do
+                e-mail de entrega — ele libera os dois arquivos. Nenhuma compra é perdida por atualizar ou fechar
+                a página.
               </p>
             </>
           )}

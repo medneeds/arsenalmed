@@ -11,6 +11,7 @@ import {
   ARSENAL_PRICE,
   ARSENAL_SAVINGS,
 } from "@/lib/product";
+import { track } from "@/lib/analytics";
 
 export const Route = createFileRoute("/comprar")({
   head: () => ({
@@ -26,8 +27,11 @@ export const Route = createFileRoute("/comprar")({
         content: `Manual Completo + Catálogo em bônus. ${ARSENAL_PRICE}, pagamento único. Pix ou cartão.`,
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://arsenalmed.com.br/comprar" },
+      { property: "og:locale", content: "pt_BR" },
       { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: "https://arsenalmed.com.br/comprar" }],
   }),
   component: ComprarPage,
 });
@@ -50,6 +54,7 @@ function ComprarPage() {
     }
     setErro(null);
     setStarted(true);
+    track("checkout_started");
   };
 
   return (
@@ -58,14 +63,14 @@ function ComprarPage() {
       <main className="mx-auto max-w-[600px] px-4 pb-20 pt-24 md:px-6">
         <PaymentTestModeBanner />
 
-        <div className="mt-8 flex items-center gap-4 border border-musgo-300 bg-papel p-5">
+        <div className="mt-8 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 border border-musgo-300 bg-papel p-5">
           <Logo size={44} />
-          <div>
+          <div className="min-w-0">
             <p className="label text-ocre">PACOTE COMPLETO</p>
             <h1 className="font-heading text-xl font-bold uppercase tracking-wide text-tinta">
               Arsenal Med 3.0
             </h1>
-            <p className="font-mono text-lg font-semibold text-tinta">
+            <p className="mt-1 flex flex-wrap items-baseline gap-x-2 font-mono text-lg font-semibold text-tinta">
               <span className="font-medium text-musgo-400 line-through decoration-alerta/60">{ARSENAL_COMPARE_AT_PRICE}</span>{" "}
               {ARSENAL_PRICE}
               <span className="ml-2 font-heading text-[12px] font-bold uppercase tracking-[0.12em] text-ocre">
@@ -78,8 +83,13 @@ function ComprarPage() {
         <div className="mt-4 border border-musgo-300 bg-papel-2 p-5 text-sm leading-relaxed text-musgo-700">
           <p className="font-heading font-bold uppercase tracking-[0.08em] text-tinta">Você recebe</p>
           <p className="mt-2">1. Arsenal Med 3.0 — Manual Completo com 33 cenários.</p>
-          <p>2. Catálogo de Fármacos e Tabelas — segundo volume incluído como bônus.</p>
-          <p className="mt-2">Pagamento único. Após a confirmação, os dois downloads ficam disponíveis nesta página e também são enviados por e-mail.</p>
+          <p>2. Catálogo de Fármacos e Tabelas — segundo volume incluído como bônus, com 10 tabelas.</p>
+          <p className="mt-2">
+            Pagamento único, sem assinatura. Após a confirmação, os dois downloads ficam disponíveis na página de
+            entrega e o mesmo acesso é enviado por e-mail. O acesso fica ativo por 7 dias, com até 5 downloads por
+            volume.
+          </p>
+          <p className="mt-2">Garantia de 7 dias: reembolso integral, sem justificativa.</p>
         </div>
 
         {!started ? (
@@ -130,12 +140,12 @@ function ComprarPage() {
 
             <button
               onClick={avancar}
-              className="mt-5 block w-full bg-ocre px-5 py-4 text-center font-heading text-base font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
+              className="mt-5 flex min-h-14 w-full items-center justify-center bg-ocre px-5 py-4 text-center font-heading text-base font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
             >
               CONTINUAR PARA PAGAMENTO
             </button>
             <p className="mt-4 text-center text-sm text-musgo-600">
-              Pix ou cartão · pagamento processado pela Stripe · garantia de 7 dias
+              Pix ou cartão · pagamento processado pela Stripe · seus dados de cartão não passam por este site
             </p>
             <p className="mt-3 text-center text-xs leading-relaxed text-musgo-500">
               Ao continuar, você concorda com a utilização dos dados necessária para processar a compra e entregar os arquivos. Veja a{" "}
@@ -147,10 +157,24 @@ function ComprarPage() {
           </div>
         ) : (
           <div className="mt-6">
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-2 text-sm text-musgo-600">
+              <span className="min-w-0 break-all font-mono text-xs">{email.trim().toLowerCase()}</span>
+              <button
+                type="button"
+                onClick={() => setStarted(false)}
+                className="underline underline-offset-4 hover:text-tinta"
+              >
+                Corrigir e-mail ou CPF
+              </button>
+            </div>
             <StripeEmbeddedCheckout
               {...(email ? { customerEmail: email.trim().toLowerCase() } : {})}
               cpf={onlyDigits(cpf)}
             />
+            <p className="mt-4 text-center text-sm leading-relaxed text-musgo-600">
+              Pagamento processado pela Stripe. Se você fechar esta janela por engano, volte por este mesmo
+              endereço — nada é cobrado duas vezes.
+            </p>
           </div>
         )}
 
