@@ -116,9 +116,6 @@ function ObrigadoPage() {
                 pagamento é compensado, o acesso é liberado e o e-mail de entrega é enviado automaticamente para o
                 endereço informado no checkout.
               </p>
-              <p className="mt-6 font-mono text-xs uppercase tracking-widest text-musgo-500">
-                verificação automática a cada 10 s
-              </p>
             </>
           )}
 

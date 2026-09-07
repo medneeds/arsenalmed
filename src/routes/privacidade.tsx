@@ -11,8 +11,17 @@ export const Route = createFileRoute("/privacidade")({
           "Como o Arsenal Med coleta, usa e protege dados pessoais para entrega dos materiais, pagamentos e comunicações.",
       },
       { property: "og:title", content: "Política de Privacidade — Arsenal Med" },
+      {
+        property: "og:description",
+        content:
+          "Como o Arsenal Med coleta, usa e protege dados pessoais para entrega dos materiais, pagamentos e comunicações.",
+      },
       { property: "og:type", content: "article" },
+      { property: "og:url", content: "https://arsenalmed.com.br/privacidade" },
+      { property: "og:locale", content: "pt_BR" },
+      { name: "twitter:card", content: "summary" },
     ],
+    links: [{ rel: "canonical", href: "https://arsenalmed.com.br/privacidade" }],
   }),
   component: Privacidade,
 });

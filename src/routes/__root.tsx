@@ -24,7 +24,7 @@ function NotFoundComponent() {
         <div className="mt-6">
           <Link
             to="/"
-            className="inline-flex items-center justify-center bg-ocre px-5 py-3 font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
+            className="inline-flex min-h-12 items-center justify-center bg-ocre px-5 py-3 font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
           >
             Voltar ao início
           </Link>
@@ -57,13 +57,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center bg-ocre px-4 py-2 font-heading text-sm font-bold uppercase tracking-[0.08em] text-musgo-900"
+            className="inline-flex min-h-11 items-center justify-center bg-ocre px-4 py-2 font-heading text-sm font-bold uppercase tracking-[0.08em] text-musgo-900"
           >
             Tentar novamente
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center border border-musgo-300 bg-papel px-4 py-2 font-heading text-sm font-bold uppercase tracking-[0.08em] text-tinta"
+            className="inline-flex min-h-11 items-center justify-center border border-musgo-300 bg-papel px-4 py-2 font-heading text-sm font-bold uppercase tracking-[0.08em] text-tinta"
           >
             Voltar ao início
           </a>
@@ -81,6 +81,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Arsenal Med" },
       { name: "description", content: "Manual prático de consulta clínica para emergência e terapia intensiva." },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Arsenal Med" },
+      { property: "og:locale", content: "pt_BR" },
     ],
     links: [
       {
