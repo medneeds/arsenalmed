@@ -8,15 +8,10 @@ export const Route = createFileRoute("/privacidade")({
       {
         name: "description",
         content:
-          "Como o Arsenal Med coleta, usa e protege seus dados pessoais, e como cancelar o recebimento de comunicações.",
+          "Como o Arsenal Med coleta, usa e protege dados pessoais para entrega dos materiais, pagamentos e comunicações.",
       },
       { property: "og:title", content: "Política de Privacidade — Arsenal Med" },
-      {
-        property: "og:description",
-        content: "Como o Arsenal Med coleta, usa e protege seus dados pessoais.",
-      },
       { property: "og:type", content: "article" },
-      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Privacidade,
@@ -33,22 +28,22 @@ function Privacidade() {
 
           <h2 className="mt-10 text-tinta">Quais dados coletamos</h2>
           <p className="mt-3 text-tinta">
-            Ao pedir o Arsenal Compacto, registramos nome, e-mail, perfil profissional, a origem do
-            cadastro e a data e o texto do consentimento que você aceitou. Em uma compra, registramos
-            o e-mail e os dados do pagamento processados pela Stripe.
+            Ao pedir o Arsenal Compacto, registramos nome, e-mail, perfil profissional, origem do cadastro e a data e o texto do consentimento aceito. Em uma compra, registramos o e-mail, o CPF informado para identificar a licença pessoal, identificadores técnicos da transação e o status do pagamento. Os dados financeiros do cartão ou Pix são processados pela Stripe e não são armazenados pelo Arsenal Med.
           </p>
 
           <h2 className="mt-10 text-tinta">Para que usamos</h2>
           <p className="mt-3 text-tinta">
-            Para enviar o material solicitado, dar suporte, entregar atualizações do manual e enviar
-            comunicações sobre o Arsenal Med. Não vendemos nem compartilhamos sua lista com
-            terceiros.
+            Para entregar o material solicitado, gerar sua cópia identificada, confirmar pagamentos, dar suporte, disponibilizar correções e atualizações da versão adquirida e, quando houver consentimento, enviar comunicações sobre o Arsenal Med.
+          </p>
+
+          <h2 className="mt-10 text-tinta">Compartilhamento necessário</h2>
+          <p className="mt-3 text-tinta">
+            Utilizamos fornecedores de infraestrutura estritamente necessários para operar o serviço, como Stripe para pagamentos, Supabase para banco e armazenamento e o serviço de e-mail conectado ao projeto. Não vendemos listas nem comercializamos seus dados pessoais.
           </p>
 
           <h2 className="mt-10 text-tinta">Seus direitos</h2>
           <p className="mt-3 text-tinta">
-            Você pode cancelar o recebimento a qualquer momento pelo link no rodapé de cada e-mail, e
-            pedir acesso, correção ou exclusão dos seus dados escrevendo para o suporte.
+            Você pode cancelar comunicações promocionais a qualquer momento e solicitar acesso, correção ou exclusão dos dados quando aplicável. Dados que precisem ser mantidos por obrigação legal, prevenção a fraude ou comprovação da transação podem ser conservados pelo período necessário.
           </p>
         </div>
       </main>
