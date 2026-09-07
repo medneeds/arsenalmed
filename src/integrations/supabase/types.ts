@@ -17,9 +17,12 @@ export type Database = {
       compras: {
         Row: {
           arquivo_path: string | null
+          catalogo_path: string | null
           cpf: string | null
           criado_em: string
           downloads: number
+          downloads_catalogo: number
+          downloads_manual: number
           email: string
           expira_em: string
           id: string
@@ -31,9 +34,12 @@ export type Database = {
         }
         Insert: {
           arquivo_path?: string | null
+          catalogo_path?: string | null
           cpf?: string | null
           criado_em?: string
           downloads?: number
+          downloads_catalogo?: number
+          downloads_manual?: number
           email: string
           expira_em?: string
           id?: string
@@ -45,9 +51,12 @@ export type Database = {
         }
         Update: {
           arquivo_path?: string | null
+          catalogo_path?: string | null
           cpf?: string | null
           criado_em?: string
           downloads?: number
+          downloads_catalogo?: number
+          downloads_manual?: number
           email?: string
           expira_em?: string
           id?: string
