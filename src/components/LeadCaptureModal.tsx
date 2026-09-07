@@ -77,16 +77,33 @@ export function LeadCaptureModal({
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 block w-full bg-ocre px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
+                className="mt-6 flex min-h-12 w-full items-center justify-center bg-ocre px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
               >
                 BAIXAR AGORA
               </a>
             )}
+            <div className="mt-6 border-t border-musgo-300 pt-5">
+              <p className="text-[15px] leading-relaxed text-musgo-700">
+                O Compacto traz 5 dos 33 cenários. A edição completa entrega os 2 volumes — Manual Completo e
+                Catálogo de Fármacos e Tabelas em bônus.
+              </p>
+              <a
+                href="/comprar"
+                onClick={() => track("click_buy", { origem: "compacto_modal" })}
+                className="mt-4 flex min-h-12 w-full items-center justify-center border border-musgo-600 px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-800 transition-colors hover:bg-musgo-800 hover:text-papel"
+              >
+                VER A EDIÇÃO COMPLETA — {ARSENAL_PRICE}
+              </a>
+            </div>
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
-            <p className="label text-musgo-500">GRATUITO</p>
+            <p className="label text-musgo-500">GRATUITO · SEM CARTÃO</p>
             <h3 className="mt-4 text-tinta">RECEBER O ARSENAL COMPACTO</h3>
+            <p className="mt-3 text-[15px] leading-relaxed text-musgo-700">
+              Dois campos e o PDF chega no seu e-mail. 5 cenários na íntegra + as 11 armadilhas.
+            </p>
+
 
             <div className="mt-6 space-y-5">
               <div>
