@@ -2,27 +2,40 @@ import { PDFDocument, StandardFonts, rgb } from "pdf-lib";
 import { formatCpf } from "@/lib/cpf";
 
 const BUCKET = "downloads";
-const MASTER_PATH = "arsenal-med-3.pdf";
+
+export type ArsenalFileKind = "manual" | "catalogo";
+
+const FILES: Record<ArsenalFileKind, { masterPath: string; outputName: string }> = {
+  manual: {
+    masterPath: "arsenal-med-3.pdf",
+    outputName: "arsenal-med-3",
+  },
+  catalogo: {
+    masterPath: "arsenal-med-catalogo.pdf",
+    outputName: "arsenal-med-catalogo",
+  },
+};
 
 /**
- * Baixa o PDF mestre, estampa e-mail + CPF do comprador no rodapé de todas as
- * páginas e grava a cópia individual no bucket privado.
- * Retorna o caminho do arquivo personalizado, ou null se não for possível gerar
- * (nesse caso o download recai no arquivo mestre).
+ * Personaliza um dos volumes pagos com e-mail + CPF no rodapé de todas as páginas.
+ * Retorna o caminho privado da cópia individual ou null quando o mestre ainda não
+ * estiver disponível. O chamador decide se deve usar o mestre como fallback.
  */
 export async function generatePersonalizedPdf(params: {
   compraId: string;
   email: string;
   cpf: string | null;
+  kind: ArsenalFileKind;
 }): Promise<string | null> {
   try {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const fileConfig = FILES[params.kind];
 
     const { data: file, error: downloadError } = await supabaseAdmin.storage
       .from(BUCKET)
-      .download(MASTER_PATH);
+      .download(fileConfig.masterPath);
     if (downloadError || !file) {
-      console.error("PDF mestre indisponível para personalização:", downloadError);
+      console.error(`PDF mestre ${params.kind} indisponível para personalização:`, downloadError);
       return null;
     }
 
@@ -49,19 +62,19 @@ export async function generatePersonalizedPdf(params: {
     }
 
     const bytes = await pdf.save();
-    const path = `personalizados/${params.compraId}.pdf`;
+    const path = `personalizados/${params.compraId}/${fileConfig.outputName}.pdf`;
 
     const { error: uploadError } = await supabaseAdmin.storage
       .from(BUCKET)
       .upload(path, bytes, { contentType: "application/pdf", upsert: true });
     if (uploadError) {
-      console.error("falha ao gravar PDF personalizado:", uploadError);
+      console.error(`falha ao gravar PDF personalizado ${params.kind}:`, uploadError);
       return null;
     }
 
     return path;
   } catch (error) {
-    console.error("falha ao personalizar PDF:", error);
+    console.error(`falha ao personalizar PDF ${params.kind}:`, error);
     return null;
   }
 }
