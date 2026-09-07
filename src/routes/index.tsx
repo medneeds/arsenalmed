@@ -11,22 +11,22 @@ import { Preco } from "../components/Preco";
 import { Faq } from "../components/Faq";
 import { Compacto } from "../components/Compacto";
 import { PaymentTestModeBanner } from "../components/PaymentTestModeBanner";
-
+import { ARSENAL_COMPARE_AT_PRICE, ARSENAL_PRICE } from "@/lib/product";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Arsenal Med — Manual de Sobrevivência Clínica" },
+      { title: "Arsenal Med 3.0 — Manual de Plantão" },
       {
         name: "description",
         content:
-          "O guia de bolso do plantão brasileiro: 33 cenários do paciente grave, off-line. De R$ 149,90 por R$ 99,90, pagamento único.",
+          `33 cenários de emergência e terapia intensiva para consulta off-line. Manual completo + catálogo de fármacos e 10 tabelas em bônus. De ${ARSENAL_COMPARE_AT_PRICE} por ${ARSENAL_PRICE}, pagamento único.`,
       },
-      { property: "og:title", content: "Arsenal Med — Manual de Sobrevivência Clínica" },
+      { property: "og:title", content: "Arsenal Med 3.0 — Manual de Plantão" },
       {
         property: "og:description",
         content:
-          "O guia de bolso do plantão brasileiro: 33 cenários do paciente grave, off-line. De R$ 149,90 por R$ 99,90, pagamento único.",
+          `33 cenários do paciente grave, organizados por cenário. Manual completo + catálogo em bônus. ${ARSENAL_PRICE}, pagamento único.`,
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
