@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { type StripeEnv, createStripeClient, getStripeErrorMessage } from "@/lib/stripe.server";
+import { ARSENAL_PRODUCT } from "@/lib/product";
 
 type CheckoutSessionResult =
   | { clientSecret: string }
@@ -21,16 +22,28 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
       })
       .parse(data),
   )
-
   .handler(async ({ data }): Promise<CheckoutSessionResult> => {
-    // O produto e o valor são fixos no servidor. Nada de preço vindo do cliente.
-    const PRICE_ID = "arsenal_med_3_onetime";
     try {
       const stripe = createStripeClient(data.environment);
-
-      const prices = await stripe.prices.list({ lookup_keys: [PRICE_ID] });
+      const prices = await stripe.prices.list({ lookup_keys: [ARSENAL_PRODUCT.lookupKey], active: true, limit: 1 });
       const stripePrice = prices.data[0];
-      if (!stripePrice) throw new Error("Price not found");
+      if (!stripePrice) throw new Error("Preço do Arsenal Med não encontrado na Stripe.");
+
+      if (
+        stripePrice.unit_amount !== ARSENAL_PRODUCT.priceCents ||
+        stripePrice.currency.toLowerCase() !== ARSENAL_PRODUCT.currency
+      ) {
+        console.error("Stripe price mismatch", {
+          lookupKey: ARSENAL_PRODUCT.lookupKey,
+          stripeAmount: stripePrice.unit_amount,
+          expectedAmount: ARSENAL_PRODUCT.priceCents,
+          stripeCurrency: stripePrice.currency,
+          expectedCurrency: ARSENAL_PRODUCT.currency,
+        });
+        throw new Error(
+          "O preço publicado e o preço configurado no pagamento estão diferentes. A compra foi bloqueada para evitar cobrança incorreta.",
+        );
+      }
 
       const productId =
         typeof stripePrice.product === "string" ? stripePrice.product : stripePrice.product.id;
@@ -38,6 +51,8 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
 
       const metadata = {
         managed_payments: "false",
+        product: "arsenal_med_3",
+        product_version: ARSENAL_PRODUCT.version,
         ...(data.cpf ? { cpf: data.cpf } : {}),
       };
 
@@ -50,9 +65,6 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
         ...(data.customerEmail && { customer_email: data.customerEmail }),
       };
 
-      // Conta Stripe no Brasil: Stripe Tax não é suportado, então nenhuma
-      // automação de imposto é enviada. Pix exige a conta com Pix habilitado;
-      // se ainda não estiver, recua para cartão apenas.
       let session;
       try {
         session = await stripe.checkout.sessions.create({
@@ -69,8 +81,10 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
         });
       }
 
-
-      return { clientSecret: session.client_secret ?? "" };
+      if (!session.client_secret) {
+        throw new Error("A Stripe não retornou o código necessário para abrir o checkout.");
+      }
+      return { clientSecret: session.client_secret };
     } catch (error) {
       return { error: getStripeErrorMessage(error) };
     }
@@ -103,7 +117,6 @@ export const confirmPurchase = createServerFn({ method: "POST" })
         .maybeSingle();
 
       if (compra?.token_download) return { status: "pago", token: compra.token_download };
-      // Pagamento confirmado, mas o webhook ainda não gravou a compra.
       return { status: "pendente" };
     } catch (error) {
       return { status: "erro", message: getStripeErrorMessage(error) };

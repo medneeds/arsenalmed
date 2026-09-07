@@ -1,5 +1,10 @@
 import { CrateIllustration } from "./CrateIllustration";
 import { LeadCaptureModal } from "./LeadCaptureModal";
+import {
+  ARSENAL_COMPARE_AT_PRICE,
+  ARSENAL_DISCOUNT_PERCENT,
+  ARSENAL_PRICE,
+} from "@/lib/product";
 
 export function Hero() {
   return (
@@ -28,27 +33,29 @@ export function Hero() {
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
-              href="#comprar"
+              href="/comprar"
               className="bg-ocre px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-100"
             >
-              QUERO O ARSENAL MED 3.0 — DE R$ 149,90 POR R$ 99,90
+              QUERO O ARSENAL — {ARSENAL_PRICE}
             </a>
             <LeadCaptureModal>
               <button
                 type="button"
                 className="border border-musgo-500 px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-100 transition-colors hover:border-musgo-300"
               >
-                BAIXAR 5 CASOS DE GRAÇA
+                TESTAR 5 CASOS GRÁTIS
               </button>
             </LeadCaptureModal>
           </div>
+          <p className="mt-4 text-sm text-musgo-300">
+            De {ARSENAL_COMPARE_AT_PRICE} por {ARSENAL_PRICE} · {ARSENAL_DISCOUNT_PERCENT}% de desconto · pagamento único
+          </p>
           <p className="mt-6 font-heading text-[11px] font-semibold uppercase tracking-[0.1em] text-musgo-500 md:text-xs">
-            33 CENÁRIOS DO PACIENTE GRAVE · CATÁLOGO + 10 TABELAS EM BÔNUS
+            33 CENÁRIOS · MANUAL COMPLETO + CATÁLOGO DE FÁRMACOS E 10 TABELAS EM BÔNUS
           </p>
           <p className="mt-3 font-heading text-[11px] font-semibold uppercase tracking-[0.1em] text-ocre md:text-xs">
-            RETAGUARDA OFF-LINE — ABRE SEM INTERNET
+            CONSULTA OFF-LINE — ABRE SEM INTERNET
           </p>
-
         </div>
         <div className="w-full md:w-[42%]">
           <CrateIllustration className="h-auto w-full" />

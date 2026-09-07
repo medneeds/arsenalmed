@@ -1,7 +1,17 @@
-// Envio do e-mail de entrega do manual.
-// ATENÇÃO: o envio real passa a funcionar depois que o domínio de e-mail for
-// configurado no Lovable Cloud e os templates forem gerados. Até lá, a compra
-// continua registrada e a página /obrigado já libera o download imediato.
+import { sendTemplateEmail } from "@/lib/email-templates/send-email";
+
+const SITE_URL = "https://www.arsenalmed.com.br";
+
 export async function sendDeliveryEmail(email: string, tokenDownload: string): Promise<void> {
-  console.log(`[delivery-email] domínio de e-mail ainda não configurado. Compra registrada para ${email}, token ${tokenDownload}. O download imediato na página /obrigado cobre a entrega.`);
+  const accessUrl = `${SITE_URL}/download?token=${encodeURIComponent(tokenDownload)}`;
+  try {
+    await sendTemplateEmail("compra", email, {
+      templateData: { accessUrl },
+      idempotencyKey: `compra-${tokenDownload}`,
+    });
+  } catch (error) {
+    // O webhook continua idempotente e a página /obrigado libera o acesso imediatamente.
+    // Um novo evento da Stripe pode tentar a entrega novamente sem duplicar a compra.
+    console.error("[delivery-email] falha ao enviar e-mail de entrega:", error);
+  }
 }

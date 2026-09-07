@@ -14,19 +14,19 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div className="flex min-h-screen items-center justify-center bg-papel px-4 text-tinta">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+        <p className="label text-ocre">ERRO 404</p>
+        <h1 className="mt-4 font-heading text-4xl font-bold uppercase tracking-wide">Página não encontrada</h1>
+        <p className="mt-3 text-sm leading-relaxed text-musgo-600">
+          O endereço pode ter mudado ou não existir. Volte para a página principal do Arsenal Med.
         </p>
         <div className="mt-6">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center bg-ocre px-5 py-3 font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
           >
-            Go home
+            Voltar ao início
           </Link>
         </div>
       </div>
@@ -42,13 +42,14 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   }, [error]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div className="flex min-h-screen items-center justify-center bg-papel px-4 text-tinta">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
+        <p className="label text-alerta">FALHA TEMPORÁRIA</p>
+        <h1 className="mt-4 font-heading text-2xl font-bold uppercase tracking-wide">
+          Esta página não carregou
         </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+        <p className="mt-3 text-sm leading-relaxed text-musgo-600">
+          Tente novamente. Se você estava concluindo um pagamento, evite refazer a compra antes de conferir a confirmação da Stripe ou o e-mail de entrega.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
@@ -56,15 +57,15 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center bg-ocre px-4 py-2 font-heading text-sm font-bold uppercase tracking-[0.08em] text-musgo-900"
           >
-            Try again
+            Tentar novamente
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="inline-flex items-center justify-center border border-musgo-300 bg-papel px-4 py-2 font-heading text-sm font-bold uppercase tracking-[0.08em] text-tinta"
           >
-            Go home
+            Voltar ao início
           </a>
         </div>
       </div>
@@ -78,7 +79,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Arsenal Med" },
-      { name: "description", content: "Manual prático de conduta clínica para o plantão brasileiro." },
+      { name: "description", content: "Manual prático de consulta clínica para emergência e terapia intensiva." },
       { property: "og:type", content: "website" },
     ],
     links: [
@@ -121,7 +122,6 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>
   );
