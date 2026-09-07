@@ -4,12 +4,12 @@ const CARDS = [
     corpo: "Via aérea e ventilação mecânica · parada cardiorrespiratória · choque e arritmias · AVC · delirium e abstinência · distúrbios eletrolíticos e ácido-base · sepse por foco · hemorragia digestiva · lesão renal aguda · intoxicações · anafilaxia · transfusão maciça · cuidados de conforto e fim de vida.",
   },
   {
-    titulo: "VERBETE DE FÁRMACO",
-    corpo: "Apresentação, diluição com concentração final explícita, dose por quilo, tabela de vazão por peso, ajuste renal, cuidados e tipo de receituário. Um formato fixo, sempre na mesma ordem.",
+    titulo: "CATÁLOGO DE FÁRMACOS",
+    corpo: "Volume separado incluído como bônus. Apresentação, diluição com concentração final explícita, dose por quilo quando aplicável, ajuste renal, cuidados e tipo de receituário em formato fixo.",
   },
   {
     titulo: "DEZ TABELAS",
-    corpo: "Conversões de vazão · vasoativos por peso · ajuste por função renal · compatibilidade e diluição · antídotos · escores de bolso · Portaria 344 · sedação e analgesia · parâmetros ventilatórios · risco na gestante.",
+    corpo: "Conversões de vazão · vasoativos por peso · ajuste por função renal · compatibilidade e diluição · antídotos · escores de bolso · Portaria 344 · sedação e analgesia · parâmetros ventilatórios · situações específicas na gestação.",
   },
 ];
 
@@ -17,8 +17,8 @@ export function Conteudo() {
   return (
     <section className="bg-musgo-800 px-4 py-20 md:px-6 md:py-28">
       <div className="mx-auto max-w-5xl">
-        <p className="label text-ocre">CONTEÚDO</p>
-        <h2 className="mt-5 max-w-[680px] text-papel">33 cenários do paciente grave — e, de bônus, o catálogo de fármacos e as dez tabelas</h2>
+        <p className="label text-ocre">O QUE VOCÊ RECEBE</p>
+        <h2 className="mt-5 max-w-[680px] text-papel">Manual completo com 33 cenários + catálogo de fármacos e dez tabelas em um segundo volume</h2>
 
         <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3">
           {CARDS.map((c) => (
@@ -30,10 +30,9 @@ export function Conteudo() {
         </div>
 
         <div className="mt-12 border-b-2 border-t-2 border-ocre py-8 text-center md:py-10">
-          <h3 className="text-ocre">A TABELA QUE MAIS PEDIRAM</h3>
-          <p className="mx-auto mt-4 max-w-[560px] text-musgo-100">
-            Vasoativos convertidos de mcg/kg/min para mL/h, por peso, nas diluições padronizadas. Mais a
-            fórmula universal, para quando a diluição do seu serviço for outra.
+          <h3 className="text-ocre">VAZÕES SEM ESCONDER A CONCENTRAÇÃO</h3>
+          <p className="mx-auto mt-4 max-w-[600px] text-musgo-100">
+            Tabelas de vasoativos por peso sempre ligadas à concentração que gerou a vazão, além da fórmula universal para quando a padronização do seu serviço for diferente.
           </p>
         </div>
       </div>

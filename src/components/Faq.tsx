@@ -3,31 +3,39 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 const FAQS = [
   {
     q: "COMO EU RECEBO O MATERIAL?",
-    a: "Assim que o pagamento é confirmado, você recebe um e-mail com o link de download. No Pix, a confirmação costuma levar poucos minutos.",
+    a: "Assim que o pagamento é confirmado, a página de entrega libera dois arquivos: o Manual Completo e o Catálogo de Fármacos e Tabelas. O mesmo acesso também é enviado por e-mail. No Pix, a confirmação pode levar alguns minutos.",
   },
   {
     q: "É PDF OU PLATAFORMA?",
-    a: "PDF. Funciona sem internet, no celular, no tablet e no computador. O sumário inteligente é clicável e o arquivo tem marcadores, então você chega em qualquer caso com um toque.",
+    a: "São PDFs. Funcionam sem internet, no celular, no tablet e no computador. O sumário é clicável e os arquivos têm marcadores para consulta rápida.",
+  },
+  {
+    q: "O CATÁLOGO ESTÁ INCLUÍDO?",
+    a: "Sim. A compra entrega dois volumes: o Arsenal Med 3.0 — Manual Completo e, como bônus, o Catálogo de Fármacos e Tabelas em um segundo PDF.",
   },
   {
     q: "POSSO IMPRIMIR?",
-    a: "Pode. O material foi diagramado para leitura em tela e para impressão em A4.",
+    a: "Pode. O material foi diagramado para leitura em tela e também pode ser impresso em A4.",
   },
   {
     q: "TEM ATUALIZAÇÃO?",
-    a: "Sim. Correções e atualizações da versão 3.x chegam por e-mail, sem custo.",
+    a: "Sim. Correções e atualizações da versão 3.x são enviadas sem custo adicional para o e-mail da compra.",
   },
   {
     q: "E SE NÃO SERVIR PARA MIM?",
-    a: "Você tem 7 dias para pedir reembolso integral, sem justificativa. Escreva para [EMAIL_SUPORTE].",
+    a: "Você tem 7 dias para solicitar reembolso integral. Use o canal de suporte informado no e-mail e na confirmação da compra.",
   },
   {
     q: "ISSO SUBSTITUI MINHA DECISÃO CLÍNICA?",
-    a: "Não, e o material diz isso na abertura. São doses de referência para paciente adulto, não gestante, fora do contexto pediátrico. Não substituem a checagem em bula, o julgamento à beira do leito nem a padronização do seu serviço.",
+    a: "Não. O material é destinado a médicos e traz doses de referência. Não substitui bula, julgamento clínico à beira do leito nem a padronização do seu serviço. Situações de gestação são sinalizadas separadamente e o conteúdo não é pediátrico.",
   },
   {
     q: "QUAL A DIFERENÇA PARA O ARSENAL COMPACTO?",
-    a: "O compacto é gratuito e traz 5 casos na íntegra, mais as 11 armadilhas. Não é um resumo: é um recorte. Os cinco casos são idênticos aos da edição completa.",
+    a: "O Compacto é gratuito e traz 5 casos na íntegra mais as 11 armadilhas. Não é um resumo: é um recorte do formato do Arsenal Med completo.",
+  },
+  {
+    q: "POR QUANTO TEMPO POSSO BAIXAR?",
+    a: "O acesso de entrega fica ativo por 7 dias. Cada volume tem até 5 liberações de download. Depois de baixar, guarde os arquivos no seu dispositivo para consulta off-line.",
   },
 ];
 
