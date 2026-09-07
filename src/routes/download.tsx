@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Header } from "../components/Header";
 import { Logo } from "../components/Logo";
+import { track } from "@/lib/analytics";
 
 type FileKind = "manual" | "catalogo";
 type FileState =
@@ -23,6 +24,63 @@ export const Route = createFileRoute("/download")({
   }),
   component: DownloadPage,
 });
+
+function DownloadCard({
+  kind,
+  titulo,
+  subtitulo,
+  state,
+  onLiberar,
+}: {
+  kind: FileKind;
+  titulo: string;
+  subtitulo: string;
+  state: FileState;
+  onLiberar: (kind: FileKind) => void;
+}) {
+  return (
+    <div className="border border-musgo-300 bg-papel p-5 text-left">
+      <p className="label text-ocre">{kind === "manual" ? "VOLUME 1" : "BÔNUS · VOLUME 2"}</p>
+      <h2 className="mt-3 font-heading text-lg font-bold uppercase tracking-wide text-tinta sm:text-xl">
+        {titulo}
+      </h2>
+      <p className="mt-2 text-sm leading-relaxed text-musgo-600">{subtitulo}</p>
+
+      {(state.kind === "idle" || state.kind === "erro") && (
+        <button
+          type="button"
+          onClick={() => onLiberar(kind)}
+          className="mt-5 flex min-h-12 w-full items-center justify-center bg-ocre px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
+        >
+          {state.kind === "erro" ? "TENTAR NOVAMENTE" : "GERAR LINK DE DOWNLOAD"}
+        </button>
+      )}
+      {state.kind === "carregando" && (
+        <p className="mt-5 font-mono text-xs uppercase tracking-widest text-musgo-500" role="status">
+          Preparando link seguro…
+        </p>
+      )}
+      {state.kind === "pronto" && (
+        <>
+          <a
+            href={state.url}
+            className="mt-5 flex min-h-12 w-full items-center justify-center bg-ocre px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
+          >
+            BAIXAR PDF
+          </a>
+          <p className="mt-3 font-mono text-[11px] uppercase tracking-widest text-musgo-500">
+            link válido por 10 min · {state.downloadsRestantes} download(s) restante(s) deste volume
+          </p>
+        </>
+      )}
+      {state.kind === "erro" && (
+        <p className="mt-3 text-sm font-semibold text-alerta" role="alert">
+          {state.message}
+        </p>
+      )}
+    </div>
+  );
+}
 
 function DownloadPage() {
   const { token } = Route.useSearch();
@@ -50,6 +108,7 @@ function DownloadPage() {
         url: body.url,
         downloadsRestantes: body.downloadsRestantes,
       });
+      track(kind === "manual" ? "download_manual" : "download_catalogo");
     } catch {
       setState({ kind: "erro", message: "Falha de conexão. Tente novamente." });
     }
