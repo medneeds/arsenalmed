@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 
 export const Route = createFileRoute("/privacidade")({
   head: () => ({
@@ -54,8 +55,14 @@ function Privacidade() {
           <p className="mt-3 text-tinta">
             Você pode cancelar comunicações promocionais a qualquer momento e solicitar acesso, correção ou exclusão dos dados quando aplicável. Dados que precisem ser mantidos por obrigação legal, prevenção a fraude ou comprovação da transação podem ser conservados pelo período necessário.
           </p>
+
+          <h2 className="mt-10 text-tinta">Como falar conosco</h2>
+          <p className="mt-3 text-tinta">
+            Para exercer qualquer um desses direitos, responda ao e-mail de entrega da sua compra ou ao e-mail com que você recebeu o Arsenal Compacto. Respondemos pelo mesmo endereço usado no seu cadastro.
+          </p>
         </div>
       </main>
+      <Footer />
     </div>
   );
 }
