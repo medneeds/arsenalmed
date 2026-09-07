@@ -5,15 +5,26 @@ import { Logo } from "../components/Logo";
 import { PaymentTestModeBanner } from "../components/PaymentTestModeBanner";
 import { StripeEmbeddedCheckout } from "../components/StripeEmbeddedCheckout";
 import { formatCpf, isValidCpf, onlyDigits } from "@/lib/cpf";
-
+import {
+  ARSENAL_COMPARE_AT_PRICE,
+  ARSENAL_DISCOUNT_PERCENT,
+  ARSENAL_PRICE,
+  ARSENAL_SAVINGS,
+} from "@/lib/product";
 
 export const Route = createFileRoute("/comprar")({
   head: () => ({
     meta: [
       { title: "Comprar — Arsenal Med 3.0" },
-      { name: "description", content: "De R$ 149,90 por R$ 99,90. Pagamento único. Pix ou cartão. Acesso imediato ao manual." },
+      {
+        name: "description",
+        content: `${ARSENAL_PRICE}, pagamento único. Manual Completo + Catálogo de Fármacos e Tabelas em bônus. Pix ou cartão.`,
+      },
       { property: "og:title", content: "Comprar — Arsenal Med 3.0" },
-      { property: "og:description", content: "De R$ 149,90 por R$ 99,90. Pagamento único. Pix ou cartão. Acesso imediato ao manual." },
+      {
+        property: "og:description",
+        content: `Manual Completo + Catálogo em bônus. ${ARSENAL_PRICE}, pagamento único. Pix ou cartão.`,
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
@@ -30,11 +41,11 @@ function ComprarPage() {
   const avancar = () => {
     const emailTrim = email.trim();
     if (!emailTrim || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailTrim)) {
-      setErro("Informe um e-mail válido — é nele que o link de download do manual chega.");
+      setErro("Informe um e-mail válido — é nele que você recebe a confirmação e os links de entrega.");
       return;
     }
     if (!isValidCpf(cpf)) {
-      setErro("Informe um CPF válido — ele é usado para identificar sua cópia do manual.");
+      setErro("Informe um CPF válido — ele identifica a licença pessoal dos seus arquivos.");
       return;
     }
     setErro(null);
@@ -44,29 +55,37 @@ function ComprarPage() {
   return (
     <div className="min-h-screen bg-papel text-tinta">
       <Header />
-      <main className="mx-auto max-w-[560px] px-4 pb-20 pt-24 md:px-6">
+      <main className="mx-auto max-w-[600px] px-4 pb-20 pt-24 md:px-6">
         <PaymentTestModeBanner />
 
         <div className="mt-8 flex items-center gap-4 border border-musgo-300 bg-papel p-5">
           <Logo size={44} />
           <div>
-            <p className="label text-ocre">EDIÇÃO COMPLETA</p>
+            <p className="label text-ocre">PACOTE COMPLETO</p>
             <h1 className="font-heading text-xl font-bold uppercase tracking-wide text-tinta">
               Arsenal Med 3.0
             </h1>
             <p className="font-mono text-lg font-semibold text-tinta">
-              <span className="font-medium text-musgo-400 line-through decoration-alerta/60">R$ 149,90</span> R$ 99,90
+              <span className="font-medium text-musgo-400 line-through decoration-alerta/60">{ARSENAL_COMPARE_AT_PRICE}</span>{" "}
+              {ARSENAL_PRICE}
               <span className="ml-2 font-heading text-[12px] font-bold uppercase tracking-[0.12em] text-ocre">
-                −33% · economize R$ 50
+                −{ARSENAL_DISCOUNT_PERCENT}% · economize {ARSENAL_SAVINGS}
               </span>
             </p>
           </div>
         </div>
 
+        <div className="mt-4 border border-musgo-300 bg-papel-2 p-5 text-sm leading-relaxed text-musgo-700">
+          <p className="font-heading font-bold uppercase tracking-[0.08em] text-tinta">Você recebe</p>
+          <p className="mt-2">1. Arsenal Med 3.0 — Manual Completo com 33 cenários.</p>
+          <p>2. Catálogo de Fármacos e Tabelas — segundo volume incluído como bônus.</p>
+          <p className="mt-2">Pagamento único. Após a confirmação, os dois downloads ficam disponíveis nesta página e também são enviados por e-mail.</p>
+        </div>
+
         {!started ? (
           <div className="mt-6 border border-musgo-300 p-5">
             <label htmlFor="email" className="label block text-musgo-600">
-              E-mail para receber o manual
+              E-mail para receber a compra
             </label>
             <input
               id="email"
@@ -78,11 +97,11 @@ function ComprarPage() {
                 setErro(null);
               }}
               placeholder="voce@exemplo.com"
-              className="mt-3 w-full border bg-papel px-4 py-3 font-mono text-sm text-tinta outline-none placeholder:text-musgo-300 focus:border-musgo-500 border-musgo-300"
+              autoComplete="email"
+              className="mt-3 w-full border border-musgo-300 bg-papel px-4 py-3 font-mono text-sm text-tinta outline-none placeholder:text-musgo-300 focus:border-musgo-500"
             />
             <p className="mt-2 text-sm leading-relaxed text-musgo-600">
-              É nele que o link de download chega. Ele também fica estampado no rodapé do seu PDF,
-              junto ao CPF, como identificação da licença pessoal.
+              Use um e-mail a que você tenha acesso. Ele será usado para confirmação, entrega e atualizações da versão 3.x.
             </p>
 
             <label htmlFor="cpf" className="label mt-6 block text-musgo-600">
@@ -105,8 +124,7 @@ function ComprarPage() {
               }`}
             />
             <p className="mt-2 text-sm leading-relaxed text-musgo-600">
-              Sua cópia do manual sai identificada com seu e-mail e CPF no rodapé. É uma licença
-              pessoal e intransferível.
+              O CPF e o e-mail identificam sua licença pessoal e intransferível nos arquivos entregues.
             </p>
             {erro ? <p className="mt-2 text-sm font-semibold text-alerta">{erro}</p> : null}
 
@@ -117,17 +135,23 @@ function ComprarPage() {
               CONTINUAR PARA PAGAMENTO
             </button>
             <p className="mt-4 text-center text-sm text-musgo-600">
-              Pix ou cartão · pagamento processado pela Stripe
+              Pix ou cartão · pagamento processado pela Stripe · garantia de 7 dias
+            </p>
+            <p className="mt-3 text-center text-xs leading-relaxed text-musgo-500">
+              Ao continuar, você concorda com a utilização dos dados necessária para processar a compra e entregar os arquivos. Veja a{" "}
+              <Link to="/privacidade" className="underline underline-offset-2 hover:text-tinta">
+                Política de Privacidade
+              </Link>
+              .
             </p>
           </div>
         ) : (
           <div className="mt-6">
             <StripeEmbeddedCheckout
-              {...(email ? { customerEmail: email } : {})}
+              {...(email ? { customerEmail: email.trim().toLowerCase() } : {})}
               cpf={onlyDigits(cpf)}
             />
           </div>
-
         )}
 
         <p className="mt-8 text-center text-sm text-musgo-600">
