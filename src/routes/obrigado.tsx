@@ -21,10 +21,9 @@ export const Route = createFileRoute("/obrigado")({
   }),
   head: () => ({
     meta: [
-      { title: "Obrigado — Arsenal Med 3.0" },
-      { name: "description", content: "Confirmação da sua compra do Arsenal Med 3.0." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      { title: "Compra — Arsenal Med 3.0" },
+      { name: "description", content: "Confirmação e entrega da compra do Arsenal Med 3.0." },
+      { name: "robots", content: "noindex,nofollow" },
     ],
   }),
   component: ObrigadoPage,
@@ -58,7 +57,6 @@ function ObrigadoPage() {
           setState({ kind: "erro", message: result.message });
           return;
         }
-        // pendente (comum no Pix) — continua verificando por até 5 minutos
         if (Date.now() - startRef.current < POLL_TIMEOUT_MS) {
           setState({ kind: "pendente" });
           timer = setTimeout(check, POLL_INTERVAL_MS);
@@ -66,11 +64,11 @@ function ObrigadoPage() {
           setState({
             kind: "erro",
             message:
-              "Ainda não recebemos a confirmação. Assim que o pagamento for compensado, o link chega no seu e-mail.",
+              "Ainda não recebemos a confirmação. No Pix isso pode levar alguns minutos. Assim que o pagamento for compensado, o acesso é liberado e o e-mail de entrega é enviado.",
           });
         }
       } catch {
-        if (!cancelled) setState({ kind: "erro", message: "Falha ao consultar o pagamento." });
+        if (!cancelled) setState({ kind: "erro", message: "Falha ao consultar o pagamento. Tente atualizar esta página." });
       }
     }
 
@@ -84,7 +82,7 @@ function ObrigadoPage() {
   return (
     <div className="min-h-screen bg-papel text-tinta">
       <Header />
-      <main className="mx-auto max-w-[560px] px-4 pb-20 pt-24 md:px-6">
+      <main className="mx-auto max-w-[600px] px-4 pb-20 pt-24 md:px-6">
         <div className="border border-musgo-300 p-6 text-center md:p-10">
           <div className="flex justify-center">
             <Logo size={56} />
@@ -96,7 +94,7 @@ function ObrigadoPage() {
                 Confirmando pagamento
               </h1>
               <p className="mt-3 text-[16px] leading-relaxed text-musgo-600">
-                Um instante, estamos verificando com a Stripe.
+                Um instante. Estamos consultando a confirmação da Stripe.
               </p>
             </>
           )}
@@ -108,11 +106,10 @@ function ObrigadoPage() {
                 Quase lá
               </h1>
               <p className="mt-3 text-[16px] leading-relaxed text-musgo-600">
-                Pagamento em processamento — normal no Pix. O link de download chega no seu e-mail
-                em alguns minutos. Esta página atualiza sozinha.
+                Isso é comum no Pix. Esta página verifica automaticamente a confirmação a cada 10 segundos.
               </p>
               <p className="mt-6 font-mono text-xs uppercase tracking-widest text-musgo-300">
-                verificando a cada 10 segundos
+                pode manter esta página aberta
               </p>
             </>
           )}
@@ -121,18 +118,17 @@ function ObrigadoPage() {
             <>
               <p className="label mt-6 text-ocre">PAGAMENTO CONFIRMADO</p>
               <h1 className="mt-4 font-heading text-2xl font-bold uppercase tracking-wide">
-                Arsenal à disposição
+                Seu Arsenal está liberado
               </h1>
               <p className="mt-3 text-[16px] leading-relaxed text-musgo-600">
-                Obrigado pela compra. O link também foi enviado para o seu e-mail e fica válido por
-                7 dias, com até 5 downloads.
+                Você recebe dois volumes: o Manual Completo e o Catálogo de Fármacos e Tabelas. O acesso de entrega também foi enviado para seu e-mail e fica disponível por 7 dias.
               </p>
               <Link
                 to="/download"
                 search={{ token: state.token }}
                 className="mt-8 block bg-ocre px-5 py-4 text-center font-heading text-base font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
               >
-                BAIXAR O MANUAL AGORA
+                ACESSAR MEUS DOIS ARQUIVOS
               </Link>
             </>
           )}
@@ -152,8 +148,7 @@ function ObrigadoPage() {
                 Link inválido
               </h1>
               <p className="mt-3 text-[16px] leading-relaxed text-musgo-600">
-                Não encontramos uma compra neste endereço. Se você acabou de pagar, o link chega no
-                seu e-mail.
+                Não encontramos uma sessão de compra neste endereço. Se você acabou de pagar, use a página para a qual a Stripe redirecionou ou o e-mail de entrega.
               </p>
             </>
           )}
