@@ -92,7 +92,7 @@ async function fulfill(session: CheckoutSession): Promise<void> {
     });
   }
 
-  const updatePayload: Record<string, string> = {};
+  const updatePayload: { arquivo_path?: string; catalogo_path?: string } = {};
   if (manualPath) updatePayload["arquivo_path"] = manualPath;
   if (catalogPath) updatePayload["catalogo_path"] = catalogPath;
   if (Object.keys(updatePayload).length > 0) {

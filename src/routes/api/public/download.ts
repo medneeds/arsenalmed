@@ -78,7 +78,12 @@ export const Route = createFileRoute("/api/public/download")({
 
         const { data: updated, error: updateError } = await supabaseAdmin
           .from("compras")
-          .update({ [config.counterColumn]: currentDownloads + 1 })
+          .update(
+            { [config.counterColumn]: currentDownloads + 1 } as {
+              downloads_manual?: number;
+              downloads_catalogo?: number;
+            },
+          )
           .eq("id", compra.id)
           .eq(config.counterColumn, currentDownloads)
           .select("id")
