@@ -1,27 +1,49 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-const MAX_DOWNLOADS = 5;
-const SIGNED_URL_SECONDS = 600; // 10 minutos
-const FILE_PATH = "arsenal-med-3.pdf";
+const MAX_DOWNLOADS_PER_FILE = 5;
+const SIGNED_URL_SECONDS = 600;
 const BUCKET = "downloads";
+
+const FILES = {
+  manual: {
+    masterPath: "arsenal-med-3.pdf",
+    pathColumn: "arquivo_path",
+    counterColumn: "downloads_manual",
+    downloadName: "ArsenalMed-3.0-Manual-Completo.pdf",
+  },
+  catalogo: {
+    masterPath: "arsenal-med-catalogo.pdf",
+    pathColumn: "catalogo_path",
+    counterColumn: "downloads_catalogo",
+    downloadName: "ArsenalMed-Catalogo-Farmacos-e-Tabelas.pdf",
+  },
+} as const;
+
+type FileKind = keyof typeof FILES;
 
 export const Route = createFileRoute("/api/public/download")({
   server: {
     handlers: {
       GET: async ({ request }) => {
-        const token = new URL(request.url).searchParams.get("token");
+        const url = new URL(request.url);
+        const token = url.searchParams.get("token");
+        const kindRaw = url.searchParams.get("arquivo") ?? "manual";
         if (!token || !/^[0-9a-f-]{36}$/i.test(token)) {
           return Response.json({ error: "Link de download inválido." }, { status: 400 });
         }
+        if (kindRaw !== "manual" && kindRaw !== "catalogo") {
+          return Response.json({ error: "Arquivo inválido." }, { status: 400 });
+        }
+        const kind = kindRaw as FileKind;
+        const config = FILES[kind];
 
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
         const { data: compra, error } = await supabaseAdmin
           .from("compras")
-          .select("id, downloads, expira_em, status, arquivo_path")
+          .select("id, expira_em, status, arquivo_path, catalogo_path, downloads_manual, downloads_catalogo")
           .eq("token_download", token)
           .maybeSingle();
-
 
         if (error || !compra) {
           return Response.json({ error: "Link de download inválido." }, { status: 404 });
@@ -31,38 +53,48 @@ export const Route = createFileRoute("/api/public/download")({
         }
         if (new Date(compra.expira_em).getTime() < Date.now()) {
           return Response.json(
-            { error: "Este link expirou. Fale com o suporte para receber um novo." },
+            { error: "Este acesso expirou. Fale com o suporte para receber um novo link." },
             { status: 410 },
           );
         }
-        if (compra.downloads >= MAX_DOWNLOADS) {
+
+        const currentDownloads = Number(compra[config.counterColumn] ?? 0);
+        if (currentDownloads >= MAX_DOWNLOADS_PER_FILE) {
           return Response.json(
-            { error: "Limite de downloads atingido. Fale com o suporte." },
+            { error: "Limite de downloads deste arquivo atingido. Fale com o suporte." },
             { status: 429 },
           );
         }
 
-        const { error: updateError } = await supabaseAdmin
-          .from("compras")
-          .update({ downloads: compra.downloads + 1 })
-          .eq("id", compra.id);
-        if (updateError) {
-          console.error("falha ao incrementar downloads:", updateError);
-        }
-
-        // Serve a cópia personalizada quando existir; senão, o arquivo mestre.
+        const storagePath = (compra[config.pathColumn] as string | null) ?? config.masterPath;
         const { data: signed, error: signError } = await supabaseAdmin.storage
           .from(BUCKET)
-          .createSignedUrl(compra.arquivo_path ?? FILE_PATH, SIGNED_URL_SECONDS);
+          .createSignedUrl(storagePath, SIGNED_URL_SECONDS, { download: config.downloadName });
 
         if (signError || !signed?.signedUrl) {
-          console.error("falha ao assinar URL:", signError);
+          console.error(`falha ao assinar URL ${kind}:`, signError);
           return Response.json({ error: "Arquivo indisponível no momento." }, { status: 500 });
+        }
+
+        const { data: updated, error: updateError } = await supabaseAdmin
+          .from("compras")
+          .update({ [config.counterColumn]: currentDownloads + 1 })
+          .eq("id", compra.id)
+          .eq(config.counterColumn, currentDownloads)
+          .select("id")
+          .maybeSingle();
+
+        if (updateError || !updated) {
+          return Response.json(
+            { error: "Este link foi usado em outra janela. Tente novamente." },
+            { status: 409 },
+          );
         }
 
         return Response.json({
           url: signed.signedUrl,
-          downloadsRestantes: MAX_DOWNLOADS - (compra.downloads + 1),
+          arquivo: kind,
+          downloadsRestantes: MAX_DOWNLOADS_PER_FILE - (currentDownloads + 1),
         });
       },
     },
