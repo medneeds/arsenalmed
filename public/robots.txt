@@ -12,3 +12,7 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /obrigado
+Disallow: /download
+
+Sitemap: https://arsenalmed.com.br/sitemap.xml
