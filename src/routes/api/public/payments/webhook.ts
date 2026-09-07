@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { type StripeEnv, verifyWebhook } from "@/lib/stripe.server";
 import { sendDeliveryEmail } from "@/lib/delivery-email.server";
 
+
 type CheckoutSession = {
   id: string;
   payment_status: string;
@@ -32,7 +33,6 @@ async function fulfill(session: CheckoutSession): Promise<void> {
 
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-  // Idempotente: stripe_session_id é único; conflito = já processado.
   const { data, error } = await supabaseAdmin
     .from("compras")
     .upsert(
@@ -46,7 +46,7 @@ async function fulfill(session: CheckoutSession): Promise<void> {
       },
       { onConflict: "stripe_session_id", ignoreDuplicates: true },
     )
-    .select("id, token_download")
+    .select("id, token_download, arquivo_path, catalogo_path")
     .maybeSingle();
 
   if (error) {
@@ -54,35 +54,57 @@ async function fulfill(session: CheckoutSession): Promise<void> {
     throw error;
   }
 
-  let token = data?.token_download as string | undefined;
-  let compraId = data?.id as string | undefined;
-  if (!token) {
-    // Já existia (evento duplicado ou async após completed) — só busca o token.
-    const { data: existing } = await supabaseAdmin
+  let compra = data;
+  if (!compra) {
+    const { data: existing, error: existingError } = await supabaseAdmin
       .from("compras")
-      .select("id, token_download, criado_em")
+      .select("id, token_download, arquivo_path, catalogo_path")
       .eq("stripe_session_id", session.id)
       .maybeSingle();
-    // Se foi criado há menos de 2 min, não reenvia e-mail (já enviado).
-    if (existing?.criado_em && Date.now() - new Date(existing.criado_em).getTime() < 120_000) return;
-    token = existing?.token_download ?? undefined;
-    compraId = existing?.id ?? undefined;
+    if (existingError) throw existingError;
+    compra = existing;
   }
 
-  // Cópia individual do e-book, com e-mail e CPF estampados no rodapé.
-  if (compraId) {
-    const { generatePersonalizedPdf } = await import("@/lib/pdf-personalize.server");
-    const arquivoPath = await generatePersonalizedPdf({ compraId, email, cpf });
-    if (arquivoPath) {
-      await supabaseAdmin.from("compras").update({ arquivo_path: arquivoPath }).eq("id", compraId);
-    }
+  if (!compra?.id || !compra.token_download) {
+    throw new Error(`Compra paga sem token/id disponível: ${session.id}`);
   }
 
-  if (token) {
-    await sendDeliveryEmail(email, token);
+  const { generatePersonalizedPdf } = await import("@/lib/pdf-personalize.server");
+
+  let manualPath = compra.arquivo_path as string | null;
+  let catalogPath = compra.catalogo_path as string | null;
+
+  if (!manualPath) {
+    manualPath = await generatePersonalizedPdf({
+      compraId: compra.id,
+      email,
+      cpf,
+      kind: "manual",
+    });
   }
+
+  if (!catalogPath) {
+    catalogPath = await generatePersonalizedPdf({
+      compraId: compra.id,
+      email,
+      cpf,
+      kind: "catalogo",
+    });
+  }
+
+  const updatePayload: Record<string, string> = {};
+  if (manualPath) updatePayload["arquivo_path"] = manualPath;
+  if (catalogPath) updatePayload["catalogo_path"] = catalogPath;
+  if (Object.keys(updatePayload).length > 0) {
+    const { error: updateError } = await supabaseAdmin
+      .from("compras")
+      .update(updatePayload)
+      .eq("id", compra.id);
+    if (updateError) console.error("falha ao salvar caminhos personalizados:", updateError);
+  }
+
+  await sendDeliveryEmail(email, compra.token_download);
 }
-
 
 async function handleWebhook(req: Request, env: StripeEnv) {
   const event = await verifyWebhook(req, env);
@@ -90,8 +112,6 @@ async function handleWebhook(req: Request, env: StripeEnv) {
   switch (event.type) {
     case "checkout.session.completed": {
       const session = event.data.object as CheckoutSession;
-      // Pix: completed dispara quando o pagamento é SUBMETIDO, com
-      // payment_status "unpaid". Nesse caso aguarda async_payment_succeeded.
       if (session.payment_status !== "unpaid") {
         await fulfill(session);
       } else {
@@ -100,7 +120,6 @@ async function handleWebhook(req: Request, env: StripeEnv) {
       break;
     }
     case "checkout.session.async_payment_succeeded": {
-      // Pix liquidado — entrega agora.
       await fulfill(event.data.object as CheckoutSession);
       break;
     }
