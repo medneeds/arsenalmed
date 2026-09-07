@@ -11,6 +11,7 @@ import { Autor } from "../components/Autor";
 import { Preco } from "../components/Preco";
 import { Faq } from "../components/Faq";
 import { Compacto } from "../components/Compacto";
+import { Footer } from "../components/Footer";
 import { PaymentTestModeBanner } from "../components/PaymentTestModeBanner";
 import { track } from "@/lib/analytics";
 import {
@@ -89,6 +90,7 @@ function Index() {
         <Faq />
         <Compacto />
       </main>
+      <Footer />
     </div>
   );
 }

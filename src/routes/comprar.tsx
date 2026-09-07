@@ -63,7 +63,7 @@ function ComprarPage() {
       <main className="mx-auto max-w-[600px] px-4 pb-20 pt-24 md:px-6">
         <PaymentTestModeBanner />
 
-        <div className="mt-8 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 border border-musgo-300 bg-papel p-5">
+        <div className="mt-8 flex flex-col gap-4 border border-musgo-300 bg-papel p-5 sm:grid sm:grid-cols-[auto_minmax(0,1fr)] sm:items-center">
           <Logo size={44} />
           <div className="min-w-0">
             <p className="label text-ocre">PACOTE COMPLETO</p>
