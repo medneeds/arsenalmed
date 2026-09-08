@@ -24,7 +24,7 @@ export function Preco() {
 
         <div className="mt-6">
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-            <span className="font-mono text-xl font-medium text-musgo-200 line-through decoration-alerta decoration-2">
+            <span className="font-mono text-xl font-medium text-musgo-100 line-through decoration-alerta decoration-2">
               {ARSENAL_COMPARE_AT_PRICE}
             </span>
             <span className="font-heading text-[12px] font-bold uppercase tracking-[0.12em] text-ocre">
