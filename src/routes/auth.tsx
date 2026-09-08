@@ -22,7 +22,7 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
-  const [modo, setModo] = useState<"entrar" | "criar">("entrar");
+  
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState<string | null>(null);
@@ -35,34 +35,15 @@ function AuthPage() {
     setAviso(null);
     setCarregando(true);
     try {
-      if (modo === "criar") {
-        const { data, error } = await supabase.auth.signUp({
-          email: email.trim(),
-          password: senha,
-          options: { emailRedirectTo: `${window.location.origin}/admin` },
-        });
-        if (error) throw error;
-        if (!data.session) {
-          setAviso("Conta criada. Confirme o e-mail que enviamos para concluir o acesso.");
-          return;
-        }
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({
-          email: email.trim(),
-          password: senha,
-        });
-        if (error) throw error;
-      }
+      const { error } = await supabase.auth.signInWithPassword({
+        email: email.trim(),
+        password: senha,
+      });
+      if (error) throw error;
       await navigate({ to: "/admin", replace: true });
     } catch (e) {
       const msg = e instanceof Error ? e.message : "Não foi possível entrar.";
-      setErro(
-        /invalid login/i.test(msg)
-          ? "E-mail ou senha incorretos."
-          : /already registered/i.test(msg)
-            ? "Esse e-mail já tem conta. Use a opção de entrar."
-            : msg,
-      );
+      setErro(/invalid login/i.test(msg) ? "E-mail ou senha incorretos." : msg);
     } finally {
       setCarregando(false);
     }
@@ -74,10 +55,9 @@ function AuthPage() {
         <p className="label text-ocre">ÁREA RESTRITA</p>
         <h1 className="mt-3 text-2xl text-papel">Painel Arsenal Med</h1>
         <p className="mt-2 text-sm text-musgo-300">
-          {modo === "entrar"
-            ? "Entre com o e-mail e a senha do administrador."
-            : "Crie a conta do administrador."}
+          Entre com o e-mail e a senha do administrador.
         </p>
+
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
@@ -103,7 +83,7 @@ function AuthPage() {
               type="password"
               required
               minLength={8}
-              autoComplete={modo === "criar" ? "new-password" : "current-password"}
+              autoComplete="current-password"
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
               className="mt-2 h-12 w-full rounded-[2px] border-2 border-musgo-600 bg-musgo-900 px-3 font-mono text-sm text-papel outline-none focus-visible:border-ocre"
@@ -126,21 +106,10 @@ function AuthPage() {
             disabled={carregando}
             className="h-12 w-full rounded-[2px] bg-ocre font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 disabled:opacity-60"
           >
-            {carregando ? "Aguarde…" : modo === "entrar" ? "Entrar" : "Criar conta"}
+            {carregando ? "Aguarde…" : "Entrar"}
           </button>
         </form>
 
-        <button
-          type="button"
-          onClick={() => {
-            setModo(modo === "entrar" ? "criar" : "entrar");
-            setErro(null);
-            setAviso(null);
-          }}
-          className="mt-5 text-sm text-musgo-300 underline underline-offset-4 hover:text-papel"
-        >
-          {modo === "entrar" ? "Ainda não tenho conta" : "Já tenho conta"}
-        </button>
       </div>
     </main>
   );
