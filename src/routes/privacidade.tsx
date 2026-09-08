@@ -58,7 +58,11 @@ function Privacidade() {
 
           <h2 className="mt-10 text-tinta">Como falar conosco</h2>
           <p className="mt-3 text-tinta">
-            Para exercer qualquer um desses direitos, responda ao e-mail de entrega da sua compra ou ao e-mail com que você recebeu o Arsenal Compacto. Respondemos pelo mesmo endereço usado no seu cadastro.
+            Para exercer qualquer um desses direitos, escreva para{" "}
+            <a href="mailto:suporte@arsenalmed.com.br" className="font-semibold underline underline-offset-2">
+              suporte@arsenalmed.com.br
+            </a>{" "}
+            ou responda ao e-mail de entrega da sua compra. Respondemos pelo mesmo endereço usado no seu cadastro.
           </p>
         </div>
       </main>

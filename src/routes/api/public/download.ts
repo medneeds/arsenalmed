@@ -53,7 +53,7 @@ export const Route = createFileRoute("/api/public/download")({
         }
         if (new Date(compra.expira_em).getTime() < Date.now()) {
           return Response.json(
-            { error: "Este acesso expirou. Fale com o suporte para receber um novo link." },
+            { error: "Este acesso expirou. Escreva para suporte@arsenalmed.com.br para receber um novo link." },
             { status: 410 },
           );
         }
@@ -61,7 +61,7 @@ export const Route = createFileRoute("/api/public/download")({
         const currentDownloads = Number(compra[config.counterColumn] ?? 0);
         if (currentDownloads >= MAX_DOWNLOADS_PER_FILE) {
           return Response.json(
-            { error: "Limite de downloads deste arquivo atingido. Fale com o suporte." },
+            { error: "Limite de downloads deste arquivo atingido. Escreva para suporte@arsenalmed.com.br." },
             { status: 429 },
           );
         }

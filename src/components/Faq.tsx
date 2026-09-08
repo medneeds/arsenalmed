@@ -23,7 +23,7 @@ const FAQS = [
   },
   {
     q: "E SE NÃO SERVIR PARA MIM?",
-    a: "Você tem 7 dias para solicitar reembolso integral. Use o canal de suporte informado no e-mail e na confirmação da compra.",
+    a: "Você tem 7 dias para solicitar reembolso integral. Escreva para suporte@arsenalmed.com.br a partir do e-mail usado na compra.",
   },
   {
     q: "ISSO SUBSTITUI MINHA DECISÃO CLÍNICA?",

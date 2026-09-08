@@ -149,7 +149,11 @@ function ObrigadoPage() {
               <p className="mt-4 text-[15px] leading-relaxed text-musgo-600">
                 Se o valor foi debitado, a compra está registrada: o e-mail de entrega é enviado assim que a Stripe
                 confirmar. Não pague de novo — atualize esta página em alguns minutos ou responda ao e-mail da
-                Stripe para falar com o suporte.
+                Stripe ou escreva para{" "}
+                <a href="mailto:suporte@arsenalmed.com.br" className="font-semibold underline underline-offset-2">
+                  suporte@arsenalmed.com.br
+                </a>{" "}
+                para falar com o suporte.
               </p>
               <button
                 type="button"
