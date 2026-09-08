@@ -5,6 +5,7 @@
 export type FunnelEvent =
   | "view_landing"
   | "click_buy"
+  | "explore_product"
   | "open_compacto"
   | "submit_compacto"
   | "checkout_started"
