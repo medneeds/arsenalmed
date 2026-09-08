@@ -41,9 +41,22 @@ const PERIODOS = [
   { dias: 90, label: "90 dias" },
 ] as const;
 
+const NAV_ITEMS = [
+  { id: "visao-geral", label: "Visão geral", icon: LayoutDashboard },
+  { id: "faturamento", label: "Faturamento", icon: DollarSign },
+  { id: "leads", label: "Leads", icon: Users },
+  { id: "funil", label: "Funil", icon: Filter },
+  { id: "compras", label: "Compras e downloads", icon: Table2 },
+] as const;
+
 function dataCurta(dia: string) {
   const [, m, d] = dia.split("-");
   return `${d}/${m}`;
+}
+
+function rolarPara(id: string) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function dataHora(iso: string) {
