@@ -115,7 +115,23 @@ function AdminPage() {
     retry: false,
   });
 
+  const [sincronizando, setSincronizando] = useState(false);
+  const atualizadoEm = useMemo(() => {
+    const ts = Math.max(query.dataUpdatedAt ?? 0, stripeQuery.dataUpdatedAt ?? 0);
+    return ts ? new Date(ts) : null;
+  }, [query.dataUpdatedAt, stripeQuery.dataUpdatedAt]);
+
+  async function sincronizar() {
+    setSincronizando(true);
+    try {
+      await Promise.all([query.refetch(), stripeQuery.refetch()]);
+    } finally {
+      setSincronizando(false);
+    }
+  }
+
   const semPermissao = query.isError && /forbidden/i.test(String(query.error));
+
 
   async function sair() {
     await queryClient.cancelQueries();
@@ -248,12 +264,28 @@ function AdminPage() {
         {/* Conteúdo */}
         <main className="min-w-0 flex-1 px-4 py-8 md:px-8 md:py-12">
           <div className="mx-auto max-w-[1100px]">
-            <header className="hidden flex-wrap items-end justify-between gap-4 border-b-2 border-musgo-700 pb-5 md:flex">
-              <div>
+            <header className="flex flex-wrap items-end justify-between gap-4 border-b-2 border-musgo-700 pb-5">
+              <div className="hidden md:block">
                 <p className="label text-ocre">PAINEL INTERNO</p>
                 <h1 className="mt-2 text-2xl text-papel md:text-3xl">Arsenal Med — Acompanhamento</h1>
               </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <p className="font-mono text-xs text-musgo-300">
+                  {atualizadoEm
+                    ? `Atualizado às ${atualizadoEm.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })}`
+                    : "Sincronizando…"}
+                </p>
+                <button
+                  type="button"
+                  onClick={sincronizar}
+                  disabled={sincronizando}
+                  className="h-11 rounded-[2px] border-2 border-ocre px-4 font-heading text-xs font-bold uppercase tracking-[0.12em] text-ocre transition-colors hover:bg-ocre hover:text-musgo-900 disabled:opacity-60"
+                >
+                  {sincronizando ? "Atualizando…" : "Atualizar dados"}
+                </button>
+              </div>
             </header>
+
 
             {semPermissao ? (
               <section className="mt-10 border-2 border-musgo-700 bg-musgo-800 p-6">
