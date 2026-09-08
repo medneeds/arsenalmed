@@ -100,6 +100,21 @@ function AdminPage() {
     retry: false,
   });
 
+  const fetchStripe = useServerFn(getStripeArsenalResumo);
+  const stripeQuery = useQuery<StripeResumoResult>({
+    queryKey: ["admin-stripe-arsenal", dias],
+    queryFn: () => {
+      let environment: "sandbox" | "live";
+      try {
+        environment = getStripeEnvironment();
+      } catch {
+        environment = "live";
+      }
+      return fetchStripe({ data: { dias, environment } });
+    },
+    retry: false,
+  });
+
   const semPermissao = query.isError && /forbidden/i.test(String(query.error));
 
   async function sair() {
