@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CompactoRouteImport } from './routes/compacto'
 import { Route as ComprarRouteImport } from './routes/comprar'
 import { Route as DownloadRouteImport } from './routes/download'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
@@ -21,6 +22,11 @@ import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/l
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompactoRoute = CompactoRouteImport.update({
+  id: '/compacto',
+  path: '/compacto',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ComprarRoute = ComprarRouteImport.update({
@@ -63,6 +69,7 @@ const LovableEmailTransactionalPreviewRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/compacto': typeof CompactoRoute
   '/comprar': typeof ComprarRoute
   '/download': typeof DownloadRoute
   '/obrigado': typeof ObrigadoRoute
@@ -73,6 +80,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/compacto': typeof CompactoRoute
   '/comprar': typeof ComprarRoute
   '/download': typeof DownloadRoute
   '/obrigado': typeof ObrigadoRoute
@@ -84,6 +92,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/compacto': typeof CompactoRoute
   '/comprar': typeof ComprarRoute
   '/download': typeof DownloadRoute
   '/obrigado': typeof ObrigadoRoute
@@ -96,6 +105,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/compacto'
     | '/comprar'
     | '/download'
     | '/obrigado'
@@ -106,6 +116,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/compacto'
     | '/comprar'
     | '/download'
     | '/obrigado'
@@ -116,6 +127,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/compacto'
     | '/comprar'
     | '/download'
     | '/obrigado'
@@ -127,6 +139,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CompactoRoute: typeof CompactoRoute
   ComprarRoute: typeof ComprarRoute
   DownloadRoute: typeof DownloadRoute
   ObrigadoRoute: typeof ObrigadoRoute
@@ -143,6 +156,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compacto': {
+      id: '/compacto'
+      path: '/compacto'
+      fullPath: '/compacto'
+      preLoaderRoute: typeof CompactoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/comprar': {
@@ -199,6 +219,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CompactoRoute: CompactoRoute,
   ComprarRoute: ComprarRoute,
   DownloadRoute: DownloadRoute,
   ObrigadoRoute: ObrigadoRoute,
