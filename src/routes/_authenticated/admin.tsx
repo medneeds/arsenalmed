@@ -400,6 +400,26 @@ function StripeArsenal({
                 Vendas registradas na Stripe:{" "}
                 <span className="text-papel">{ok.vendasTotal}</span>
               </p>
+              <p className="mt-2 font-mono text-xs text-musgo-150">
+                Pix na conta Stripe:{" "}
+                <span
+                  className={
+                    ok.pixStatus === "active"
+                      ? "text-ocre"
+                      : ok.pixStatus === "pending"
+                        ? "text-papel"
+                        : "text-alerta-claro"
+                  }
+                >
+                  {ok.pixStatus === "active"
+                    ? "ATIVO — aparece no checkout"
+                    : ok.pixStatus === "pending"
+                      ? "PENDENTE — aguardando a Stripe"
+                      : ok.pixStatus === "inactive"
+                        ? "INATIVO — ative em Métodos de pagamento"
+                        : "não verificado"}
+                </span>
+              </p>
             </div>
           </div>
 
