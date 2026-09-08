@@ -3,7 +3,7 @@ export const ARSENAL_PRODUCT = {
   lookupKey: "arsenal_med_3_onetime",
   currency: "brl",
   priceCents: 9990,
-  compareAtCents: 14990,
+  compareAtCents: 19990,
   version: "3.0",
   manualLabel: "Arsenal Med 3.0 — Manual Completo",
   catalogLabel: "Catálogo de Fármacos e Tabelas",
