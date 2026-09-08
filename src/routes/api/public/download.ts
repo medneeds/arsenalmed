@@ -53,7 +53,7 @@ export const Route = createFileRoute("/api/public/download")({
         }
         if (new Date(compra.expira_em).getTime() < Date.now()) {
           return Response.json(
-            { error: "Este acesso expirou. Fale com o suporte para receber um novo link." },
+            { error: "Este acesso expirou. Escreva para suporte@arsenalmed.com.br para receber um novo link." },
             { status: 410 },
           );
         }
