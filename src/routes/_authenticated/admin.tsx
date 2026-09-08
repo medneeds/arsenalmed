@@ -345,7 +345,8 @@ function Dashboard({
         <Grafico serie={serie} chave="compras" cor="var(--ferrugem, #8E2A20)" />
       </Bloco>
 
-      <Bloco titulo={`Funil de conversão — últimos ${dias} dias`}>
+      <div id="funil" className="scroll-mt-24">
+        <Bloco titulo={`Funil de conversão — últimos ${dias} dias`}>
         <ul className="space-y-4">
           {funil.map((etapa) => (
             <li key={etapa.label}>
