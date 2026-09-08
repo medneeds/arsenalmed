@@ -115,7 +115,23 @@ function AdminPage() {
     retry: false,
   });
 
+  const [sincronizando, setSincronizando] = useState(false);
+  const atualizadoEm = useMemo(() => {
+    const ts = Math.max(query.dataUpdatedAt ?? 0, stripeQuery.dataUpdatedAt ?? 0);
+    return ts ? new Date(ts) : null;
+  }, [query.dataUpdatedAt, stripeQuery.dataUpdatedAt]);
+
+  async function sincronizar() {
+    setSincronizando(true);
+    try {
+      await Promise.all([query.refetch(), stripeQuery.refetch()]);
+    } finally {
+      setSincronizando(false);
+    }
+  }
+
   const semPermissao = query.isError && /forbidden/i.test(String(query.error));
+
 
   async function sair() {
     await queryClient.cancelQueries();
