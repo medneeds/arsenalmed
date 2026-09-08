@@ -133,6 +133,15 @@ export const getStripeArsenalResumo = createServerFn({ method: "POST" })
         }
       }
 
+      let pixStatus: StripeResumo["pixStatus"] = "desconhecido";
+      try {
+        const conta = await stripe.accounts.retrieve();
+        const pix = conta.capabilities?.pix_payments;
+        pixStatus = pix === "active" ? "active" : pix === "pending" ? "pending" : "inactive";
+      } catch {
+        pixStatus = "desconhecido";
+      }
+
       const totalCentavos = soma(vendas);
       return {
         ok: true,
@@ -150,6 +159,7 @@ export const getStripeArsenalResumo = createServerFn({ method: "POST" })
         serie: [...serieMapa.values()],
         vendas: vendas.slice(0, 100),
         periodoDias: data.dias,
+        pixStatus,
       };
     } catch (error) {
       const { getStripeErrorMessage } = await import("@/lib/stripe.server");
