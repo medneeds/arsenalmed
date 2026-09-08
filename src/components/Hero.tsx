@@ -34,7 +34,7 @@ export function Hero() {
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
-              href="#conteudo"
+              href="#preco"
               onClick={() => track("explore_product", { origem: "hero" })}
               className="flex min-h-12 items-center justify-center bg-ocre px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-100"
             >
