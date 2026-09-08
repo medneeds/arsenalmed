@@ -48,7 +48,7 @@ export const getStripeArsenalResumo = createServerFn({ method: "POST" })
     if (!isAdmin) throw new Error("Forbidden");
 
     try {
-      const { createStripeClient, getStripeErrorMessage } = await import("@/lib/stripe.server");
+      const { createStripeClient } = await import("@/lib/stripe.server");
       const stripe = createStripeClient(data.environment);
 
       // Preços do Arsenal Med (todos os preços do mesmo produto, ativos ou não)
