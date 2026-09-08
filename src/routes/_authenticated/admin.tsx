@@ -312,7 +312,7 @@ function Dashboard({
         ))}
       </div>
 
-      <section className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <section id="visao-geral" className="mt-6 scroll-mt-24 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <Kpi titulo="Faturamento total" valor={formatBrl(data.receita.totalCentavos)} />
         <Kpi titulo="Hoje" valor={formatBrl(data.receita.hojeCentavos)} />
         <Kpi titulo="Últimos 7 dias" valor={formatBrl(data.receita.seteDiasCentavos)} />
@@ -329,13 +329,17 @@ function Dashboard({
         <Kpi titulo="Ticket médio" valor={formatBrl(data.receita.ticketMedioCentavos)} />
       </section>
 
-      <Bloco titulo="Faturamento por dia">
-        <Grafico serie={serie} chave="receitaCentavos" cor="var(--ocre)" moeda />
-      </Bloco>
+      <div id="faturamento" className="scroll-mt-24">
+        <Bloco titulo="Faturamento por dia">
+          <Grafico serie={serie} chave="receitaCentavos" cor="var(--ocre)" moeda />
+        </Bloco>
+      </div>
 
-      <Bloco titulo="Leads captados por dia">
-        <Grafico serie={serie} chave="leads" cor="var(--musgo-300)" />
-      </Bloco>
+      <div id="leads" className="scroll-mt-24">
+        <Bloco titulo="Leads captados por dia">
+          <Grafico serie={serie} chave="leads" cor="var(--musgo-300)" />
+        </Bloco>
+      </div>
 
       <Bloco titulo="Compras pagas por dia">
         <Grafico serie={serie} chave="compras" cor="var(--ferrugem, #8E2A20)" />
