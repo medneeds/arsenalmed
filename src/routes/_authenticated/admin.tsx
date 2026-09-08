@@ -30,7 +30,7 @@ import {
   getStripeArsenalResumo,
   type StripeResumoResult,
 } from "@/lib/admin-stripe.functions";
-import { getStripeEnvironment } from "@/lib/stripe";
+
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
@@ -103,15 +103,8 @@ function AdminPage() {
   const fetchStripe = useServerFn(getStripeArsenalResumo);
   const stripeQuery = useQuery<StripeResumoResult>({
     queryKey: ["admin-stripe-arsenal", dias],
-    queryFn: () => {
-      let environment: "sandbox" | "live";
-      try {
-        environment = getStripeEnvironment();
-      } catch {
-        environment = "live";
-      }
-      return fetchStripe({ data: { dias, environment } });
-    },
+    queryFn: () => fetchStripe({ data: { dias, environment: "live" } }),
+
     retry: false,
   });
 
