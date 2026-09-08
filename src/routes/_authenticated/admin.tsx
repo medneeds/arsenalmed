@@ -12,6 +12,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { LayoutDashboard, DollarSign, Users, Filter, Table2, LogOut, Menu, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { formatBrl } from "@/lib/product";
 import { claimAdmin, getAdminDashboard, type DashboardData } from "@/lib/admin.functions";
