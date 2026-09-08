@@ -1,11 +1,6 @@
 import { CrateIllustration } from "./CrateIllustration";
 import { LeadCaptureModal } from "./LeadCaptureModal";
 import { track } from "@/lib/analytics";
-import {
-  ARSENAL_COMPARE_AT_PRICE,
-  ARSENAL_DISCOUNT_PERCENT,
-  ARSENAL_PRICE,
-} from "@/lib/product";
 
 export function Hero() {
   return (
@@ -20,7 +15,7 @@ export function Hero() {
             O guia de bolso do plantão,
             <br />
             organizado por cenário
-            <span className="mt-2 block text-ocre">— não por classe farmacológica.</span>
+            <span className="mt-2 block text-[20px] text-ocre sm:text-[22px] md:text-[28px]">— não por classe farmacológica.</span>
           </h1>
           <p className="mt-6 inline-block bg-alerta px-3 py-1.5 font-heading text-[12px] font-semibold uppercase tracking-[0.1em] text-papel sm:text-[13px] sm:tracking-[0.12em]">
             Para o paciente grave — ou potencialmente grave.
@@ -38,7 +33,7 @@ export function Hero() {
               onClick={() => track("explore_product", { origem: "hero" })}
               className="flex min-h-12 items-center justify-center bg-ocre px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-100"
             >
-              QUERO O ARSENAL — {ARSENAL_PRICE}
+              QUERO O ARSENAL
             </a>
             <LeadCaptureModal origem="hero">
               <button
@@ -49,9 +44,6 @@ export function Hero() {
               </button>
             </LeadCaptureModal>
           </div>
-          <p className="mt-4 text-sm text-musgo-300">
-            De {ARSENAL_COMPARE_AT_PRICE} por {ARSENAL_PRICE} · {ARSENAL_DISCOUNT_PERCENT}% de desconto · pagamento único · garantia de 7 dias
-          </p>
           <p className="mt-6 font-heading text-[11px] font-semibold uppercase tracking-[0.1em] text-musgo-500 md:text-xs">
             2 VOLUMES · 33 CENÁRIOS · MANUAL COMPLETO + CATÁLOGO DE FÁRMACOS E 10 TABELAS EM BÔNUS
           </p>
