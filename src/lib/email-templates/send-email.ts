@@ -77,7 +77,7 @@ export async function sendTemplateEmail(
         purpose: 'transactional',
         label: templateName,
         idempotency_key: options.idempotencyKey || crypto.randomUUID(),
-        ...(options.replyTo ? { reply_to: options.replyTo } : {}),
+        reply_to: options.replyTo || 'suporte@arsenalmed.com.br',
       },
       { apiKey, sendUrl: process.env['LOVABLE_SEND_URL'] }
     )
