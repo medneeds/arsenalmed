@@ -92,6 +92,33 @@ function ComprarPage() {
           <p className="mt-2">Garantia de 7 dias: reembolso integral, sem justificativa.</p>
         </div>
 
+        <ul className="mt-4 grid gap-3 border border-musgo-300 bg-papel p-5 text-sm leading-relaxed text-musgo-700 sm:grid-cols-2">
+          <li className="flex gap-3">
+            <span aria-hidden="true" className="mt-[2px] font-mono text-ocre">
+              ▮
+            </span>
+            <span>
+              <span className="block font-heading font-bold uppercase tracking-[0.08em] text-tinta">
+                Pagamento seguro via Stripe
+              </span>
+              Cobrança processada pela Stripe, em ambiente oficial. Pix ou cartão — os dados do cartão são digitados
+              direto na Stripe e não passam por este site.
+            </span>
+          </li>
+          <li className="flex gap-3">
+            <span aria-hidden="true" className="mt-[2px] font-mono text-ocre">
+              ▮
+            </span>
+            <span>
+              <span className="block font-heading font-bold uppercase tracking-[0.08em] text-tinta">
+                Entrega imediata
+              </span>
+              Assim que o pagamento é confirmado, os dois volumes ficam disponíveis para download na hora e o mesmo
+              acesso chega ao seu e-mail. No Pix, a confirmação costuma levar poucos segundos.
+            </span>
+          </li>
+        </ul>
+
         {!started ? (
           <div className="mt-6 border border-musgo-300 p-5">
             <label htmlFor="email" className="label block text-musgo-600">
