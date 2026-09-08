@@ -405,7 +405,7 @@ function StripeArsenal({
                 <span
                   className={
                     ok.pixStatus === "active"
-                      ? "text-ocre-400"
+                      ? "text-ocre"
                       : ok.pixStatus === "pending"
                         ? "text-papel"
                         : "text-alerta-claro"
