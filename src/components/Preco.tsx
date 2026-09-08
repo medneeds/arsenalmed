@@ -23,7 +23,7 @@ export function Preco() {
         <h2 className="mt-4 text-papel">Arsenal Med 3.0</h2>
 
         <div className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-2">
-          <span className="font-mono text-2xl font-medium text-musgo-400 line-through decoration-alerta/60">
+          <span className="font-mono text-2xl font-medium text-musgo-200 line-through decoration-alerta decoration-2">
             {ARSENAL_COMPARE_AT_PRICE}
           </span>
           <span className="font-mono text-5xl font-semibold text-papel md:text-6xl">{ARSENAL_PRICE}</span>
