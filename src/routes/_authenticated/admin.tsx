@@ -112,67 +112,163 @@ function AdminPage() {
     () => Math.max(1, ...serie.map((d) => d.receitaCentavos)),
     [serie],
   );
+  const [menuAberto, setMenuAberto] = useState(false);
+
+  function navegar(id: string) {
+    setMenuAberto(false);
+    rolarPara(id);
+  }
+
+  const sidebarNav = (
+    <nav className="flex flex-1 flex-col gap-1 px-3" aria-label="Seções do painel">
+      {NAV_ITEMS.map((item) => (
+        <button
+          key={item.id}
+          type="button"
+          onClick={() => navegar(item.id)}
+          className="flex h-11 items-center gap-3 rounded-[2px] px-3 text-left font-heading text-xs font-bold uppercase tracking-[0.12em] text-musgo-150 transition-colors hover:bg-musgo-800 hover:text-papel focus-visible:bg-musgo-800 focus-visible:text-papel focus-visible:outline-none"
+        >
+          <item.icon className="h-4 w-4 shrink-0 text-ocre" aria-hidden />
+          <span>{item.label}</span>
+        </button>
+      ))}
+    </nav>
+  );
+
+  const sidebarTop = (
+    <div className="border-b-2 border-musgo-700 px-5 py-5">
+      <p className="label text-ocre">PAINEL INTERNO</p>
+      <p className="mt-1 font-heading text-sm font-bold uppercase tracking-[0.12em] text-papel">
+        Arsenal Med
+      </p>
+    </div>
+  );
+
+  const sidebarFooter = (
+    <div className="border-t-2 border-musgo-700 p-3">
+      <button
+        type="button"
+        onClick={sair}
+        className="flex h-11 w-full items-center gap-3 rounded-[2px] px-3 font-heading text-xs font-bold uppercase tracking-[0.12em] text-musgo-150 transition-colors hover:border-ocre hover:text-papel"
+      >
+        <LogOut className="h-4 w-4 shrink-0 text-ferrugem" aria-hidden />
+        <span>Sair</span>
+      </button>
+    </div>
+  );
 
   return (
-    <main className="min-h-screen bg-musgo-900 px-4 py-8 md:px-8 md:py-12">
-      <div className="mx-auto max-w-[1100px]">
-        <header className="flex flex-wrap items-end justify-between gap-4 border-b-2 border-musgo-700 pb-5">
-          <div>
-            <p className="label text-ocre">PAINEL INTERNO</p>
-            <h1 className="mt-2 text-2xl text-papel md:text-3xl">Arsenal Med — Acompanhamento</h1>
-          </div>
+    <div className="min-h-screen bg-musgo-900">
+      {/* Topbar mobile */}
+      <div className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b-2 border-musgo-700 bg-musgo-900 px-4 md:hidden">
+        <button
+          type="button"
+          onClick={() => setMenuAberto(true)}
+          aria-label="Abrir menu"
+          aria-expanded={menuAberto}
+          className="flex h-11 w-11 items-center justify-center rounded-[2px] border-2 border-musgo-600 text-musgo-150 hover:border-ocre hover:text-papel"
+        >
+          <Menu className="h-5 w-5" aria-hidden />
+        </button>
+        <p className="font-heading text-sm font-bold uppercase tracking-[0.12em] text-papel">
+          Painel · Arsenal Med
+        </p>
+      </div>
+
+      {/* Drawer mobile */}
+      {menuAberto ? (
+        <div className="fixed inset-0 z-40 md:hidden" role="dialog" aria-modal="true" aria-label="Menu do painel">
           <button
             type="button"
-            onClick={sair}
-            className="h-11 rounded-[2px] border-2 border-musgo-600 px-4 font-heading text-xs font-bold uppercase tracking-[0.12em] text-musgo-150 hover:border-ocre hover:text-papel"
-          >
-            Sair
-          </button>
-        </header>
+            aria-label="Fechar menu"
+            tabIndex={-1}
+            onClick={() => setMenuAberto(false)}
+            className="absolute inset-0 bg-musgo-950/70"
+          />
+          <aside className="absolute left-0 top-0 flex h-full w-72 max-w-[80%] flex-col border-r-2 border-musgo-700 bg-musgo-900">
+            <div className="flex items-center justify-between border-b-2 border-musgo-700 px-4 py-4">
+              <span className="font-heading text-xs font-bold uppercase tracking-[0.12em] text-ocre">
+                Navegação
+              </span>
+              <button
+                type="button"
+                onClick={() => setMenuAberto(false)}
+                aria-label="Fechar menu"
+                className="flex h-9 w-9 items-center justify-center rounded-[2px] border-2 border-musgo-600 text-musgo-150 hover:border-ocre hover:text-papel"
+              >
+                <X className="h-4 w-4" aria-hidden />
+              </button>
+            </div>
+            {sidebarTop}
+            {sidebarNav}
+            {sidebarFooter}
+          </aside>
+        </div>
+      ) : null}
 
-        {semPermissao ? (
-          <section className="mt-10 border-2 border-musgo-700 bg-musgo-800 p-6">
-            <h2 className="text-xl text-papel">Sua conta ainda não tem acesso</h2>
-            <p className="mt-2 text-sm text-musgo-300">
-              Se esta é a primeira conta do painel, libere o acesso de administrador agora. Depois
-              disso, nenhuma outra conta consegue se liberar sozinha.
-            </p>
-            <button
-              type="button"
-              onClick={tornarAdmin}
-              className="mt-5 h-12 rounded-[2px] bg-ocre px-5 font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900"
-            >
-              Liberar meu acesso
-            </button>
-            {claimErro ? (
-              <p role="alert" className="mt-4 text-sm text-papel">
-                {claimErro}
+      <div className="flex w-full">
+        {/* Sidebar desktop */}
+        <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r-2 border-musgo-700 bg-musgo-900 md:flex">
+          {sidebarTop}
+          {sidebarNav}
+          {sidebarFooter}
+        </aside>
+
+        {/* Conteúdo */}
+        <main className="min-w-0 flex-1 px-4 py-8 md:px-8 md:py-12">
+          <div className="mx-auto max-w-[1100px]">
+            <header className="hidden flex-wrap items-end justify-between gap-4 border-b-2 border-musgo-700 pb-5 md:flex">
+              <div>
+                <p className="label text-ocre">PAINEL INTERNO</p>
+                <h1 className="mt-2 text-2xl text-papel md:text-3xl">Arsenal Med — Acompanhamento</h1>
+              </div>
+            </header>
+
+            {semPermissao ? (
+              <section className="mt-10 border-2 border-musgo-700 bg-musgo-800 p-6">
+                <h2 className="text-xl text-papel">Sua conta ainda não tem acesso</h2>
+                <p className="mt-2 text-sm text-musgo-300">
+                  Se esta é a primeira conta do painel, libere o acesso de administrador agora. Depois
+                  disso, nenhuma outra conta consegue se liberar sozinha.
+                </p>
+                <button
+                  type="button"
+                  onClick={tornarAdmin}
+                  className="mt-5 h-12 rounded-[2px] bg-ocre px-5 font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900"
+                >
+                  Liberar meu acesso
+                </button>
+                {claimErro ? (
+                  <p role="alert" className="mt-4 text-sm text-papel">
+                    {claimErro}
+                  </p>
+                ) : null}
+              </section>
+            ) : null}
+
+            {query.isLoading ? (
+              <p className="mt-10 font-mono text-sm text-musgo-300">Carregando dados…</p>
+            ) : null}
+
+            {query.isError && !semPermissao ? (
+              <p role="alert" className="mt-10 border-2 border-alerta/60 bg-musgo-800 p-4 text-sm text-papel">
+                Não foi possível carregar os dados. Tente recarregar a página.
               </p>
             ) : null}
-          </section>
-        ) : null}
 
-        {query.isLoading ? (
-          <p className="mt-10 font-mono text-sm text-musgo-300">Carregando dados…</p>
-        ) : null}
-
-        {query.isError && !semPermissao ? (
-          <p role="alert" className="mt-10 border-2 border-alerta/60 bg-musgo-800 p-4 text-sm text-papel">
-            Não foi possível carregar os dados. Tente recarregar a página.
-          </p>
-        ) : null}
-
-        {query.data ? (
-          <Dashboard
-            data={query.data}
-            dias={dias}
-            onDias={setDias}
-            serie={serie}
-            maxReceita={maxReceita}
-          />
-        ) : null}
+            {query.data ? (
+              <Dashboard
+                data={query.data}
+                dias={dias}
+                onDias={setDias}
+                serie={serie}
+                maxReceita={maxReceita}
+              />
+            ) : null}
+          </div>
+        </main>
       </div>
-    </main>
+    </div>
   );
 }
 
