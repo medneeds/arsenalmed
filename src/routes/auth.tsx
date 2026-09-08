@@ -83,7 +83,7 @@ function AuthPage() {
               type="password"
               required
               minLength={8}
-              autoComplete={modo === "criar" ? "new-password" : "current-password"}
+              autoComplete="current-password"
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
               className="mt-2 h-12 w-full rounded-[2px] border-2 border-musgo-600 bg-musgo-900 px-3 font-mono text-sm text-papel outline-none focus-visible:border-ocre"
