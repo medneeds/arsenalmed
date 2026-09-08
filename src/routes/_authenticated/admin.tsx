@@ -493,6 +493,12 @@ function Dashboard({
         ))}
       </div>
 
+      {stripeSlot}
+
+      <p className="mt-10 border-b-2 border-musgo-700 pb-2 font-heading text-xs font-bold uppercase tracking-[0.12em] text-musgo-300">
+        Registros do site (banco de dados)
+      </p>
+
       <section id="visao-geral" className="mt-6 scroll-mt-24 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <Kpi titulo="Faturamento total" valor={formatBrl(data.receita.totalCentavos)} />
         <Kpi titulo="Hoje" valor={formatBrl(data.receita.hojeCentavos)} />
