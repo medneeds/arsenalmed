@@ -55,10 +55,9 @@ function AuthPage() {
         <p className="label text-ocre">ÁREA RESTRITA</p>
         <h1 className="mt-3 text-2xl text-papel">Painel Arsenal Med</h1>
         <p className="mt-2 text-sm text-musgo-300">
-          {modo === "entrar"
-            ? "Entre com o e-mail e a senha do administrador."
-            : "Crie a conta do administrador."}
+          Entre com o e-mail e a senha do administrador.
         </p>
+
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           <div>
