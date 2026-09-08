@@ -12,10 +12,25 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { LayoutDashboard, DollarSign, Users, Filter, Table2, LogOut, Menu, X } from "lucide-react";
+import {
+  LayoutDashboard,
+  DollarSign,
+  Users,
+  Filter,
+  Table2,
+  LogOut,
+  Menu,
+  X,
+  CreditCard,
+} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { formatBrl } from "@/lib/product";
+import { formatBrl, ARSENAL_PRODUCT } from "@/lib/product";
 import { claimAdmin, getAdminDashboard, type DashboardData } from "@/lib/admin.functions";
+import {
+  getStripeArsenalResumo,
+  type StripeResumoResult,
+} from "@/lib/admin-stripe.functions";
+import { getStripeEnvironment } from "@/lib/stripe";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
