@@ -15,7 +15,7 @@ const CARDS = [
 
 export function Conteudo() {
   return (
-    <section className="bg-musgo-800 px-4 py-20 md:px-6 md:py-28">
+    <section id="conteudo" className="scroll-mt-20 bg-musgo-800 px-4 py-20 md:px-6 md:py-28">
       <div className="mx-auto max-w-5xl">
         <p className="label text-ocre">O QUE VOCÊ RECEBE</p>
         <h2 className="mt-5 max-w-[680px] text-papel">Manual completo com 33 cenários + catálogo de fármacos e dez tabelas em um segundo volume</h2>
