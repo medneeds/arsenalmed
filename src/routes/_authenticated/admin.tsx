@@ -370,8 +370,10 @@ function Dashboard({
           {data.funil.taxaLeadParaCompra}%
         </p>
       </Bloco>
+      </div>
 
-      <Bloco titulo="Compras e downloads">
+      <div id="compras" className="scroll-mt-24">
+        <Bloco titulo="Compras e downloads">
         <div className="-mx-4 overflow-x-auto px-4 md:mx-0 md:px-0">
           <table className="w-full min-w-[720px] border-collapse text-left">
             <thead>
