@@ -135,7 +135,7 @@ export const getStripeArsenalResumo = createServerFn({ method: "POST" })
 
       let pixStatus: StripeResumo["pixStatus"] = "desconhecido";
       try {
-        const conta = await stripe.accounts.retrieve();
+        const conta = await stripe.accounts.retrieveCurrent();
         const pix = conta.capabilities?.pix_payments;
         pixStatus = pix === "active" ? "active" : pix === "pending" ? "pending" : "inactive";
       } catch {
