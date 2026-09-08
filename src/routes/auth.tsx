@@ -107,21 +107,10 @@ function AuthPage() {
             disabled={carregando}
             className="h-12 w-full rounded-[2px] bg-ocre font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-900 disabled:opacity-60"
           >
-            {carregando ? "Aguarde…" : modo === "entrar" ? "Entrar" : "Criar conta"}
+            {carregando ? "Aguarde…" : "Entrar"}
           </button>
         </form>
 
-        <button
-          type="button"
-          onClick={() => {
-            setModo(modo === "entrar" ? "criar" : "entrar");
-            setErro(null);
-            setAviso(null);
-          }}
-          className="mt-5 text-sm text-musgo-300 underline underline-offset-4 hover:text-papel"
-        >
-          {modo === "entrar" ? "Ainda não tenho conta" : "Já tenho conta"}
-        </button>
       </div>
     </main>
   );
