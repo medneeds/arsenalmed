@@ -58,6 +58,7 @@ const PERIODOS = [
 
 const NAV_ITEMS = [
   { id: "visao-geral", label: "Visão geral", icon: LayoutDashboard },
+  { id: "stripe-arsenal", label: "Arsenal Med (Stripe)", icon: CreditCard },
   { id: "faturamento", label: "Faturamento", icon: DollarSign },
   { id: "leads", label: "Leads", icon: Users },
   { id: "funil", label: "Funil", icon: Filter },
