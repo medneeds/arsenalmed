@@ -426,6 +426,7 @@ function Dashboard({
           </table>
         </div>
       </Bloco>
+      </div>
 
       <p className="mt-8 font-mono text-[11px] text-musgo-500">
         Máximo de {maxReceita > 0 ? formatBrl(maxReceita) : "R$ 0,00"} em um único dia no período.
