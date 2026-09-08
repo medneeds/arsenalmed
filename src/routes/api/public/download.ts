@@ -61,7 +61,7 @@ export const Route = createFileRoute("/api/public/download")({
         const currentDownloads = Number(compra[config.counterColumn] ?? 0);
         if (currentDownloads >= MAX_DOWNLOADS_PER_FILE) {
           return Response.json(
-            { error: "Limite de downloads deste arquivo atingido. Fale com o suporte." },
+            { error: "Limite de downloads deste arquivo atingido. Escreva para suporte@arsenalmed.com.br." },
             { status: 429 },
           );
         }
