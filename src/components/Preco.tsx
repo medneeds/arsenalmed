@@ -22,14 +22,16 @@ export function Preco() {
         <p className="label text-ocre">PACOTE COMPLETO</p>
         <h2 className="mt-4 text-papel">Arsenal Med 3.0</h2>
 
-        <div className="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-2">
-          <span className="font-mono text-2xl font-medium text-musgo-200 line-through decoration-alerta decoration-2">
-            {ARSENAL_COMPARE_AT_PRICE}
-          </span>
-          <span className="font-mono text-5xl font-semibold text-papel md:text-6xl">{ARSENAL_PRICE}</span>
-          <span className="font-heading text-[12px] font-bold uppercase tracking-[0.12em] text-ocre">
-            −{ARSENAL_DISCOUNT_PERCENT}% · economize {ARSENAL_SAVINGS}
-          </span>
+        <div className="mt-6">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+            <span className="font-mono text-xl font-medium text-musgo-200 line-through decoration-alerta decoration-2">
+              {ARSENAL_COMPARE_AT_PRICE}
+            </span>
+            <span className="font-heading text-[12px] font-bold uppercase tracking-[0.12em] text-ocre">
+              −{ARSENAL_DISCOUNT_PERCENT}% · economize {ARSENAL_SAVINGS}
+            </span>
+          </div>
+          <div className="mt-1 font-mono text-5xl font-semibold text-papel md:text-6xl">{ARSENAL_PRICE}</div>
         </div>
         <p className="mt-3 text-sm text-musgo-300">pagamento único · Pix ou cartão</p>
 
