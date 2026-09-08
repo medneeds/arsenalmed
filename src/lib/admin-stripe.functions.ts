@@ -25,6 +25,7 @@ export type StripeResumo = {
   serie: { dia: string; vendas: number; receitaCentavos: number }[];
   vendas: StripeVenda[];
   periodoDias: number;
+  pixStatus: "active" | "pending" | "inactive" | "desconhecido";
 };
 
 export type StripeResumoResult = StripeResumo | { ok: false; error: string };
