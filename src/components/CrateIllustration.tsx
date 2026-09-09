@@ -4,7 +4,7 @@ export function CrateIllustration({ className }: { className?: string }) {
       viewBox="0 0 420 340"
       fill="none"
       role="img"
-      aria-label="Caixote de suprimento médico estampado a estêncil com cruz e marcações técnicas"
+      aria-label="Caixote de suprimento médico em perspectiva, estampado a estêncil com cruz e marcações técnicas"
       className={className}
     >
       {/* Linhas topográficas de fundo */}
@@ -23,114 +23,123 @@ export function CrateIllustration({ className }: { className?: string }) {
         fill="none"
       />
       <path
-        d="M-10 240 C 80 210, 160 265, 240 225 S 370 205, 430 245"
+        d="M-10 250 C 80 220, 160 275, 240 235 S 370 215, 430 255"
         stroke="var(--musgo-500)"
         strokeWidth="1.5"
         opacity="0.25"
         fill="none"
       />
 
-      {/* Sombra de impressão deslocada */}
-      <rect x="80" y="100" width="280" height="186" fill="var(--musgo-800)" opacity="0.35" />
+      {/* Sombra no chão, projetada em perspectiva */}
+      <polygon points="70,296 330,296 372,268 112,268" fill="var(--musgo-800)" opacity="0.4" />
 
-      {/* Tampa do caixote */}
-      <rect x="70" y="92" width="280" height="34" fill="var(--musgo-500)" stroke="var(--musgo-300)" strokeWidth="2" />
-      {/* Sarrafos diagonais da tampa */}
-      <line x1="120" y1="92" x2="150" y2="126" stroke="var(--musgo-600)" strokeWidth="4" />
-      <line x1="270" y1="126" x2="300" y2="92" stroke="var(--musgo-600)" strokeWidth="4" />
+      {/* ===== CAIXOTE EM PERSPECTIVA ===== */}
 
-      {/* Corpo do caixote */}
-      <rect x="78" y="126" width="264" height="152" fill="var(--musgo-600)" stroke="var(--musgo-300)" strokeWidth="2" />
-      {/* Juntas horizontais das tábuas */}
-      <line x1="78" y1="164" x2="342" y2="164" stroke="var(--musgo-700)" strokeWidth="2" />
-      <line x1="78" y1="202" x2="342" y2="202" stroke="var(--musgo-700)" strokeWidth="2" />
-      <line x1="78" y1="240" x2="342" y2="240" stroke="var(--musgo-700)" strokeWidth="2" />
+      {/* Face lateral direita */}
+      <polygon points="330,150 366,122 366,258 330,286" fill="var(--musgo-700)" stroke="var(--musgo-300)" strokeWidth="2" />
+      {/* Tábuas da lateral */}
+      <line x1="330" y1="184" x2="366" y2="156" stroke="var(--musgo-800)" strokeWidth="2" />
+      <line x1="330" y1="218" x2="366" y2="190" stroke="var(--musgo-800)" strokeWidth="2" />
+      <line x1="330" y1="252" x2="366" y2="224" stroke="var(--musgo-800)" strokeWidth="2" />
+      {/* Alça recortada na lateral */}
+      <polygon points="340,196 356,184 356,196 340,208" fill="var(--musgo-900)" />
 
-      {/* Cintas verticais escuras */}
-      <rect x="96" y="92" width="20" height="186" fill="var(--musgo-800)" />
-      <rect x="304" y="92" width="20" height="186" fill="var(--musgo-800)" />
-      {/* Rebites das cintas */}
-      <circle cx="106" cy="108" r="2.5" fill="var(--musgo-300)" />
-      <circle cx="106" cy="184" r="2.5" fill="var(--musgo-300)" />
-      <circle cx="106" cy="260" r="2.5" fill="var(--musgo-300)" />
-      <circle cx="314" cy="108" r="2.5" fill="var(--musgo-300)" />
-      <circle cx="314" cy="184" r="2.5" fill="var(--musgo-300)" />
-      <circle cx="314" cy="260" r="2.5" fill="var(--musgo-300)" />
-
-      {/* Cantoneiras */}
-      <rect x="78" y="126" width="14" height="14" fill="var(--musgo-800)" />
-      <rect x="328" y="126" width="14" height="14" fill="var(--musgo-800)" />
-      <rect x="78" y="264" width="14" height="14" fill="var(--musgo-800)" />
-      <rect x="328" y="264" width="14" height="14" fill="var(--musgo-800)" />
-
-      {/* Travas da tampa */}
-      <rect x="182" y="118" width="22" height="14" fill="var(--musgo-300)" stroke="var(--musgo-800)" strokeWidth="1.5" />
-      <rect x="218" y="118" width="22" height="14" fill="var(--musgo-300)" stroke="var(--musgo-800)" strokeWidth="1.5" />
-
-      {/* Marcação estêncil superior */}
+      {/* Face superior (tampa) */}
+      <polygon points="90,150 330,150 366,122 126,122" fill="var(--musgo-500)" stroke="var(--musgo-300)" strokeWidth="2" />
+      {/* Sarrafos da tampa */}
+      <line x1="150" y1="150" x2="186" y2="122" stroke="var(--musgo-600)" strokeWidth="5" />
+      <line x1="270" y1="150" x2="306" y2="122" stroke="var(--musgo-600)" strokeWidth="5" />
+      {/* Texto estêncil na tampa, levemente inclinado com a perspectiva */}
       <text
-        x="210"
-        y="110"
+        x="228"
+        y="139"
         textAnchor="middle"
         fontFamily="'IBM Plex Mono', monospace"
-        fontSize="13"
+        fontSize="11"
         fontWeight="600"
-        letterSpacing="4"
-        fill="var(--musgo-100)"
+        letterSpacing="3"
+        fill="var(--musgo-800)"
+        transform="skewX(-24)"
       >
         ARSENAL MED
       </text>
 
+      {/* Face frontal */}
+      <rect x="90" y="150" width="240" height="136" fill="var(--musgo-600)" stroke="var(--musgo-300)" strokeWidth="2" />
+      {/* Juntas horizontais das tábuas */}
+      <line x1="90" y1="184" x2="330" y2="184" stroke="var(--musgo-700)" strokeWidth="2" />
+      <line x1="90" y1="218" x2="330" y2="218" stroke="var(--musgo-700)" strokeWidth="2" />
+      <line x1="90" y1="252" x2="330" y2="252" stroke="var(--musgo-700)" strokeWidth="2" />
+
+      {/* Cintas verticais escuras — sobem pela frontal e dobram na tampa */}
+      <polygon points="110,150 126,150 126,286 110,286" fill="var(--musgo-800)" />
+      <polygon points="110,150 126,150 162,122 146,122" fill="var(--musgo-800)" />
+      <polygon points="288,150 304,150 304,286 288,286" fill="var(--musgo-800)" />
+      <polygon points="288,150 304,150 340,122 324,122" fill="var(--musgo-800)" />
+      {/* Rebites */}
+      <circle cx="118" cy="166" r="2.5" fill="var(--musgo-300)" />
+      <circle cx="118" cy="226" r="2.5" fill="var(--musgo-300)" />
+      <circle cx="118" cy="272" r="2.5" fill="var(--musgo-300)" />
+      <circle cx="296" cy="166" r="2.5" fill="var(--musgo-300)" />
+      <circle cx="296" cy="226" r="2.5" fill="var(--musgo-300)" />
+      <circle cx="296" cy="272" r="2.5" fill="var(--musgo-300)" />
+
+      {/* Cantoneiras da face frontal */}
+      <rect x="90" y="150" width="14" height="14" fill="var(--musgo-800)" />
+      <rect x="316" y="150" width="14" height="14" fill="var(--musgo-800)" />
+      <rect x="90" y="272" width="14" height="14" fill="var(--musgo-800)" />
+      <rect x="316" y="272" width="14" height="14" fill="var(--musgo-800)" />
+
       {/* Cruz médica estenciada */}
       <path
-        d="M172 156 h30 v22 h22 v30 h-22 v22 h-30 v-22 h-22 v-30 h22 z"
+        d="M162 176 h26 v20 h20 v26 h-20 v20 h-26 v-20 h-20 v-26 h20 z"
         fill="var(--alerta)"
       />
       {/* Falha de estêncil na cruz */}
-      <rect x="170" y="184" width="56" height="3" fill="var(--musgo-600)" />
+      <rect x="160" y="202" width="50" height="3" fill="var(--musgo-600)" />
 
       {/* Bloco de marcações à direita */}
       <text
-        x="252"
-        y="164"
+        x="238"
+        y="184"
         fontFamily="'IBM Plex Mono', monospace"
-        fontSize="11"
+        fontSize="10.5"
         fontWeight="600"
-        letterSpacing="2"
+        letterSpacing="1.5"
         fill="var(--musgo-100)"
       >
         MATERIAL MÉDICO
       </text>
       <text
-        x="252"
-        y="182"
+        x="238"
+        y="201"
         fontFamily="'IBM Plex Mono', monospace"
-        fontSize="11"
-        letterSpacing="2"
+        fontSize="10.5"
+        letterSpacing="1.5"
         fill="var(--musgo-300)"
       >
         USO IMEDIATO
       </text>
       {/* Setas "este lado para cima" */}
-      <path d="M254 214 v-14 M249 205 l5 -7 5 7" stroke="var(--musgo-100)" strokeWidth="2.5" fill="none" />
-      <path d="M270 214 v-14 M265 205 l5 -7 5 7" stroke="var(--musgo-100)" strokeWidth="2.5" fill="none" />
+      <path d="M240 234 v-14 M235 225 l5 -7 5 7" stroke="var(--musgo-100)" strokeWidth="2.5" fill="none" />
+      <path d="M256 234 v-14 M251 225 l5 -7 5 7" stroke="var(--musgo-100)" strokeWidth="2.5" fill="none" />
       <text
-        x="252"
-        y="230"
+        x="238"
+        y="248"
         fontFamily="'IBM Plex Mono', monospace"
-        fontSize="9"
+        fontSize="8.5"
         letterSpacing="1.5"
         fill="var(--musgo-300)"
       >
         ESTE LADO P/ CIMA
       </text>
 
-      {/* Rodapé estêncil do caixote */}
+      {/* Rodapé estêncil da face frontal */}
       <text
-        x="132"
-        y="266"
+        x="134"
+        y="272"
         fontFamily="'IBM Plex Mono', monospace"
-        fontSize="10"
+        fontSize="9.5"
         letterSpacing="2"
         fill="var(--musgo-300)"
       >
@@ -138,10 +147,10 @@ export function CrateIllustration({ className }: { className?: string }) {
       </text>
 
       {/* Tarja de especificação abaixo do caixote */}
-      <line x1="78" y1="300" x2="342" y2="300" stroke="var(--musgo-300)" strokeWidth="1" strokeDasharray="5 4" opacity="0.7" />
+      <line x1="90" y1="306" x2="330" y2="306" stroke="var(--musgo-300)" strokeWidth="1" strokeDasharray="5 4" opacity="0.7" />
       <text
         x="210"
-        y="318"
+        y="324"
         textAnchor="middle"
         fontFamily="'IBM Plex Mono', monospace"
         fontSize="10"
