@@ -1,3 +1,5 @@
+import { TopoLines } from "./TopoLines";
+
 const COLUNAS = [
   {
     titulo: "É PARA VOCÊ SE",
@@ -22,11 +24,12 @@ const COLUNAS = [
 
 export function ParaQuem() {
   return (
-    <section className="bg-papel px-4 py-20 md:px-6 md:py-28">
-      <div className="mx-auto grid max-w-4xl grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
+    <section className="relative overflow-hidden bg-papel px-4 py-20 md:px-6 md:py-28">
+      <TopoLines />
+      <div className="relative mx-auto grid max-w-4xl grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
         {COLUNAS.map((c) => (
           <div key={c.titulo}>
-            <h3 className="text-tinta">{c.titulo}</h3>
+            <span className="fieldtag">{c.titulo}</span>
             <ul className="mt-6 space-y-4">
               {c.itens.map((item) => (
                 <li key={item} className="flex gap-3">
