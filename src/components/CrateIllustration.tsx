@@ -22,21 +22,6 @@ export function CrateIllustration({ className }: { className?: string }) {
       {/* Sarrafos da tampa acompanhando a perspectiva */}
       <line x1="148" y1="146" x2="192" y2="112" stroke="var(--musgo-400)" strokeWidth="3" opacity="0.8" />
       <line x1="268" y1="146" x2="312" y2="112" stroke="var(--musgo-400)" strokeWidth="3" opacity="0.8" />
-      {/* Marcação estêncil na tampa, acompanhando a perspectiva */}
-      <g transform="skewX(-22)">
-        <text
-          x="210"
-          y="133"
-          textAnchor="middle"
-          fontFamily="'IBM Plex Mono', monospace"
-          fontSize="12"
-          fontWeight="700"
-          letterSpacing="3"
-          fill="var(--musgo-700)"
-        >
-          USO IMEDIATO
-        </text>
-      </g>
 
       {/* ===== CORPO ===== */}
       {/* Face lateral direita */}

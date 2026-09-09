@@ -25,8 +25,8 @@ export function Hero() {
 
           <p className="mt-4 max-w-[52ch] text-musgo-700">
             <em className="italic">
-              Você não procura a diluição da fenitoína. Abre o cenário da crise convulsiva e lê, na ordem, o que
-              fazer.
+              “Você não procura a diluição da fenitoína. Abre o cenário da crise convulsiva e lê, na ordem, o que
+              fazer.”
             </em>
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
