@@ -29,7 +29,7 @@ export function ParaQuem() {
       <div className="relative mx-auto grid max-w-4xl grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
         {COLUNAS.map((c) => (
           <div key={c.titulo}>
-            <span className="fieldtag">{c.titulo}</span>
+            <h3 className="fieldtag">{c.titulo}</h3>
             <ul className="mt-6 space-y-4">
               {c.itens.map((item) => (
                 <li key={item} className="flex gap-3">
