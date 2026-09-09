@@ -1,3 +1,5 @@
+import { TopoLines } from "./TopoLines";
+
 const BLOCOS = [
   { n: "01", titulo: "O CASO", desc: "O cenário real, com o ponto exato em que a decisão trava", alerta: false },
   {
@@ -15,9 +17,10 @@ const BLOCOS = [
 
 export function Anatomia() {
   return (
-    <section className="bg-papel-2 px-4 py-20 md:px-6 md:py-32">
-      <div className="mx-auto max-w-5xl">
-        <p className="label text-musgo-500">COMO É POR DENTRO</p>
+    <section className="relative overflow-hidden bg-papel-2 px-4 py-20 md:px-6 md:py-32">
+      <TopoLines />
+      <div className="relative mx-auto max-w-5xl">
+        <p className="fieldtag">COMO É POR DENTRO</p>
         <h2 className="mt-5 max-w-[680px] text-tinta">Todos os 33 casos têm a mesma anatomia</h2>
         <p className="mt-6 max-w-[680px] text-tinta">
           Depois do primeiro, você já sabe onde olhar sem precisar ler a página inteira. Previsibilidade de

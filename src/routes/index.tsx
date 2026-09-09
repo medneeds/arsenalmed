@@ -13,6 +13,7 @@ import { Faq } from "../components/Faq";
 import { Compacto } from "../components/Compacto";
 import { Footer } from "../components/Footer";
 import { PaymentTestModeBanner } from "../components/PaymentTestModeBanner";
+import { PaperTexture } from "../components/PaperTexture";
 import { track } from "@/lib/analytics";
 import {
   ARSENAL_COMPARE_AT_PRICE,
@@ -76,6 +77,7 @@ function Index() {
 
   return (
     <div className="min-h-screen bg-papel text-tinta">
+      <PaperTexture />
       <Header />
       <main className="pt-16">
         <PaymentTestModeBanner />
