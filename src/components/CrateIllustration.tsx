@@ -105,6 +105,41 @@ export function CrateIllustration({ className }: { className?: string }) {
         Nº 05/33
       </text>
 
+      {/* Brasão em relevo, camada superior (à frente da face frontal) */}
+      <g transform="translate(193 200) scale(0.8)">
+        {/* Sombra projetada por trás — dá profundidade */}
+        <g transform="translate(2.6 3.4)" opacity="0.5">
+          <path d="M1 1 H38 V26 C38 38 29 45.5 19.5 49.3 C10 45.5 1 38 1 26 Z" fill="var(--musgo-900)" />
+        </g>
+        {/* Placa-base metálica levemente maior */}
+        <path
+          d="M1 1 H38 V26 C38 38 29 45.5 19.5 49.3 C10 45.5 1 38 1 26 Z"
+          fill="var(--musgo-800)"
+          stroke="var(--musgo-200)"
+          strokeWidth="1"
+          strokeLinejoin="round"
+        />
+        {/* Escudo */}
+        <path
+          d="M3 3 H36 V26 C36 37 28 44 19.5 47.5 C11 44 3 37 3 26 Z"
+          fill="var(--musgo-700)"
+          stroke="var(--musgo-100)"
+          strokeWidth="1.8"
+          strokeLinejoin="round"
+        />
+        {/* Dois galões ocre */}
+        <path d="M9 13 L19.5 8.5 L30 13" stroke="var(--ocre)" strokeWidth="3.5" fill="none" strokeLinejoin="round" />
+        <path d="M9 19 L19.5 14.5 L30 19" stroke="var(--ocre)" strokeWidth="3.5" fill="none" strokeLinejoin="round" />
+        {/* Cruz médica no centro do escudo */}
+        <path
+          d="M17 24 h5 v5 h5 v5 h-5 v5 h-5 v-5 h-5 v-5 h5 z"
+          fill="var(--alerta)"
+          stroke="var(--alerta)"
+          strokeWidth="1"
+          strokeLinejoin="round"
+        />
+      </g>
+
       {/* Tarja de especificação abaixo do caixote */}
       <line x1="88" y1="308" x2="328" y2="308" stroke="var(--musgo-300)" strokeWidth="1" strokeDasharray="5 4" opacity="0.7" />
       <text x="208" y="326" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace" fontSize="10" letterSpacing="3" fill="var(--musgo-500)">
