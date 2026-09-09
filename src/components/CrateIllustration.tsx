@@ -22,36 +22,19 @@ export function CrateIllustration({ className }: { className?: string }) {
       {/* Sarrafos da tampa acompanhando a perspectiva */}
       <line x1="148" y1="146" x2="192" y2="112" stroke="var(--musgo-400)" strokeWidth="3" opacity="0.8" />
       <line x1="268" y1="146" x2="312" y2="112" stroke="var(--musgo-400)" strokeWidth="3" opacity="0.8" />
-      {/* Brasão + nome estampados na tampa, acompanhando a perspectiva */}
+      {/* Marcação estêncil na tampa, acompanhando a perspectiva */}
       <g transform="skewX(-22)">
-        <g transform="translate(216 109) scale(0.44)">
-          <path
-            d="M3 3 H36 V26 C36 37 28 44 19.5 47.5 C11 44 3 37 3 26 Z"
-            stroke="var(--musgo-700)"
-            strokeWidth="3"
-            fill="none"
-            strokeLinejoin="round"
-          />
-          <path d="M9 13 L19.5 8.5 L30 13" stroke="var(--ocre)" strokeWidth="3.5" fill="none" strokeLinejoin="round" />
-          <path d="M9 19 L19.5 14.5 L30 19" stroke="var(--ocre)" strokeWidth="3.5" fill="none" strokeLinejoin="round" />
-          <path
-            d="M17 24 h5 v5 h5 v5 h-5 v5 h-5 v-5 h-5 v-5 h5 z"
-            fill="var(--alerta)"
-            stroke="var(--alerta)"
-            strokeWidth="1"
-            strokeLinejoin="round"
-          />
-        </g>
         <text
-          x="240"
+          x="210"
           y="133"
+          textAnchor="middle"
           fontFamily="'IBM Plex Mono', monospace"
-          fontSize="10.5"
-          fontWeight="600"
-          letterSpacing="2.5"
+          fontSize="12"
+          fontWeight="700"
+          letterSpacing="3"
           fill="var(--musgo-700)"
         >
-          ARSENAL MED
+          USO IMEDIATO
         </text>
       </g>
 
@@ -88,18 +71,11 @@ export function CrateIllustration({ className }: { className?: string }) {
 
 
       {/* Marcações laterais na face frontal */}
-      <text x="100" y="206" fontFamily="'IBM Plex Mono', monospace" fontSize="9" fontWeight="600" letterSpacing="1.4" fill="var(--musgo-100)">
-        MATERIAL
+      <text x="100" y="214" fontFamily="'IBM Plex Mono', monospace" fontSize="10" fontWeight="700" letterSpacing="1.6" fill="var(--musgo-100)">
+        ARSENAL
       </text>
-      <text x="100" y="220" fontFamily="'IBM Plex Mono', monospace" fontSize="9" letterSpacing="1.4" fill="var(--musgo-200)">
-        MÉDICO
-      </text>
-      <path d="M104 248 v-13 M99.5 239.5 l4.5 -6 4.5 6" stroke="var(--musgo-200)" strokeWidth="2.2" fill="none" />
-      <text x="272" y="206" fontFamily="'IBM Plex Mono', monospace" fontSize="9" fontWeight="600" letterSpacing="1.4" fill="var(--musgo-100)">
-        USO
-      </text>
-      <text x="272" y="220" fontFamily="'IBM Plex Mono', monospace" fontSize="9" letterSpacing="1.4" fill="var(--musgo-200)">
-        IMEDIATO
+      <text x="272" y="214" fontFamily="'IBM Plex Mono', monospace" fontSize="10" fontWeight="700" letterSpacing="1.6" fill="var(--musgo-100)">
+        MED
       </text>
       <text x="272" y="244" fontFamily="'IBM Plex Mono', monospace" fontSize="8" letterSpacing="1.4" fill="var(--musgo-300)">
         Nº 05/33
