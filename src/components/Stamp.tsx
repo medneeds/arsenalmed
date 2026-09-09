@@ -20,16 +20,16 @@ export function Stamp({
       style={{ boxShadow: "inset 0 0 0 2px color-mix(in oklab, var(--alerta) 40%, transparent)" }}
     >
       {top ? (
-        <span className="font-heading text-[10px] font-bold uppercase leading-none tracking-[0.1em] md:text-[12px]">
+        <span className="max-w-full truncate px-2 font-heading text-[8px] font-bold uppercase leading-none tracking-[0.08em] md:text-[10px]">
           {top}
         </span>
       ) : null}
-      <span className="my-1.5 block h-[3px] w-[44px] bg-alerta md:w-[54px]" />
-      <span className="px-2 text-center font-heading text-[14px] font-bold uppercase leading-[1.05] tracking-[0.04em] md:text-[17px]">
+      <span className="my-1 block h-[2px] w-[36px] bg-alerta md:w-[46px]" />
+      <span className="px-2 text-center font-heading text-[13px] font-bold uppercase leading-[1.05] tracking-[0.03em] md:text-[16px]">
         {main}
       </span>
       {bottom ? (
-        <span className="mt-1 font-heading text-[10px] font-bold uppercase leading-none tracking-[0.1em] md:text-[12px]">
+        <span className="mt-1 max-w-full truncate px-2 font-heading text-[8px] font-bold uppercase leading-none tracking-[0.08em] md:text-[10px]">
           {bottom}
         </span>
       ) : null}
