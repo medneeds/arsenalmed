@@ -4,7 +4,7 @@ export function CrateIllustration({ className }: { className?: string }) {
       viewBox="0 0 420 340"
       fill="none"
       role="img"
-      aria-label="Caixote de suprimento médico militar em perspectiva, com tampa clara, cintas e cruz vermelha estenciada"
+      aria-label="Caixote de suprimento médico militar em perspectiva, com tampa clara, cintas e brasão do Arsenal Med estêncil na face frontal"
       className={className}
     >
       {/* Linhas topográficas de fundo */}
