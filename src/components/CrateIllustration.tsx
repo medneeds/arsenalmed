@@ -73,17 +73,17 @@ export function CrateIllustration({ className }: { className?: string }) {
       <rect x="171" y="224" width="78" height="2.5" fill="var(--musgo-600)" opacity="0.85" />
 
       {/* Marcações laterais na face frontal */}
-      <text x="100" y="208" fontFamily="'IBM Plex Mono', monospace" fontSize="9" fontWeight="600" letterSpacing="1.4" fill="var(--musgo-200)">
+      <text x="100" y="206" fontFamily="'IBM Plex Mono', monospace" fontSize="9" fontWeight="600" letterSpacing="1.4" fill="var(--musgo-100)">
         MATERIAL
       </text>
-      <text x="100" y="221" fontFamily="'IBM Plex Mono', monospace" fontSize="9" letterSpacing="1.4" fill="var(--musgo-300)">
+      <text x="100" y="220" fontFamily="'IBM Plex Mono', monospace" fontSize="9" letterSpacing="1.4" fill="var(--musgo-200)">
         MÉDICO
       </text>
       <path d="M104 248 v-13 M99.5 239.5 l4.5 -6 4.5 6" stroke="var(--musgo-200)" strokeWidth="2.2" fill="none" />
-      <text x="272" y="208" fontFamily="'IBM Plex Mono', monospace" fontSize="9" fontWeight="600" letterSpacing="1.4" fill="var(--musgo-200)">
+      <text x="272" y="206" fontFamily="'IBM Plex Mono', monospace" fontSize="9" fontWeight="600" letterSpacing="1.4" fill="var(--musgo-100)">
         USO
       </text>
-      <text x="272" y="221" fontFamily="'IBM Plex Mono', monospace" fontSize="9" letterSpacing="1.4" fill="var(--musgo-300)">
+      <text x="272" y="220" fontFamily="'IBM Plex Mono', monospace" fontSize="9" letterSpacing="1.4" fill="var(--musgo-200)">
         IMEDIATO
       </text>
       <text x="272" y="244" fontFamily="'IBM Plex Mono', monospace" fontSize="8" letterSpacing="1.4" fill="var(--musgo-300)">
