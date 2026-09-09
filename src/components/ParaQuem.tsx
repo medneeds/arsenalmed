@@ -24,7 +24,7 @@ const COLUNAS = [
 
 export function ParaQuem() {
   return (
-    <section className="relative overflow-hidden bg-papel px-4 py-20 md:px-6 md:py-28">
+    <section className="relative overflow-hidden bg-papel px-4 py-14 md:px-6 md:py-28">
       <TopoLines />
       <div className="relative mx-auto grid max-w-4xl grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
         {COLUNAS.map((c) => (

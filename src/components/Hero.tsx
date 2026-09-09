@@ -6,9 +6,9 @@ import { Stamp } from "./Stamp";
 
 export function Hero() {
   return (
-    <section className="relative isolate overflow-hidden bg-papel px-4 py-16 md:px-6 md:py-28">
+    <section className="relative isolate overflow-hidden bg-papel px-4 py-12 md:px-6 md:py-28">
       <TopoLines className="z-0" />
-      <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center gap-10 md:flex-row md:gap-10">
+      <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center gap-8 md:flex-row md:gap-10">
         <div className="w-full min-w-0 md:w-[58%]">
           <div className="flex items-center gap-2.5">
             <span className="inline-block h-2.5 w-2.5 shrink-0 bg-alerta" aria-hidden="true" />
@@ -53,12 +53,12 @@ export function Hero() {
             CONSULTA OFF-LINE — ABRE SEM INTERNET
           </p>
         </div>
-        <div className="relative w-full min-w-0 md:w-[42%]">
+        <div className="relative mx-auto w-full min-w-0 max-w-[340px] md:mx-0 md:max-w-none md:w-[42%]">
           <CrateIllustration className="h-auto w-full" />
           <Stamp
             top="EMERGÊNCIA"
             main="UTI"
-            className="absolute -top-3 right-2 md:-right-8 md:-top-6"
+            className="absolute -top-2 right-0 scale-90 md:scale-100 md:-right-8 md:-top-6"
           />
         </div>
       </div>

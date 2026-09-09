@@ -22,7 +22,7 @@ const PRODUCAO = [
 
 export function Autor() {
   return (
-    <section className="relative overflow-hidden bg-papel-2 px-4 py-20 md:px-6 md:py-28">
+    <section className="relative overflow-hidden bg-papel-2 px-4 py-14 md:px-6 md:py-28">
       <TopoLines />
       <div className="relative mx-auto grid max-w-[1040px] items-start gap-10 md:grid-cols-[minmax(0,360px)_1fr] md:gap-14">
         {/* Foto — corte vertical editorial */}

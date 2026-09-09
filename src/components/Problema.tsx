@@ -2,7 +2,7 @@ import { TopoLines } from "./TopoLines";
 
 export function Problema() {
   return (
-    <section className="relative overflow-hidden bg-papel px-4 py-20 md:px-6 md:py-28">
+    <section className="relative overflow-hidden bg-papel px-4 py-14 md:px-6 md:py-28">
       <TopoLines />
       <div className="relative mx-auto max-w-[680px]">
         <p className="fieldtag">O PROBLEMA</p>

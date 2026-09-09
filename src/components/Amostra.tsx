@@ -9,7 +9,7 @@ const ARMADILHAS = [
 
 export function Amostra() {
   return (
-    <section id="amostra" className="relative overflow-hidden bg-papel px-4 py-20 md:px-6 md:py-28">
+    <section id="amostra" className="relative overflow-hidden bg-papel px-4 py-14 md:px-6 md:py-28">
       <TopoLines />
       <div className="relative mx-auto max-w-3xl">
         <div className="flex items-start justify-between gap-4">

@@ -65,7 +65,7 @@ export function LeadCaptureModal({
       }}
     >
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="max-h-[90vh] overflow-y-auto rounded-none border border-musgo-300 bg-papel-2 p-6 sm:max-w-[440px]">
+      <DialogContent className="max-h-[90vh] overflow-y-auto rounded-none border border-musgo-300 bg-papel-2 p-5 sm:p-6 sm:max-w-[440px]">
         {enviado ? (
           <div>
             <p className="label text-musgo-500">ARSENAL COMPACTO</p>
@@ -106,7 +106,7 @@ export function LeadCaptureModal({
             </p>
 
 
-            <div className="mt-6 space-y-5">
+            <div className="mt-5 space-y-4">
               <div>
                 <label className={labelClass} htmlFor="lead-nome">
                   Nome
