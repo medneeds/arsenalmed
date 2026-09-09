@@ -60,7 +60,7 @@ export function Hero() {
             tone="escuro"
             top="EMERGÊNCIA"
             main="UTI"
-            className="absolute -top-2 right-0 md:-right-4 md:top-2"
+            className="absolute -top-2 right-2 md:-right-4 md:top-2"
           />
         </div>
       </div>

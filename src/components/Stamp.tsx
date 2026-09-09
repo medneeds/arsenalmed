@@ -27,7 +27,7 @@ export function Stamp({
       }}
     >
       {top ? (
-        <span className="max-w-full truncate px-2 font-heading text-[8px] font-bold uppercase leading-none tracking-[0.08em] md:text-[10px]">
+        <span className="max-w-full truncate px-2 font-heading text-[7px] font-bold uppercase leading-none tracking-[0.06em] md:text-[9px]">
           {top}
         </span>
       ) : null}
@@ -36,7 +36,7 @@ export function Stamp({
         {main}
       </span>
       {bottom ? (
-        <span className="mt-1 max-w-full truncate px-2 font-heading text-[8px] font-bold uppercase leading-none tracking-[0.08em] md:text-[10px]">
+        <span className="mt-1 max-w-full truncate px-2 font-heading text-[7px] font-bold uppercase leading-none tracking-[0.06em] md:text-[9px]">
           {bottom}
         </span>
       ) : null}
