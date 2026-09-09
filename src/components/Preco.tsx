@@ -67,7 +67,7 @@ export function Preco() {
         <a
           href="/comprar"
           onClick={() => track("click_buy", { origem: "preco" })}
-          className="mt-8 flex min-h-14 items-center justify-center bg-ocre px-5 py-4 text-center font-heading text-base font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
+          className="mt-8 flex min-h-14 items-center justify-center bg-ocre px-5 py-4 text-center font-heading text-sm font-bold sm:text-base uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
         >
           COMPRAR O PACOTE COMPLETO
         </a>
