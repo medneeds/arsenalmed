@@ -6,7 +6,7 @@ export function Problema() {
       <TopoLines />
       <div className="relative mx-auto max-w-[680px]">
         <p className="fieldtag">O PROBLEMA</p>
-        <h2 className="mt-5 text-tinta">Você não esqueceu a conduta. Você não tem tempo de organizá-la.</h2>
+        <h2 className="mt-5 text-tinta">Você não esqueceu a conduta. Você não teve tempo de organizá-la em meio ao caos do plantão.</h2>
         <div className="mt-8 space-y-6 text-tinta">
           <p>
             Todo guia de prescrição é organizado do jeito que a farmacologia é ensinada: por classe e por
