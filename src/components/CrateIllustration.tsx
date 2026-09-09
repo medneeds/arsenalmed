@@ -87,7 +87,7 @@ export function CrateIllustration({ className }: { className?: string }) {
       <rect x="252" y="152" width="18" height="14" fill="var(--musgo-800)" />
 
       {/* Brasão ARSENAL MED estêncil, centralizado na face frontal */}
-      <g transform="translate(183 188) scale(1.3)" opacity="0.95">
+      <g transform="translate(184 186) scale(1.25)" opacity="0.95">
         {/* Escudo */}
         <path
           d="M3 3 H36 V26 C36 37 28 44 19.5 47.5 C11 44 3 37 3 26 Z"
