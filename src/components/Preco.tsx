@@ -20,7 +20,7 @@ const ITENS = [
 
 export function Preco() {
   return (
-    <section id="preco" className="relative overflow-hidden scroll-mt-20 bg-papel px-4 py-20 md:px-6 md:py-28">
+    <section id="preco" className="relative overflow-hidden scroll-mt-20 bg-papel px-4 py-14 md:px-6 md:py-28">
       <TopoLines />
       <CrateIllustration className="pointer-events-none absolute -bottom-10 -left-16 hidden w-[320px] opacity-20 lg:block" />
       <div className="relative mx-auto max-w-[560px] border-2 border-ocre bg-musgo-900 p-6 md:p-10">

@@ -6,7 +6,7 @@ import { Stamp } from "./Stamp";
 
 export function Hero() {
   return (
-    <section className="relative isolate overflow-hidden bg-papel px-4 py-16 md:px-6 md:py-28">
+    <section className="relative isolate overflow-hidden bg-papel px-4 py-12 md:px-6 md:py-28">
       <TopoLines className="z-0" />
       <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center gap-10 md:flex-row md:gap-10">
         <div className="w-full min-w-0 md:w-[58%]">

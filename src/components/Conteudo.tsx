@@ -17,7 +17,7 @@ const CARDS = [
 
 export function Conteudo() {
   return (
-    <section id="conteudo" className="relative overflow-hidden scroll-mt-20 bg-papel-2 px-4 py-20 md:px-6 md:py-28">
+    <section id="conteudo" className="relative overflow-hidden scroll-mt-20 bg-papel-2 px-4 py-14 md:px-6 md:py-28">
       <TopoLines />
       <div className="relative mx-auto max-w-5xl">
         <p className="label text-ocre">O QUE VOCÊ RECEBE</p>

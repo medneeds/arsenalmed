@@ -17,7 +17,7 @@ const BLOCOS = [
 
 export function Anatomia() {
   return (
-    <section className="relative overflow-hidden bg-papel-2 px-4 py-20 md:px-6 md:py-32">
+    <section className="relative overflow-hidden bg-papel-2 px-4 py-14 md:px-6 md:py-32">
       <TopoLines />
       <div className="relative mx-auto max-w-5xl">
         <p className="fieldtag">COMO É POR DENTRO</p>

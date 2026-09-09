@@ -6,7 +6,7 @@ import { Stamp } from "./Stamp";
 
 export function Compacto() {
   return (
-    <section id="compacto" className="relative overflow-hidden bg-papel-2 px-4 py-20 md:px-6 md:py-28">
+    <section id="compacto" className="relative overflow-hidden bg-papel-2 px-4 py-14 md:px-6 md:py-28">
       <TopoLines />
       <div className="relative mx-auto max-w-[680px]">
         <div className="flex items-start justify-between gap-4">
