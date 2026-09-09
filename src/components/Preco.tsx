@@ -20,11 +20,11 @@ const ITENS = [
 
 export function Preco() {
   return (
-    <section id="preco" className="relative overflow-hidden scroll-mt-20 bg-musgo-800 px-4 py-20 md:px-6 md:py-28">
-      <TopoLines tone="escuro" />
+    <section id="preco" className="relative overflow-hidden scroll-mt-20 bg-papel px-4 py-20 md:px-6 md:py-28">
+      <TopoLines />
       <CrateIllustration className="pointer-events-none absolute -bottom-10 -left-16 hidden w-[320px] opacity-20 lg:block" />
       <div className="relative mx-auto max-w-[560px] border-2 border-ocre bg-musgo-900 p-6 md:p-10">
-        <Stamp tone="escuro" top="PACOTE" main="COMPLETO" className="absolute -right-2 -top-7 md:-right-8 md:-top-10" />
+        <Stamp top="PACOTE" main="COMPLETO" className="absolute -right-2 -top-7 md:-right-8 md:-top-10" />
         <p className="label text-ocre">PACOTE COMPLETO</p>
         <h2 className="mt-4 text-papel">Arsenal Med 3.0</h2>
 
@@ -39,27 +39,27 @@ export function Preco() {
           </div>
           <div className="mt-1 font-mono text-5xl font-semibold text-papel md:text-6xl">{ARSENAL_PRICE}</div>
         </div>
-        <p className="mt-3 text-sm text-musgo-300">pagamento único · Pix ou cartão</p>
+        <p className="mt-3 text-sm text-musgo-600">pagamento único · Pix ou cartão</p>
 
         <ul className="mt-8 space-y-3">
           {ITENS.map((item) => (
             <li key={item} className="flex gap-3">
               <span className="mt-2 inline-block h-2.5 w-2.5 shrink-0 bg-ocre" aria-hidden="true" />
-              <span className="text-[16px] leading-relaxed text-musgo-100">{item}</span>
+              <span className="text-[16px] leading-relaxed text-musgo-700">{item}</span>
             </li>
           ))}
         </ul>
 
-        <div className="mt-7 border-t border-musgo-600 pt-5">
+        <div className="mt-7 border-t border-musgo-300 pt-5">
           <p className="label text-ocre">VOCÊ RECEBE 2 ARQUIVOS</p>
-          <p className="mt-2 text-[15px] leading-relaxed text-musgo-100">
+          <p className="mt-2 text-[15px] leading-relaxed text-musgo-700">
             1. Arsenal Med 3.0 — Manual Completo. 2. Catálogo de Fármacos e Tabelas — bônus em volume separado.
           </p>
         </div>
 
-        <div className="mt-7 border-t border-musgo-600 pt-5">
+        <div className="mt-7 border-t border-musgo-300 pt-5">
           <p className="label text-ocre">PARA USAR NO PLANTÃO</p>
-          <p className="mt-2 text-[15px] leading-relaxed text-musgo-100">
+          <p className="mt-2 text-[15px] leading-relaxed text-musgo-700">
             Material de consulta rápida para médicos, com doses de referência e organização por cenário. Não substitui bula, julgamento clínico ou protocolo institucional.
           </p>
         </div>
@@ -67,12 +67,12 @@ export function Preco() {
         <a
           href="/comprar"
           onClick={() => track("click_buy", { origem: "preco" })}
-          className="mt-8 flex min-h-14 items-center justify-center bg-ocre px-5 py-4 text-center font-heading text-base font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-100"
+          className="mt-8 flex min-h-14 items-center justify-center bg-ocre px-5 py-4 text-center font-heading text-base font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
         >
           COMPRAR O PACOTE COMPLETO
         </a>
 
-        <p className="mt-5 text-center text-sm leading-relaxed text-musgo-300">
+        <p className="mt-5 text-center text-sm leading-relaxed text-musgo-600">
           Pagamento único · Pix ou cartão · processado pela Stripe
           <br />
           Garantia de 7 dias: reembolso integral, sem justificativa
