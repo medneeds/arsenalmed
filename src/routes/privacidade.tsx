@@ -38,7 +38,7 @@ function Privacidade() {
 
           <h2 className="mt-10 text-tinta">Quais dados coletamos</h2>
           <p className="mt-3 text-tinta">
-            Ao pedir o Arsenal Compacto, registramos nome, e-mail, perfil profissional, origem do cadastro e a data e o texto do consentimento aceito. Em uma compra, registramos o e-mail, o CPF informado para identificar a licença pessoal, identificadores técnicos da transação e o status do pagamento. Os dados financeiros do cartão ou Pix são processados pela Stripe e não são armazenados pelo Arsenal Med.
+            Ao pedir o Arsenal Compacto, registramos nome, e-mail, perfil profissional, origem do cadastro e a data e o texto do consentimento aceito. Em uma compra, registramos o e-mail, o CPF informado para identificar a licença pessoal, identificadores técnicos da transação e o status do pagamento. Os dados financeiros do cartão são processados pela Stripe e não são armazenados pelo Arsenal Med.
           </p>
 
           <h2 className="mt-10 text-tinta">Para que usamos</h2>

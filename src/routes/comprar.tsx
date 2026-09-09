@@ -19,12 +19,12 @@ export const Route = createFileRoute("/comprar")({
       { title: "Comprar — Arsenal Med 3.0" },
       {
         name: "description",
-        content: `${ARSENAL_PRICE}, pagamento único. Manual Completo + Catálogo de Fármacos e Tabelas em bônus. Pix ou cartão.`,
+        content: `${ARSENAL_PRICE}, pagamento único. Manual Completo + Catálogo de Fármacos e Tabelas em bônus. Cartão.`,
       },
       { property: "og:title", content: "Comprar — Arsenal Med 3.0" },
       {
         property: "og:description",
-        content: `Manual Completo + Catálogo em bônus. ${ARSENAL_PRICE}, pagamento único. Pix ou cartão.`,
+        content: `Manual Completo + Catálogo em bônus. ${ARSENAL_PRICE}, pagamento único. Cartão.`,
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://arsenalmed.com.br/comprar" },
@@ -101,8 +101,8 @@ function ComprarPage() {
               <span className="block font-heading font-bold uppercase tracking-[0.08em] text-tinta">
                 Pagamento seguro via Stripe
               </span>
-              Cobrança processada pela Stripe, em ambiente oficial. Pix ou cartão — os dados do cartão são digitados
-              direto na Stripe e não passam por este site.
+              Cobrança processada pela Stripe, em ambiente oficial. Os dados do cartão são digitados direto na
+              Stripe e não passam por este site.
             </span>
           </li>
           <li className="flex gap-3">
@@ -114,7 +114,7 @@ function ComprarPage() {
                 Entrega imediata
               </span>
               Assim que o pagamento é confirmado, os dois volumes ficam disponíveis para download na hora e o mesmo
-              acesso chega ao seu e-mail. No Pix, a confirmação costuma levar poucos segundos.
+              acesso chega ao seu e-mail.
             </span>
           </li>
         </ul>
@@ -172,7 +172,7 @@ function ComprarPage() {
               CONTINUAR PARA PAGAMENTO
             </button>
             <p className="mt-4 text-center text-sm text-musgo-600">
-              Pix ou cartão · pagamento processado pela Stripe · seus dados de cartão não passam por este site
+              Pagamento processado pela Stripe · seus dados de cartão não passam por este site
             </p>
             <p className="mt-3 text-center text-xs leading-relaxed text-musgo-500">
               Ao continuar, você concorda com a utilização dos dados necessária para processar a compra e entregar os arquivos. Veja a{" "}

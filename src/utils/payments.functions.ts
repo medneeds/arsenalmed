@@ -65,21 +65,11 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
         ...(data.customerEmail && { customer_email: data.customerEmail }),
       };
 
-      let session;
-      try {
-        session = await stripe.checkout.sessions.create({
-          ...base,
-          payment_method_types: ["card", "pix"],
-          metadata,
-        });
-      } catch (firstError) {
-        console.warn("checkout retry without pix:", getStripeErrorMessage(firstError));
-        session = await stripe.checkout.sessions.create({
-          ...base,
-          payment_method_types: ["card"],
-          metadata,
-        });
-      }
+      const session = await stripe.checkout.sessions.create({
+        ...base,
+        payment_method_types: ["card"],
+        metadata,
+      });
 
       if (!session.client_secret) {
         throw new Error("A Stripe não retornou o código necessário para abrir o checkout.");

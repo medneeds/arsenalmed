@@ -67,7 +67,7 @@ function ObrigadoPage() {
           setState({
             kind: "erro",
             message:
-              "Ainda não recebemos a confirmação. No Pix isso pode levar alguns minutos. Assim que o pagamento for compensado, o acesso é liberado e o e-mail de entrega é enviado.",
+              "Ainda não recebemos a confirmação. Pode levar alguns instantes. Assim que o pagamento for compensado, o acesso é liberado e o e-mail de entrega é enviado.",
           });
         }
       } catch {
@@ -109,7 +109,7 @@ function ObrigadoPage() {
                 Quase lá
               </h1>
               <p className="mt-3 text-[16px] leading-relaxed text-musgo-600">
-                Isso é comum no Pix. Esta página verifica automaticamente a confirmação a cada 10 segundos.
+                Esta página verifica automaticamente a confirmação a cada 10 segundos.
               </p>
               <p className="mt-4 text-[15px] leading-relaxed text-musgo-600">
                 Você não perdeu a compra. Pode manter esta página aberta, atualizá-la ou fechá-la: assim que o
