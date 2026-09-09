@@ -20,11 +20,11 @@ const ITENS = [
 
 export function Preco() {
   return (
-    <section id="preco" className="relative overflow-hidden scroll-mt-20 bg-musgo-800 px-4 py-20 md:px-6 md:py-28">
-      <TopoLines tone="escuro" />
+    <section id="preco" className="relative overflow-hidden scroll-mt-20 bg-papel px-4 py-20 md:px-6 md:py-28">
+      <TopoLines />
       <CrateIllustration className="pointer-events-none absolute -bottom-10 -left-16 hidden w-[320px] opacity-20 lg:block" />
       <div className="relative mx-auto max-w-[560px] border-2 border-ocre bg-musgo-900 p-6 md:p-10">
-        <Stamp tone="escuro" top="PACOTE" main="COMPLETO" className="absolute -right-2 -top-7 md:-right-8 md:-top-10" />
+        <Stamp top="PACOTE" main="COMPLETO" className="absolute -right-2 -top-7 md:-right-8 md:-top-10" />
         <p className="label text-ocre">PACOTE COMPLETO</p>
         <h2 className="mt-4 text-papel">Arsenal Med 3.0</h2>
 
@@ -67,7 +67,7 @@ export function Preco() {
         <a
           href="/comprar"
           onClick={() => track("click_buy", { origem: "preco" })}
-          className="mt-8 flex min-h-14 items-center justify-center bg-ocre px-5 py-4 text-center font-heading text-base font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-100"
+          className="mt-8 flex min-h-14 items-center justify-center bg-ocre px-5 py-4 text-center font-heading text-base font-bold uppercase tracking-[0.12em] text-musgo-900 transition-colors hover:bg-musgo-800 hover:text-papel"
         >
           COMPRAR O PACOTE COMPLETO
         </a>
