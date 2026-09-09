@@ -4,159 +4,95 @@ export function CrateIllustration({ className }: { className?: string }) {
       viewBox="0 0 420 340"
       fill="none"
       role="img"
-      aria-label="Caixote de suprimento médico em perspectiva, estampado a estêncil com cruz e marcações técnicas"
+      aria-label="Caixote de suprimento médico militar em perspectiva, com tampa clara, cintas e cruz vermelha estenciada"
       className={className}
     >
       {/* Linhas topográficas de fundo */}
-      <path
-        d="M-10 90 C 60 60, 140 120, 210 84 S 350 60, 430 100"
-        stroke="var(--musgo-500)"
-        strokeWidth="1.5"
-        opacity="0.4"
-        fill="none"
-      />
-      <path
-        d="M-10 160 C 70 130, 150 190, 230 150 S 360 130, 430 170"
-        stroke="var(--musgo-500)"
-        strokeWidth="1.5"
-        opacity="0.3"
-        fill="none"
-      />
-      <path
-        d="M-10 250 C 80 220, 160 275, 240 235 S 370 215, 430 255"
-        stroke="var(--musgo-500)"
-        strokeWidth="1.5"
-        opacity="0.25"
-        fill="none"
-      />
+      <path d="M-10 84 C 60 56, 140 116, 210 80 S 350 56, 430 96" stroke="var(--musgo-500)" strokeWidth="1.5" opacity="0.35" fill="none" />
+      <path d="M-10 156 C 70 126, 150 186, 230 146 S 360 126, 430 166" stroke="var(--musgo-500)" strokeWidth="1.5" opacity="0.28" fill="none" />
+      <path d="M-10 250 C 80 220, 160 275, 240 235 S 370 215, 430 255" stroke="var(--musgo-500)" strokeWidth="1.5" opacity="0.22" fill="none" />
 
-      {/* Sombra no chão, projetada em perspectiva */}
-      <polygon points="70,296 330,296 372,268 112,268" fill="var(--musgo-800)" opacity="0.4" />
+      {/* Sombra projetada */}
+      <polygon points="66,300 328,300 372,272 110,272" fill="var(--musgo-800)" opacity="0.35" />
 
-      {/* ===== CAIXOTE EM PERSPECTIVA ===== */}
-
-      {/* Face lateral direita */}
-      <polygon points="330,150 366,122 366,258 330,286" fill="var(--musgo-700)" stroke="var(--musgo-300)" strokeWidth="2" />
-      {/* Tábuas da lateral */}
-      <line x1="330" y1="184" x2="366" y2="156" stroke="var(--musgo-800)" strokeWidth="2" />
-      <line x1="330" y1="218" x2="366" y2="190" stroke="var(--musgo-800)" strokeWidth="2" />
-      <line x1="330" y1="252" x2="366" y2="224" stroke="var(--musgo-800)" strokeWidth="2" />
-      {/* Alça recortada na lateral */}
-      <polygon points="340,196 356,184 356,196 340,208" fill="var(--musgo-900)" />
-
-      {/* Face superior (tampa) */}
-      <polygon points="90,150 330,150 366,122 126,122" fill="var(--musgo-500)" stroke="var(--musgo-300)" strokeWidth="2" />
-      {/* Sarrafos da tampa */}
-      <line x1="150" y1="150" x2="186" y2="122" stroke="var(--musgo-600)" strokeWidth="5" />
-      <line x1="270" y1="150" x2="306" y2="122" stroke="var(--musgo-600)" strokeWidth="5" />
-      {/* Texto estêncil na tampa, levemente inclinado com a perspectiva */}
+      {/* ===== TAMPA (face superior em perspectiva) ===== */}
+      <polygon points="88,146 328,146 372,112 132,112" fill="var(--musgo-200)" stroke="var(--musgo-800)" strokeWidth="2" />
+      {/* Ressalto frontal da tampa */}
+      <rect x="88" y="146" width="240" height="16" fill="var(--musgo-300)" stroke="var(--musgo-800)" strokeWidth="2" />
+      {/* Sarrafos da tampa acompanhando a perspectiva */}
+      <line x1="148" y1="146" x2="192" y2="112" stroke="var(--musgo-400)" strokeWidth="3" opacity="0.8" />
+      <line x1="268" y1="146" x2="312" y2="112" stroke="var(--musgo-400)" strokeWidth="3" opacity="0.8" />
       <text
-        x="228"
-        y="139"
+        x="238"
+        y="136"
         textAnchor="middle"
         fontFamily="'IBM Plex Mono', monospace"
-        fontSize="11"
+        fontSize="10.5"
         fontWeight="600"
         letterSpacing="3"
-        fill="var(--musgo-800)"
-        transform="skewX(-24)"
+        fill="var(--musgo-700)"
+        transform="skewX(-22)"
       >
         ARSENAL MED
       </text>
 
+      {/* ===== CORPO ===== */}
+      {/* Face lateral direita */}
+      <polygon points="328,162 372,128 372,258 328,286" fill="var(--musgo-700)" stroke="var(--musgo-800)" strokeWidth="2" />
+      <line x1="328" y1="196" x2="372" y2="164" stroke="var(--musgo-800)" strokeWidth="2" opacity="0.6" />
+      <line x1="328" y1="240" x2="372" y2="208" stroke="var(--musgo-800)" strokeWidth="2" opacity="0.6" />
+      {/* Alça lateral */}
+      <polygon points="338,208 358,194 358,206 338,220" fill="var(--musgo-900)" />
+
       {/* Face frontal */}
-      <rect x="90" y="150" width="240" height="136" fill="var(--musgo-600)" stroke="var(--musgo-300)" strokeWidth="2" />
-      {/* Juntas horizontais das tábuas */}
-      <line x1="90" y1="184" x2="330" y2="184" stroke="var(--musgo-700)" strokeWidth="2" />
-      <line x1="90" y1="218" x2="330" y2="218" stroke="var(--musgo-700)" strokeWidth="2" />
-      <line x1="90" y1="252" x2="330" y2="252" stroke="var(--musgo-700)" strokeWidth="2" />
+      <rect x="88" y="162" width="240" height="124" fill="var(--musgo-600)" stroke="var(--musgo-800)" strokeWidth="2" />
 
-      {/* Cintas verticais escuras — sobem pela frontal e dobram na tampa */}
-      <polygon points="110,150 126,150 126,286 110,286" fill="var(--musgo-800)" />
-      <polygon points="110,150 126,150 162,122 146,122" fill="var(--musgo-800)" />
-      <polygon points="288,150 304,150 304,286 288,286" fill="var(--musgo-800)" />
-      <polygon points="288,150 304,150 340,122 324,122" fill="var(--musgo-800)" />
-      {/* Rebites */}
-      <circle cx="118" cy="166" r="2.5" fill="var(--musgo-300)" />
-      <circle cx="118" cy="226" r="2.5" fill="var(--musgo-300)" />
-      <circle cx="118" cy="272" r="2.5" fill="var(--musgo-300)" />
-      <circle cx="296" cy="166" r="2.5" fill="var(--musgo-300)" />
-      <circle cx="296" cy="226" r="2.5" fill="var(--musgo-300)" />
-      <circle cx="296" cy="272" r="2.5" fill="var(--musgo-300)" />
+      {/* Cintas horizontais claras (como na referência) */}
+      <rect x="88" y="180" width="240" height="9" fill="var(--musgo-300)" opacity="0.9" />
+      <rect x="88" y="252" width="240" height="9" fill="var(--musgo-300)" opacity="0.9" />
+      <polygon points="328,180 372,148 372,157 328,189" fill="var(--musgo-300)" opacity="0.6" />
+      <polygon points="328,252 372,220 372,229 328,261" fill="var(--musgo-300)" opacity="0.6" />
 
-      {/* Cantoneiras da face frontal */}
-      <rect x="90" y="150" width="14" height="14" fill="var(--musgo-800)" />
-      <rect x="316" y="150" width="14" height="14" fill="var(--musgo-800)" />
-      <rect x="90" y="272" width="14" height="14" fill="var(--musgo-800)" />
-      <rect x="316" y="272" width="14" height="14" fill="var(--musgo-800)" />
+      {/* Base clara */}
+      <rect x="88" y="272" width="240" height="14" fill="var(--musgo-200)" stroke="var(--musgo-800)" strokeWidth="2" />
+      <polygon points="328,272 372,244 372,258 328,286" fill="var(--musgo-300)" stroke="var(--musgo-800)" strokeWidth="2" />
 
-      {/* Cruz médica estenciada */}
-      <path
-        d="M162 176 h26 v20 h20 v26 h-20 v20 h-26 v-20 h-20 v-26 h20 z"
-        fill="var(--alerta)"
-      />
-      {/* Falha de estêncil na cruz */}
-      <rect x="160" y="202" width="50" height="3" fill="var(--musgo-600)" />
+      {/* Cantoneiras metálicas */}
+      <rect x="88" y="162" width="12" height="12" fill="var(--musgo-800)" />
+      <rect x="316" y="162" width="12" height="12" fill="var(--musgo-800)" />
+      <circle cx="94" cy="168" r="1.8" fill="var(--musgo-300)" />
+      <circle cx="322" cy="168" r="1.8" fill="var(--musgo-300)" />
 
-      {/* Bloco de marcações à direita */}
-      <text
-        x="238"
-        y="184"
-        fontFamily="'IBM Plex Mono', monospace"
-        fontSize="10.5"
-        fontWeight="600"
-        letterSpacing="1.5"
-        fill="var(--musgo-100)"
-      >
-        MATERIAL MÉDICO
+      {/* Travas frontais */}
+      <rect x="146" y="152" width="18" height="14" fill="var(--musgo-800)" />
+      <rect x="252" y="152" width="18" height="14" fill="var(--musgo-800)" />
+
+      {/* Cruz médica estenciada, centralizada na face frontal */}
+      <path d="M195 196 h30 v22 h22 v30 h-22 v22 h-30 v-22 h-22 v-30 h22 z" fill="var(--alerta)" />
+      {/* Falha de estêncil */}
+      <rect x="171" y="224" width="78" height="2.5" fill="var(--musgo-600)" opacity="0.85" />
+
+      {/* Marcações laterais na face frontal */}
+      <text x="100" y="208" fontFamily="'IBM Plex Mono', monospace" fontSize="9" fontWeight="600" letterSpacing="1.4" fill="var(--musgo-200)">
+        MATERIAL
       </text>
-      <text
-        x="238"
-        y="201"
-        fontFamily="'IBM Plex Mono', monospace"
-        fontSize="10.5"
-        letterSpacing="1.5"
-        fill="var(--musgo-300)"
-      >
-        USO IMEDIATO
+      <text x="100" y="221" fontFamily="'IBM Plex Mono', monospace" fontSize="9" letterSpacing="1.4" fill="var(--musgo-300)">
+        MÉDICO
       </text>
-      {/* Setas "este lado para cima" */}
-      <path d="M240 234 v-14 M235 225 l5 -7 5 7" stroke="var(--musgo-100)" strokeWidth="2.5" fill="none" />
-      <path d="M256 234 v-14 M251 225 l5 -7 5 7" stroke="var(--musgo-100)" strokeWidth="2.5" fill="none" />
-      <text
-        x="238"
-        y="248"
-        fontFamily="'IBM Plex Mono', monospace"
-        fontSize="8.5"
-        letterSpacing="1.5"
-        fill="var(--musgo-300)"
-      >
-        ESTE LADO P/ CIMA
+      <path d="M104 248 v-13 M99.5 239.5 l4.5 -6 4.5 6" stroke="var(--musgo-200)" strokeWidth="2.2" fill="none" />
+      <text x="272" y="208" fontFamily="'IBM Plex Mono', monospace" fontSize="9" fontWeight="600" letterSpacing="1.4" fill="var(--musgo-200)">
+        USO
       </text>
-
-      {/* Rodapé estêncil da face frontal */}
-      <text
-        x="134"
-        y="272"
-        fontFamily="'IBM Plex Mono', monospace"
-        fontSize="9.5"
-        letterSpacing="2"
-        fill="var(--musgo-300)"
-      >
-        FRÁGIL · Nº 05/33
+      <text x="272" y="221" fontFamily="'IBM Plex Mono', monospace" fontSize="9" letterSpacing="1.4" fill="var(--musgo-300)">
+        IMEDIATO
+      </text>
+      <text x="272" y="244" fontFamily="'IBM Plex Mono', monospace" fontSize="8" letterSpacing="1.4" fill="var(--musgo-300)">
+        Nº 05/33
       </text>
 
       {/* Tarja de especificação abaixo do caixote */}
-      <line x1="90" y1="306" x2="330" y2="306" stroke="var(--musgo-300)" strokeWidth="1" strokeDasharray="5 4" opacity="0.7" />
-      <text
-        x="210"
-        y="324"
-        textAnchor="middle"
-        fontFamily="'IBM Plex Mono', monospace"
-        fontSize="10"
-        letterSpacing="3"
-        fill="var(--musgo-500)"
-      >
+      <line x1="88" y1="308" x2="328" y2="308" stroke="var(--musgo-300)" strokeWidth="1" strokeDasharray="5 4" opacity="0.7" />
+      <text x="208" y="326" textAnchor="middle" fontFamily="'IBM Plex Mono', monospace" fontSize="10" letterSpacing="3" fill="var(--musgo-500)">
         33 CENÁRIOS · 2 VOLUMES
       </text>
     </svg>
