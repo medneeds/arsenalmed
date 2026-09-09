@@ -39,7 +39,7 @@ export function Preco() {
           </div>
           <div className="mt-1 font-mono text-5xl font-semibold text-papel md:text-6xl">{ARSENAL_PRICE}</div>
         </div>
-        <p className="mt-3 text-sm text-musgo-300">pagamento único · Pix ou cartão</p>
+        <p className="mt-3 text-sm text-musgo-300">pagamento único · cartão</p>
 
         <ul className="mt-8 space-y-3">
           {ITENS.map((item) => (
@@ -73,7 +73,7 @@ export function Preco() {
         </a>
 
         <p className="mt-5 text-center text-sm leading-relaxed text-musgo-300">
-          Pagamento único · Pix ou cartão · processado pela Stripe
+          Pagamento único · cartão · processado pela Stripe
           <br />
           Garantia de 7 dias: reembolso integral, sem justificativa
         </p>

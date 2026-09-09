@@ -4,7 +4,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 const FAQS = [
   {
     q: "COMO EU RECEBO O MATERIAL?",
-    a: "Assim que o pagamento é confirmado, a página de entrega libera dois arquivos: o Manual Completo e o Catálogo de Fármacos e Tabelas. O mesmo acesso também é enviado por e-mail. No Pix, a confirmação pode levar alguns minutos.",
+    a: "Assim que o pagamento é confirmado, a página de entrega libera dois arquivos: o Manual Completo e o Catálogo de Fármacos e Tabelas. O mesmo acesso também é enviado por e-mail.",
   },
   {
     q: "É PDF OU PLATAFORMA?",
