@@ -86,30 +86,6 @@ export function CrateIllustration({ className }: { className?: string }) {
       <rect x="146" y="152" width="18" height="14" fill="var(--musgo-800)" />
       <rect x="252" y="152" width="18" height="14" fill="var(--musgo-800)" />
 
-      {/* Brasão ARSENAL MED estêncil, centralizado na face frontal */}
-      <g transform="translate(189 195) scale(1.02)" opacity="0.95">
-        {/* Escudo */}
-        <path
-          d="M3 3 H36 V26 C36 37 28 44 19.5 47.5 C11 44 3 37 3 26 Z"
-          fill="var(--musgo-700)"
-          stroke="var(--musgo-100)"
-          strokeWidth="2"
-          strokeLinejoin="round"
-        />
-        {/* Dois galões ocre */}
-        <path d="M9 13 L19.5 8.5 L30 13" stroke="var(--ocre)" strokeWidth="3.5" fill="none" strokeLinejoin="round" />
-        <path d="M9 19 L19.5 14.5 L30 19" stroke="var(--ocre)" strokeWidth="3.5" fill="none" strokeLinejoin="round" />
-        {/* Cruz médica no centro do escudo */}
-        <path
-          d="M17 24 h5 v5 h5 v5 h-5 v5 h-5 v-5 h-5 v-5 h5 z"
-          fill="var(--alerta)"
-          stroke="var(--alerta)"
-          strokeWidth="1"
-          strokeLinejoin="round"
-        />
-      </g>
-      {/* Falha de estêncil */}
-      <rect x="180" y="230" width="56" height="2.5" fill="var(--musgo-600)" opacity="0.7" />
 
       {/* Marcações laterais na face frontal */}
       <text x="100" y="206" fontFamily="'IBM Plex Mono', monospace" fontSize="9" fontWeight="600" letterSpacing="1.4" fill="var(--musgo-100)">
@@ -128,6 +104,41 @@ export function CrateIllustration({ className }: { className?: string }) {
       <text x="272" y="244" fontFamily="'IBM Plex Mono', monospace" fontSize="8" letterSpacing="1.4" fill="var(--musgo-300)">
         Nº 05/33
       </text>
+
+      {/* Brasão em relevo, camada superior (à frente da face frontal) */}
+      <g transform="translate(193 200) scale(0.8)">
+        {/* Sombra projetada por trás — dá profundidade */}
+        <g transform="translate(2.6 3.4)" opacity="0.5">
+          <path d="M1 1 H38 V26 C38 38 29 45.5 19.5 49.3 C10 45.5 1 38 1 26 Z" fill="var(--musgo-900)" />
+        </g>
+        {/* Placa-base metálica levemente maior */}
+        <path
+          d="M1 1 H38 V26 C38 38 29 45.5 19.5 49.3 C10 45.5 1 38 1 26 Z"
+          fill="var(--musgo-800)"
+          stroke="var(--musgo-200)"
+          strokeWidth="1"
+          strokeLinejoin="round"
+        />
+        {/* Escudo */}
+        <path
+          d="M3 3 H36 V26 C36 37 28 44 19.5 47.5 C11 44 3 37 3 26 Z"
+          fill="var(--musgo-700)"
+          stroke="var(--musgo-100)"
+          strokeWidth="1.8"
+          strokeLinejoin="round"
+        />
+        {/* Dois galões ocre */}
+        <path d="M9 13 L19.5 8.5 L30 13" stroke="var(--ocre)" strokeWidth="3.5" fill="none" strokeLinejoin="round" />
+        <path d="M9 19 L19.5 14.5 L30 19" stroke="var(--ocre)" strokeWidth="3.5" fill="none" strokeLinejoin="round" />
+        {/* Cruz médica no centro do escudo */}
+        <path
+          d="M17 24 h5 v5 h5 v5 h-5 v5 h-5 v-5 h-5 v-5 h5 z"
+          fill="var(--alerta)"
+          stroke="var(--alerta)"
+          strokeWidth="1"
+          strokeLinejoin="round"
+        />
+      </g>
 
       {/* Tarja de especificação abaixo do caixote */}
       <line x1="88" y1="308" x2="328" y2="308" stroke="var(--musgo-300)" strokeWidth="1" strokeDasharray="5 4" opacity="0.7" />
