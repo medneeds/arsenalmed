@@ -1,8 +1,11 @@
+import { TopoLines } from "./TopoLines";
+
 export function Problema() {
   return (
-    <section className="bg-papel px-4 py-20 md:px-6 md:py-28">
-      <div className="mx-auto max-w-[680px]">
-        <p className="label text-musgo-500">O PROBLEMA</p>
+    <section className="relative overflow-hidden bg-papel px-4 py-20 md:px-6 md:py-28">
+      <TopoLines />
+      <div className="relative mx-auto max-w-[680px]">
+        <p className="fieldtag">O PROBLEMA</p>
         <h2 className="mt-5 text-tinta">Você não esqueceu a conduta. Você não tem tempo de organizá-la.</h2>
         <div className="mt-8 space-y-6 text-tinta">
           <p>

@@ -1,3 +1,4 @@
+import { TopoLines } from "./TopoLines";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const FAQS = [
@@ -41,9 +42,10 @@ const FAQS = [
 
 export function Faq() {
   return (
-    <section className="bg-papel px-4 py-20 md:px-6 md:py-28">
-      <div className="mx-auto max-w-[680px]">
-        <p className="label text-musgo-500">PERGUNTAS FREQUENTES</p>
+    <section className="relative overflow-hidden bg-papel px-4 py-20 md:px-6 md:py-28">
+      <TopoLines />
+      <div className="relative mx-auto max-w-[680px]">
+        <p className="fieldtag">PERGUNTAS FREQUENTES</p>
         <h2 className="mt-5 text-tinta">FAQ</h2>
 
         <Accordion type="single" collapsible className="mt-10 w-full">

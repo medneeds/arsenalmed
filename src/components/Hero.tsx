@@ -1,11 +1,14 @@
 import { CrateIllustration } from "./CrateIllustration";
 import { LeadCaptureModal } from "./LeadCaptureModal";
 import { track } from "@/lib/analytics";
+import { TopoLines } from "./TopoLines";
+import { Stamp } from "./Stamp";
 
 export function Hero() {
   return (
-    <section className="bg-musgo-800 px-4 py-16 md:px-6 md:py-28">
-      <div className="mx-auto flex max-w-5xl flex-col items-center gap-10 md:flex-row md:gap-10">
+    <section className="relative overflow-hidden bg-musgo-800 px-4 py-16 md:px-6 md:py-28">
+      <TopoLines tone="escuro" />
+      <div className="relative mx-auto flex max-w-5xl flex-col items-center gap-10 md:flex-row md:gap-10">
         <div className="w-full min-w-0 md:w-[58%]">
           <div className="flex items-center gap-2.5">
             <span className="inline-block h-2.5 w-2.5 shrink-0 bg-alerta" aria-hidden="true" />
@@ -51,8 +54,14 @@ export function Hero() {
             CONSULTA OFF-LINE — ABRE SEM INTERNET
           </p>
         </div>
-        <div className="w-full min-w-0 md:w-[42%]">
+        <div className="relative w-full min-w-0 md:w-[42%]">
           <CrateIllustration className="h-auto w-full" />
+          <Stamp
+            tone="escuro"
+            top="EMERGÊNCIA"
+            main="UTI"
+            className="absolute -top-2 right-2 md:-right-4 md:top-2"
+          />
         </div>
       </div>
     </section>

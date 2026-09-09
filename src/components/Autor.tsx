@@ -1,3 +1,4 @@
+import { TopoLines } from "./TopoLines";
 import autorFoto from "@/assets/artur-batista.webp";
 
 const PRODUCAO = [
@@ -21,8 +22,9 @@ const PRODUCAO = [
 
 export function Autor() {
   return (
-    <section className="bg-papel-2 px-4 py-20 md:px-6 md:py-28">
-      <div className="mx-auto grid max-w-[1040px] items-start gap-10 md:grid-cols-[minmax(0,360px)_1fr] md:gap-14">
+    <section className="relative overflow-hidden bg-papel-2 px-4 py-20 md:px-6 md:py-28">
+      <TopoLines />
+      <div className="relative mx-auto grid max-w-[1040px] items-start gap-10 md:grid-cols-[minmax(0,360px)_1fr] md:gap-14">
         {/* Foto — corte vertical editorial */}
         <figure className="mx-auto w-full max-w-[360px]">
           <div className="overflow-hidden border border-musgo-300 bg-musgo-100">
@@ -43,7 +45,7 @@ export function Autor() {
 
         {/* Conteúdo */}
         <div className="min-w-0">
-          <p className="label text-musgo-500">AUTOR</p>
+          <p className="fieldtag">AUTOR</p>
           <h2 className="mt-5 text-tinta">Artur Batista</h2>
           <p className="mt-3 font-mono text-sm text-musgo-600">CRM/MA 11788</p>
 

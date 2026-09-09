@@ -1,3 +1,5 @@
+import { TopoLines } from "./TopoLines";
+
 const CARDS = [
   {
     titulo: "33 CASOS",
@@ -15,8 +17,9 @@ const CARDS = [
 
 export function Conteudo() {
   return (
-    <section id="conteudo" className="scroll-mt-20 bg-musgo-800 px-4 py-20 md:px-6 md:py-28">
-      <div className="mx-auto max-w-5xl">
+    <section id="conteudo" className="relative overflow-hidden scroll-mt-20 bg-musgo-800 px-4 py-20 md:px-6 md:py-28">
+      <TopoLines tone="escuro" />
+      <div className="relative mx-auto max-w-5xl">
         <p className="label text-ocre">O QUE VOCÊ RECEBE</p>
         <h2 className="mt-5 max-w-[680px] text-papel">Manual completo com 33 cenários + catálogo de fármacos e dez tabelas em um segundo volume</h2>
 
