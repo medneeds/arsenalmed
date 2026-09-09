@@ -57,6 +57,7 @@ export function Hero() {
         <div className="relative w-full min-w-0 md:w-[42%]">
           <CrateIllustration className="h-auto w-full" />
           <Stamp
+            tone="escuro"
             top="EMERGÊNCIA"
             main="UTI"
             className="absolute -top-2 right-0 md:-right-4 md:top-2"
