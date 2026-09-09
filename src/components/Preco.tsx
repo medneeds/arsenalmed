@@ -39,27 +39,27 @@ export function Preco() {
           </div>
           <div className="mt-1 font-mono text-5xl font-semibold text-papel md:text-6xl">{ARSENAL_PRICE}</div>
         </div>
-        <p className="mt-3 text-sm text-musgo-600">pagamento único · Pix ou cartão</p>
+        <p className="mt-3 text-sm text-musgo-300">pagamento único · Pix ou cartão</p>
 
         <ul className="mt-8 space-y-3">
           {ITENS.map((item) => (
             <li key={item} className="flex gap-3">
               <span className="mt-2 inline-block h-2.5 w-2.5 shrink-0 bg-ocre" aria-hidden="true" />
-              <span className="text-[16px] leading-relaxed text-musgo-700">{item}</span>
+              <span className="text-[16px] leading-relaxed text-musgo-100">{item}</span>
             </li>
           ))}
         </ul>
 
-        <div className="mt-7 border-t border-musgo-300 pt-5">
+        <div className="mt-7 border-t border-musgo-600 pt-5">
           <p className="label text-ocre">VOCÊ RECEBE 2 ARQUIVOS</p>
-          <p className="mt-2 text-[15px] leading-relaxed text-musgo-700">
+          <p className="mt-2 text-[15px] leading-relaxed text-musgo-100">
             1. Arsenal Med 3.0 — Manual Completo. 2. Catálogo de Fármacos e Tabelas — bônus em volume separado.
           </p>
         </div>
 
-        <div className="mt-7 border-t border-musgo-300 pt-5">
+        <div className="mt-7 border-t border-musgo-600 pt-5">
           <p className="label text-ocre">PARA USAR NO PLANTÃO</p>
-          <p className="mt-2 text-[15px] leading-relaxed text-musgo-700">
+          <p className="mt-2 text-[15px] leading-relaxed text-musgo-100">
             Material de consulta rápida para médicos, com doses de referência e organização por cenário. Não substitui bula, julgamento clínico ou protocolo institucional.
           </p>
         </div>
@@ -72,7 +72,7 @@ export function Preco() {
           COMPRAR O PACOTE COMPLETO
         </a>
 
-        <p className="mt-5 text-center text-sm leading-relaxed text-musgo-600">
+        <p className="mt-5 text-center text-sm leading-relaxed text-musgo-300">
           Pagamento único · Pix ou cartão · processado pela Stripe
           <br />
           Garantia de 7 dias: reembolso integral, sem justificativa

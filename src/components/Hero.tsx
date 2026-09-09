@@ -41,7 +41,7 @@ export function Hero() {
             <LeadCaptureModal origem="hero">
               <button
                 type="button"
-                className="flex min-h-12 items-center justify-center border border-musgo-500 px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-100 transition-colors hover:border-musgo-300"
+                className="flex min-h-12 items-center justify-center border border-musgo-500 px-5 py-3 text-center font-heading text-sm font-bold uppercase tracking-[0.12em] text-musgo-800 transition-colors hover:border-musgo-800"
               >
                 TESTAR 5 CASOS GRÁTIS
               </button>

@@ -21,12 +21,12 @@ export function Conteudo() {
       <TopoLines />
       <div className="relative mx-auto max-w-5xl">
         <p className="label text-ocre">O QUE VOCÊ RECEBE</p>
-        <h2 className="mt-5 max-w-[680px] text-papel">Manual completo com 33 cenários + catálogo de fármacos e dez tabelas em um segundo volume</h2>
+        <h2 className="mt-5 max-w-[680px] text-tinta">Manual completo com 33 cenários + catálogo de fármacos e dez tabelas em um segundo volume</h2>
 
         <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3">
           {CARDS.map((c) => (
             <div key={c.titulo} className="border border-musgo-300 p-6 md:p-8">
-              <h3 className="text-papel">{c.titulo}</h3>
+              <h3 className="text-tinta">{c.titulo}</h3>
               <p className="mt-4 text-[15px] leading-relaxed text-musgo-700">{c.corpo}</p>
             </div>
           ))}
