@@ -5,6 +5,9 @@ import {
   ARSENAL_SAVINGS,
 } from "@/lib/product";
 import { track } from "@/lib/analytics";
+import { TopoLines } from "./TopoLines";
+import { Stamp } from "./Stamp";
+import { CrateIllustration } from "./CrateIllustration";
 
 const ITENS = [
   "Manual Completo com 33 cenários do paciente grave",
@@ -17,8 +20,11 @@ const ITENS = [
 
 export function Preco() {
   return (
-    <section id="preco" className="scroll-mt-20 bg-musgo-800 px-4 py-20 md:px-6 md:py-28">
-      <div className="mx-auto max-w-[560px] border-2 border-ocre bg-musgo-900 p-6 md:p-10">
+    <section id="preco" className="relative overflow-hidden scroll-mt-20 bg-musgo-800 px-4 py-20 md:px-6 md:py-28">
+      <TopoLines tone="escuro" />
+      <CrateIllustration className="pointer-events-none absolute -bottom-10 -left-16 hidden w-[320px] opacity-20 lg:block" />
+      <div className="relative mx-auto max-w-[560px] border-2 border-ocre bg-musgo-900 p-6 md:p-10">
+        <Stamp top="PACOTE" main="COMPLETO" className="absolute -right-3 -top-8 md:-right-10 md:-top-12" />
         <p className="label text-ocre">PACOTE COMPLETO</p>
         <h2 className="mt-4 text-papel">Arsenal Med 3.0</h2>
 

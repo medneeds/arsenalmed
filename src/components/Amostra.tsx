@@ -1,3 +1,6 @@
+import { TopoLines } from "./TopoLines";
+import { Stamp } from "./Stamp";
+
 const ARMADILHAS = [
   "Parar no shift e não tirar o potássio do corpo. Em duas a quatro horas ele rebate.",
   "Gluconato de cálcio em infusão lenta. A indicação é de minutos, não de horas.",
@@ -6,9 +9,13 @@ const ARMADILHAS = [
 
 export function Amostra() {
   return (
-    <section id="amostra" className="bg-papel px-4 py-20 md:px-6 md:py-28">
-      <div className="mx-auto max-w-3xl">
-        <p className="label text-musgo-500">AMOSTRA · CASO 05</p>
+    <section id="amostra" className="relative overflow-hidden bg-papel px-4 py-20 md:px-6 md:py-28">
+      <TopoLines />
+      <div className="relative mx-auto max-w-3xl">
+        <div className="flex items-start justify-between gap-4">
+          <p className="fieldtag">AMOSTRA · CASO 05</p>
+          <Stamp top="AMOSTRA" main="GRÁTIS" className="shrink-0" />
+        </div>
 
         <article className="mt-6 border border-musgo-300 bg-papel-2 p-5 md:p-10">
           <span className="inline-block bg-musgo-700 px-3 py-1 font-heading text-xs font-bold uppercase tracking-[0.16em] text-papel">
