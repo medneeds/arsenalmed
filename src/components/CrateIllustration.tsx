@@ -4,7 +4,7 @@ export function CrateIllustration({ className }: { className?: string }) {
       viewBox="0 0 420 340"
       fill="none"
       role="img"
-      aria-label="Caixote de suprimento médico militar em perspectiva, com tampa clara, cintas e cruz vermelha estenciada"
+      aria-label="Caixote de suprimento médico militar em perspectiva, com tampa clara, cintas e brasão do Arsenal Med estêncil na face frontal"
       className={className}
     >
       {/* Linhas topográficas de fundo */}
@@ -86,10 +86,30 @@ export function CrateIllustration({ className }: { className?: string }) {
       <rect x="146" y="152" width="18" height="14" fill="var(--musgo-800)" />
       <rect x="252" y="152" width="18" height="14" fill="var(--musgo-800)" />
 
-      {/* Cruz médica estenciada, centralizada na face frontal */}
-      <path d="M195 196 h30 v22 h22 v30 h-22 v22 h-30 v-22 h-22 v-30 h22 z" fill="var(--alerta)" />
+      {/* Brasão ARSENAL MED estêncil, centralizado na face frontal */}
+      <g transform="translate(208 224) scale(1.55)" opacity="0.95">
+        {/* Escudo */}
+        <path
+          d="M3 3 H36 V26 C36 37 28 44 19.5 47.5 C11 44 3 37 3 26 Z"
+          fill="var(--musgo-700)"
+          stroke="var(--musgo-100)"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+        {/* Dois galões ocre */}
+        <path d="M9 13 L19.5 8.5 L30 13" stroke="var(--ocre)" strokeWidth="3.5" fill="none" strokeLinejoin="round" />
+        <path d="M9 19 L19.5 14.5 L30 19" stroke="var(--ocre)" strokeWidth="3.5" fill="none" strokeLinejoin="round" />
+        {/* Cruz médica no centro do escudo */}
+        <path
+          d="M17 24 h5 v5 h5 v5 h-5 v5 h-5 v-5 h-5 v-5 h5 z"
+          fill="var(--alerta)"
+          stroke="var(--alerta)"
+          strokeWidth="1"
+          strokeLinejoin="round"
+        />
+      </g>
       {/* Falha de estêncil */}
-      <rect x="171" y="224" width="78" height="2.5" fill="var(--musgo-600)" opacity="0.85" />
+      <rect x="180" y="230" width="56" height="2.5" fill="var(--musgo-600)" opacity="0.7" />
 
       {/* Marcações laterais na face frontal */}
       <text x="100" y="206" fontFamily="'IBM Plex Mono', monospace" fontSize="9" fontWeight="600" letterSpacing="1.4" fill="var(--musgo-100)">
