@@ -71,18 +71,11 @@ export function CrateIllustration({ className }: { className?: string }) {
 
 
       {/* Marcações laterais na face frontal */}
-      <text x="100" y="206" fontFamily="'IBM Plex Mono', monospace" fontSize="9" fontWeight="600" letterSpacing="1.4" fill="var(--musgo-100)">
-        MATERIAL
+      <text x="100" y="214" fontFamily="'IBM Plex Mono', monospace" fontSize="10" fontWeight="700" letterSpacing="1.6" fill="var(--musgo-100)">
+        ARSENAL
       </text>
-      <text x="100" y="220" fontFamily="'IBM Plex Mono', monospace" fontSize="9" letterSpacing="1.4" fill="var(--musgo-200)">
-        MÉDICO
-      </text>
-      <path d="M104 248 v-13 M99.5 239.5 l4.5 -6 4.5 6" stroke="var(--musgo-200)" strokeWidth="2.2" fill="none" />
-      <text x="272" y="206" fontFamily="'IBM Plex Mono', monospace" fontSize="9" fontWeight="600" letterSpacing="1.4" fill="var(--musgo-100)">
-        USO
-      </text>
-      <text x="272" y="220" fontFamily="'IBM Plex Mono', monospace" fontSize="9" letterSpacing="1.4" fill="var(--musgo-200)">
-        IMEDIATO
+      <text x="272" y="214" fontFamily="'IBM Plex Mono', monospace" fontSize="10" fontWeight="700" letterSpacing="1.6" fill="var(--musgo-100)">
+        MED
       </text>
       <text x="272" y="244" fontFamily="'IBM Plex Mono', monospace" fontSize="8" letterSpacing="1.4" fill="var(--musgo-300)">
         Nº 05/33
