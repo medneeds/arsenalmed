@@ -15,10 +15,9 @@ export function Hero() {
             <p className="label text-ocre">EMERGÊNCIA E TERAPIA INTENSIVA</p>
           </div>
           <h1 className="mt-6 text-[30px] leading-[1.14] tracking-[0.02em] text-tinta sm:text-[34px] md:text-[46px] md:tracking-[0.03em]">
-            O guia de bolso do plantão
+            O guia de plantão
             <br />
-            organizado por{" "}
-            <span className="text-ocre">cenário clínico</span>
+            por <span className="text-ocre">cenário clínico</span>
           </h1>
           <p className="mt-6 inline-block bg-alerta px-3 py-1.5 font-heading text-[12px] font-semibold uppercase tracking-[0.1em] text-papel sm:text-[13px] sm:tracking-[0.12em]">
             Para o paciente grave — ou potencialmente grave.
