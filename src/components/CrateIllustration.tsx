@@ -24,7 +24,7 @@ export function CrateIllustration({ className }: { className?: string }) {
       <line x1="268" y1="146" x2="312" y2="112" stroke="var(--musgo-400)" strokeWidth="3" opacity="0.8" />
       {/* Brasão + nome estampados na tampa, acompanhando a perspectiva */}
       <g transform="skewX(-22)">
-        <g transform="translate(224 108) scale(0.4)">
+        <g transform="translate(216 109) scale(0.44)">
           <path
             d="M3 3 H36 V26 C36 37 28 44 19.5 47.5 C11 44 3 37 3 26 Z"
             stroke="var(--musgo-700)"
@@ -43,8 +43,8 @@ export function CrateIllustration({ className }: { className?: string }) {
           />
         </g>
         <text
-          x="246"
-          y="134"
+          x="240"
+          y="133"
           fontFamily="'IBM Plex Mono', monospace"
           fontSize="10.5"
           fontWeight="600"
