@@ -20,7 +20,7 @@ export function Hero() {
             organizado por{" "}
             <span className="text-ocre">cenário clínico</span>
           </h1>
-          <p className="mt-6 inline-block bg-alerta px-3 py-1.5 font-heading text-[12px] font-semibold uppercase tracking-[0.1em] text-tinta sm:text-[13px] sm:tracking-[0.12em]">
+          <p className="mt-6 inline-block bg-alerta px-3 py-1.5 font-heading text-[12px] font-semibold uppercase tracking-[0.1em] text-papel sm:text-[13px] sm:tracking-[0.12em]">
             Para o paciente grave — ou potencialmente grave.
           </p>
 
