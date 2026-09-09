@@ -12,7 +12,7 @@ export function TopoLines({
   className?: string;
 }) {
   const stroke = tone === "escuro" ? "var(--musgo-600)" : "var(--musgo-500)";
-  const base = tone === "escuro" ? 0.28 : 0.18;
+  const base = tone === "escuro" ? 0.12 : 0.07;
 
   return (
     <svg
