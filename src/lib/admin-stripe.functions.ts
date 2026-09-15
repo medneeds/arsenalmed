@@ -76,25 +76,44 @@ export const getStripeArsenalResumo = createServerFn({ method: "POST" })
         };
       }
 
-      // Sessões de checkout pagas, filtradas pelos preços do Arsenal Med
+      // Sessões pagas — só contamos os itens que são do produto Arsenal Med.
+      // O valor considerado é a soma desses itens (nunca o total da sessão),
+      // para que carrinhos mistos não inflem o faturamento do Arsenal.
       const vendas: StripeVenda[] = [];
       let startingAfter: string | undefined;
       for (let page = 0; page < 10; page++) {
         const list = await stripe.checkout.sessions.list({
           limit: 100,
-          expand: ["data.line_items"],
           ...(startingAfter ? { starting_after: startingAfter } : {}),
         });
         for (const s of list.data) {
           if (s.payment_status !== "paid") continue;
-          const items = s.line_items?.data ?? [];
-          const doArsenal = items.some((li) => li.price?.id && priceIds.has(li.price.id));
-          if (!doArsenal) continue;
+
+          const itens = await stripe.checkout.sessions.listLineItems(s.id, {
+            limit: 100,
+            expand: ["data.price.product"],
+          });
+
+          let valorArsenal = 0;
+          for (const li of itens.data) {
+            const price = li.price;
+            if (!price) continue;
+            const prodId =
+              typeof price.product === "string" ? price.product : (price.product as { id?: string })?.id;
+            const isArsenal =
+              (price.id && priceIds.has(price.id)) ||
+              (!!produtoId && prodId === produtoId) ||
+              price.lookup_key === ARSENAL_PRODUCT.lookupKey;
+            if (isArsenal) valorArsenal += li.amount_total ?? 0;
+          }
+
+          if (valorArsenal <= 0) continue;
+
           const metodos = s.payment_method_types ?? [];
           vendas.push({
             id: s.id,
             criadoEm: new Date(s.created * 1000).toISOString(),
-            valorCentavos: s.amount_total ?? 0,
+            valorCentavos: valorArsenal,
             moeda: (s.currency ?? ARSENAL_PRODUCT.currency).toUpperCase(),
             metodo: metodos.includes("pix") && metodos.length === 1 ? "pix" : (metodos[0] ?? "—"),
             status: s.payment_status,
@@ -104,6 +123,7 @@ export const getStripeArsenalResumo = createServerFn({ method: "POST" })
         startingAfter = list.data[list.data.length - 1]?.id;
         if (!startingAfter) break;
       }
+
 
       vendas.sort((a, b) => (a.criadoEm < b.criadoEm ? 1 : -1));
 
