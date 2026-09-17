@@ -218,7 +218,7 @@ function ComprarPage() {
             onClick={() => track("click_buyer_area", { origem: "pagina_comprar" })}
             className="underline underline-offset-4 hover:text-tinta"
           >
-            Entrar
+            Área do comprador
           </Link>
         </p>
       </main>
