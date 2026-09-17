@@ -20,6 +20,7 @@ import { Route as NovaSenhaRouteImport } from './routes/nova-senha'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedMinhaContaRouteImport } from './routes/_authenticated/minha-conta'
 import { Route as ApiPublicDownloadRouteImport } from './routes/api/public/download'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -78,6 +79,11 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedMinhaContaRoute = AuthenticatedMinhaContaRouteImport.update({
+  id: '/minha-conta',
+  path: '/minha-conta',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const ApiPublicDownloadRoute = ApiPublicDownloadRouteImport.update({
   id: '/api/public/download',
   path: '/api/public/download',
@@ -107,6 +113,7 @@ export interface FileRoutesByFullPath {
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/minha-conta': typeof AuthenticatedMinhaContaRoute
   '/api/public/download': typeof ApiPublicDownloadRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -122,6 +129,7 @@ export interface FileRoutesByTo {
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/minha-conta': typeof AuthenticatedMinhaContaRoute
   '/api/public/download': typeof ApiPublicDownloadRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -139,6 +147,7 @@ export interface FileRoutesById {
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/minha-conta': typeof AuthenticatedMinhaContaRoute
   '/api/public/download': typeof ApiPublicDownloadRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -156,6 +165,7 @@ export interface FileRouteTypes {
     | '/obrigado'
     | '/privacidade'
     | '/admin'
+    | '/minha-conta'
     | '/api/public/download'
     | '/api/public/payments/webhook'
     | '/lovable/email/transactional/preview'
@@ -171,6 +181,7 @@ export interface FileRouteTypes {
     | '/obrigado'
     | '/privacidade'
     | '/admin'
+    | '/minha-conta'
     | '/api/public/download'
     | '/api/public/payments/webhook'
     | '/lovable/email/transactional/preview'
@@ -187,6 +198,7 @@ export interface FileRouteTypes {
     | '/obrigado'
     | '/privacidade'
     | '/_authenticated/admin'
+    | '/_authenticated/minha-conta'
     | '/api/public/download'
     | '/api/public/payments/webhook'
     | '/lovable/email/transactional/preview'
@@ -287,6 +299,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/minha-conta': {
+      id: '/_authenticated/minha-conta'
+      path: '/minha-conta'
+      fullPath: '/minha-conta'
+      preLoaderRoute: typeof AuthenticatedMinhaContaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/api/public/download': {
       id: '/api/public/download'
       path: '/api/public/download'
@@ -313,10 +332,12 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedMinhaContaRoute: typeof AuthenticatedMinhaContaRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedMinhaContaRoute: AuthenticatedMinhaContaRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
