@@ -18,33 +18,34 @@ const FILES: Record<ArsenalFileKind, { masterPath: string; outputName: string }>
 
 /**
  * Personaliza um dos volumes pagos com e-mail + CPF no rodapé de todas as páginas.
- * Retorna o caminho privado da cópia individual ou null quando o mestre ainda não
- * estiver disponível. O chamador decide se deve usar o mestre como fallback.
+ * A identificação é obrigatória: qualquer falha lança erro para que a entrega
+ * nunca aconteça com o arquivo genérico.
  */
 export async function generatePersonalizedPdf(params: {
   compraId: string;
   email: string;
-  cpf: string | null;
+  cpf: string;
   kind: ArsenalFileKind;
-}): Promise<string | null> {
-  try {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const fileConfig = FILES[params.kind];
+}): Promise<string> {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const fileConfig = FILES[params.kind];
 
+  if (!params.cpf || params.cpf.replace(/\D/g, "").length !== 11) {
+    throw new Error(`CPF ausente ou inválido na compra ${params.compraId}: personalização bloqueada.`);
+  }
+
+  try {
     const { data: file, error: downloadError } = await supabaseAdmin.storage
       .from(BUCKET)
       .download(fileConfig.masterPath);
     if (downloadError || !file) {
-      console.error(`PDF mestre ${params.kind} indisponível para personalização:`, downloadError);
-      return null;
+      throw new Error(`PDF mestre ${params.kind} indisponível para personalização.`);
     }
 
     const pdf = await PDFDocument.load(await file.arrayBuffer());
     const font = await pdf.embedFont(StandardFonts.Helvetica);
 
-    const identidade = params.cpf
-      ? `Licenca pessoal e intransferivel  ·  ${params.email}  ·  CPF ${formatCpf(params.cpf)}`
-      : `Licenca pessoal e intransferivel  ·  ${params.email}`;
+    const identidade = `Licenca pessoal e intransferivel  ·  ${params.email}  ·  CPF ${formatCpf(params.cpf)}`;
 
     const size = 7;
     const color = rgb(0.42, 0.45, 0.38);
