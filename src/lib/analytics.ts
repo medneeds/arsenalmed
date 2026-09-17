@@ -12,7 +12,8 @@ export type FunnelEvent =
   | "payment_return"
   | "payment_confirmed"
   | "download_manual"
-  | "download_catalogo";
+  | "download_catalogo"
+  | "click_buyer_area";
 
 type Props = Record<string, string | number | boolean>;
 
