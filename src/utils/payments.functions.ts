@@ -107,6 +107,24 @@ export const confirmPurchase = createServerFn({ method: "POST" })
         .maybeSingle();
 
       if (compra?.token_download) return { status: "pago", token: compra.token_download };
+
+      // Rede de segurança: se o webhook ainda não chegou (ou falhou), a própria
+      // página /obrigado registra a compra e libera o acesso. Idempotente.
+      const { fulfillArsenalSession, isArsenalSession } = await import("@/lib/fulfill.server");
+      const sessaoArsenal = {
+        id: session.id,
+        payment_status: session.payment_status,
+        payment_intent: session.payment_intent as string | { id: string } | null,
+        amount_total: session.amount_total ?? null,
+        customer_details: session.customer_details
+          ? { email: session.customer_details.email }
+          : null,
+        customer_email: session.customer_email ?? null,
+        metadata: session.metadata ?? null,
+      };
+      if (!isArsenalSession(sessaoArsenal)) return { status: "pendente" };
+      const token = await fulfillArsenalSession(sessaoArsenal);
+      if (token) return { status: "pago", token };
       return { status: "pendente" };
     } catch (error) {
       return { status: "erro", message: getStripeErrorMessage(error) };
