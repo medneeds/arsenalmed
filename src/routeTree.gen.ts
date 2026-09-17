@@ -15,6 +15,8 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CompactoRouteImport } from './routes/compacto'
 import { Route as ComprarRouteImport } from './routes/comprar'
 import { Route as DownloadRouteImport } from './routes/download'
+import { Route as EntrarRouteImport } from './routes/entrar'
+import { Route as NovaSenhaRouteImport } from './routes/nova-senha'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -49,6 +51,16 @@ const ComprarRoute = ComprarRouteImport.update({
 const DownloadRoute = DownloadRouteImport.update({
   id: '/download',
   path: '/download',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntrarRoute = EntrarRouteImport.update({
+  id: '/entrar',
+  path: '/entrar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaSenhaRoute = NovaSenhaRouteImport.update({
+  id: '/nova-senha',
+  path: '/nova-senha',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ObrigadoRoute = ObrigadoRouteImport.update({
@@ -90,6 +102,8 @@ export interface FileRoutesByFullPath {
   '/compacto': typeof CompactoRoute
   '/comprar': typeof ComprarRoute
   '/download': typeof DownloadRoute
+  '/entrar': typeof EntrarRoute
+  '/nova-senha': typeof NovaSenhaRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -103,6 +117,8 @@ export interface FileRoutesByTo {
   '/compacto': typeof CompactoRoute
   '/comprar': typeof ComprarRoute
   '/download': typeof DownloadRoute
+  '/entrar': typeof EntrarRoute
+  '/nova-senha': typeof NovaSenhaRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -118,6 +134,8 @@ export interface FileRoutesById {
   '/compacto': typeof CompactoRoute
   '/comprar': typeof ComprarRoute
   '/download': typeof DownloadRoute
+  '/entrar': typeof EntrarRoute
+  '/nova-senha': typeof NovaSenhaRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
@@ -133,6 +151,8 @@ export interface FileRouteTypes {
     | '/compacto'
     | '/comprar'
     | '/download'
+    | '/entrar'
+    | '/nova-senha'
     | '/obrigado'
     | '/privacidade'
     | '/admin'
@@ -146,6 +166,8 @@ export interface FileRouteTypes {
     | '/compacto'
     | '/comprar'
     | '/download'
+    | '/entrar'
+    | '/nova-senha'
     | '/obrigado'
     | '/privacidade'
     | '/admin'
@@ -160,6 +182,8 @@ export interface FileRouteTypes {
     | '/compacto'
     | '/comprar'
     | '/download'
+    | '/entrar'
+    | '/nova-senha'
     | '/obrigado'
     | '/privacidade'
     | '/_authenticated/admin'
@@ -175,6 +199,8 @@ export interface RootRouteChildren {
   CompactoRoute: typeof CompactoRoute
   ComprarRoute: typeof ComprarRoute
   DownloadRoute: typeof DownloadRoute
+  EntrarRoute: typeof EntrarRoute
+  NovaSenhaRoute: typeof NovaSenhaRoute
   ObrigadoRoute: typeof ObrigadoRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
   ApiPublicDownloadRoute: typeof ApiPublicDownloadRoute
@@ -224,6 +250,20 @@ declare module '@tanstack/react-router' {
       path: '/download'
       fullPath: '/download'
       preLoaderRoute: typeof DownloadRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entrar': {
+      id: '/entrar'
+      path: '/entrar'
+      fullPath: '/entrar'
+      preLoaderRoute: typeof EntrarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova-senha': {
+      id: '/nova-senha'
+      path: '/nova-senha'
+      fullPath: '/nova-senha'
+      preLoaderRoute: typeof NovaSenhaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/obrigado': {
@@ -289,6 +329,8 @@ const rootRouteChildren: RootRouteChildren = {
   CompactoRoute: CompactoRoute,
   ComprarRoute: ComprarRoute,
   DownloadRoute: DownloadRoute,
+  EntrarRoute: EntrarRoute,
+  NovaSenhaRoute: NovaSenhaRoute,
   ObrigadoRoute: ObrigadoRoute,
   PrivacidadeRoute: PrivacidadeRoute,
   ApiPublicDownloadRoute: ApiPublicDownloadRoute,
