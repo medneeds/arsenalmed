@@ -160,6 +160,13 @@ function DownloadPage() {
 
 
           <p className="mt-8 text-sm text-musgo-600">
+            Prefere entrar com e-mail e senha?{" "}
+            <Link to="/entrar" className="underline underline-offset-4 hover:text-tinta">
+              Criar ou acessar sua conta
+            </Link>{" "}
+            com o e-mail da compra.
+          </p>
+          <p className="mt-3 text-sm text-musgo-600">
             <Link to="/" className="underline underline-offset-4 hover:text-tinta">
               Voltar para a página inicial
             </Link>
