@@ -44,7 +44,7 @@ export function Footer() {
             onClick={() => track("click_buyer_area", { origem: "rodape" })}
             className="inline-flex min-h-11 items-center text-musgo-700 underline underline-offset-4 hover:text-tinta"
           >
-            Já comprou? Entrar
+            Área do comprador
           </Link>
         </nav>
 
