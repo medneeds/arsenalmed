@@ -78,3 +78,23 @@ export async function generatePersonalizedPdf(params: {
     throw error instanceof Error ? error : new Error(String(error));
   }
 }
+
+/**
+ * Mesma personalização, com novas tentativas automáticas. Falhas transitórias
+ * (rede, storage) não podem impedir a entrega de uma compra já paga.
+ */
+export async function generatePersonalizedPdfWithRetry(
+  params: { compraId: string; email: string; cpf: string; kind: ArsenalFileKind },
+  attempts = 3,
+): Promise<string> {
+  let lastError: unknown;
+  for (let i = 0; i < attempts; i++) {
+    try {
+      return await generatePersonalizedPdf(params);
+    } catch (error) {
+      lastError = error;
+      if (i < attempts - 1) await new Promise((r) => setTimeout(r, 400 * (i + 1)));
+    }
+  }
+  throw lastError instanceof Error ? lastError : new Error(String(lastError));
+}
