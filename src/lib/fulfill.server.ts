@@ -40,6 +40,9 @@ export async function fulfillArsenalSession(
     return null;
   }
   const cpf = session.metadata?.["cpf"] ?? null;
+  if (!cpf || cpf.replace(/\D/g, "").length !== 11) {
+    throw new Error(`Compra ${session.id} sem CPF: entrega bloqueada até a identificação ser corrigida.`);
+  }
 
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
@@ -94,15 +97,16 @@ export async function fulfillArsenalSession(
     catalogPath = await generatePersonalizedPdf({ compraId: compra.id, email, cpf, kind: "catalogo" });
   }
 
-  const updatePayload: { arquivo_path?: string; catalogo_path?: string } = {};
-  if (manualPath) updatePayload["arquivo_path"] = manualPath;
-  if (catalogPath) updatePayload["catalogo_path"] = catalogPath;
-  if (Object.keys(updatePayload).length > 0) {
-    const { error: updateError } = await supabaseAdmin
-      .from("compras")
-      .update(updatePayload)
-      .eq("id", compra.id);
-    if (updateError) console.error("falha ao salvar caminhos personalizados:", updateError);
+  if (!manualPath || !catalogPath) {
+    throw new Error(`Personalização incompleta na compra ${compra.id}: entrega bloqueada.`);
+  }
+
+  const { error: updateError } = await supabaseAdmin
+    .from("compras")
+    .update({ arquivo_path: manualPath, catalogo_path: catalogPath })
+    .eq("id", compra.id);
+  if (updateError) {
+    throw new Error(`falha ao salvar caminhos personalizados: ${updateError.message}`);
   }
 
   const jaEnviado = Boolean((compra as { email_enviado_em?: string | null }).email_enviado_em);

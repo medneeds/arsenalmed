@@ -8,15 +8,14 @@ type CheckoutSessionResult =
   | { error: string };
 
 export const createCheckoutSession = createServerFn({ method: "POST" })
-  .inputValidator((data: { customerEmail?: string; cpf?: string; returnUrl: string; environment: StripeEnv }) =>
+  .inputValidator((data: { customerEmail?: string; cpf: string; returnUrl: string; environment: StripeEnv }) =>
     z
       .object({
         customerEmail: z.string().email().optional().or(z.literal("").transform(() => undefined)),
         cpf: z
           .string()
           .transform((v) => v.replace(/\D/g, ""))
-          .refine((v) => v.length === 11, { message: "CPF inválido" })
-          .optional(),
+          .refine((v) => v.length === 11, { message: "CPF inválido" }),
         returnUrl: z.string().url(),
         environment: z.enum(["sandbox", "live"]),
       })
@@ -53,7 +52,7 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
         managed_payments: "false",
         product: "arsenal_med_3",
         product_version: ARSENAL_PRODUCT.version,
-        ...(data.cpf ? { cpf: data.cpf } : {}),
+        cpf: data.cpf,
       };
 
       const base = {

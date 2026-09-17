@@ -4,7 +4,7 @@ import { createCheckoutSession } from "@/utils/payments.functions";
 
 interface StripeEmbeddedCheckoutProps {
   customerEmail?: string;
-  cpf?: string;
+  cpf: string;
 }
 
 export function StripeEmbeddedCheckout({ customerEmail, cpf }: StripeEmbeddedCheckoutProps) {
@@ -12,7 +12,7 @@ export function StripeEmbeddedCheckout({ customerEmail, cpf }: StripeEmbeddedChe
     const result = await createCheckoutSession({
       data: {
         ...(customerEmail ? { customerEmail } : {}),
-        ...(cpf ? { cpf } : {}),
+        cpf,
         returnUrl: `${window.location.origin}/obrigado?session_id={CHECKOUT_SESSION_ID}`,
         environment: getStripeEnvironment(),
       },
