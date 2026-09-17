@@ -210,6 +210,17 @@ function ComprarPage() {
             Voltar para a página inicial
           </Link>
         </p>
+
+        <p className="mt-3 text-center text-sm text-musgo-600">
+          Já comprou?{" "}
+          <Link
+            to="/entrar"
+            onClick={() => track("click_buyer_area", { origem: "pagina_comprar" })}
+            className="underline underline-offset-4 hover:text-tinta"
+          >
+            Entrar
+          </Link>
+        </p>
       </main>
     </div>
   );

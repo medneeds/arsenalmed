@@ -38,6 +38,10 @@ const FAQS = [
     q: "POR QUANTO TEMPO POSSO BAIXAR?",
     a: "O acesso de entrega fica ativo por 7 dias a partir da confirmação do pagamento. Cada volume tem até 5 liberações de download. Depois de baixar, guarde os arquivos no seu dispositivo para consulta off-line.",
   },
+  {
+    q: "JÁ COMPREI. COMO RECUPERO MEUS ARQUIVOS?",
+    a: "Entre em arsenalmed.com.br/entrar com o e-mail usado na compra. No primeiro acesso você escolhe uma senha e o seu acesso é criado; depois é só entrar e baixar os dois volumes, sem depender do link do e-mail. O prazo de 7 dias e os 5 downloads por volume continuam valendo. Se algo não fechar, escreva para suporte@arsenalmed.com.br a partir do e-mail da compra.",
+  },
 ];
 
 export function Faq() {

@@ -39,6 +39,13 @@ export function Footer() {
           >
             Política de Privacidade
           </Link>
+          <Link
+            to="/entrar"
+            onClick={() => track("click_buyer_area", { origem: "rodape" })}
+            className="inline-flex min-h-11 items-center text-musgo-700 underline underline-offset-4 hover:text-tinta"
+          >
+            Já comprou? Entrar
+          </Link>
         </nav>
 
         <p className="mt-6 border-t border-musgo-300 pt-5 font-mono text-xs text-musgo-500">
