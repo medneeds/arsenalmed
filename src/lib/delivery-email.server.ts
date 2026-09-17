@@ -1,6 +1,6 @@
 import { sendTemplateEmail } from "@/lib/email-templates/send-email";
 
-const SITE_URL = "https://www.arsenalmed.com.br";
+const SITE_URL = "https://arsenalmed.com.br";
 
 export async function sendDeliveryEmail(email: string, tokenDownload: string): Promise<void> {
   const accessUrl = `${SITE_URL}/download?token=${encodeURIComponent(tokenDownload)}`;
