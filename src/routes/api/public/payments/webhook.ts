@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { type StripeEnv, verifyWebhook } from "@/lib/stripe.server";
 import { sendDeliveryEmail } from "@/lib/delivery-email.server";
+import { ARSENAL_PRODUCT } from "@/lib/product";
 
 
 type CheckoutSession = {
