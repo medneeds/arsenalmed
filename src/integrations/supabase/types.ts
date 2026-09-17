@@ -26,6 +26,7 @@ export type Database = {
           email: string
           expira_em: string
           id: string
+          produto: string
           status: string
           stripe_payment_intent: string | null
           stripe_session_id: string
@@ -43,6 +44,7 @@ export type Database = {
           email: string
           expira_em?: string
           id?: string
+          produto?: string
           status?: string
           stripe_payment_intent?: string | null
           stripe_session_id: string
@@ -60,6 +62,7 @@ export type Database = {
           email?: string
           expira_em?: string
           id?: string
+          produto?: string
           status?: string
           stripe_payment_intent?: string | null
           stripe_session_id?: string
