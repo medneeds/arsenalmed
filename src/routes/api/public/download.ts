@@ -107,7 +107,16 @@ export const Route = createFileRoute("/api/public/download")({
           );
         }
 
-        const storagePath = (compra[config.pathColumn] as string | null) ?? config.masterPath;
+        const storagePath = compra[config.pathColumn] as string | null;
+        if (!storagePath) {
+          return Response.json(
+            {
+              error:
+                "Sua cópia identificada ainda está sendo preparada. Tente novamente em instantes ou escreva para suporte@arsenalmed.com.br.",
+            },
+            { status: 409 },
+          );
+        }
         const { data: signed, error: signError } = await supabaseAdmin.storage
           .from(BUCKET)
           .createSignedUrl(storagePath, SIGNED_URL_SECONDS, { download: config.downloadName });
