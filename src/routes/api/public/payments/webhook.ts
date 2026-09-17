@@ -63,7 +63,11 @@ export const Route = createFileRoute("/api/public/payments/webhook")({
           return Response.json({ received: true });
         } catch (e) {
           console.error("Webhook error:", e);
-          return new Response("Webhook error", { status: 400 });
+          const assinatura =
+            e instanceof Error && /signature|timestamp|Missing signature/i.test(e.message);
+          // 500 faz a Stripe reenviar o evento por até 3 dias: nenhuma compra
+          // paga fica sem entrega por uma falha temporária.
+          return new Response("Webhook error", { status: assinatura ? 400 : 500 });
         }
       },
     },

@@ -122,8 +122,14 @@ export const confirmPurchase = createServerFn({ method: "POST" })
         metadata: session.metadata ?? null,
       };
       if (!isArsenalSession(sessaoArsenal)) return { status: "pendente" };
-      const token = await fulfillArsenalSession(sessaoArsenal);
-      if (token) return { status: "pago", token };
+      try {
+        const token = await fulfillArsenalSession(sessaoArsenal);
+        if (token) return { status: "pago", token };
+      } catch (fulfillError) {
+        // Pagamento confirmado, preparo dos arquivos ainda não concluído:
+        // a página continua verificando e o webhook reprocessa em paralelo.
+        console.error("falha ao finalizar compra em /obrigado:", fulfillError);
+      }
       return { status: "pendente" };
     } catch (error) {
       return { status: "erro", message: getStripeErrorMessage(error) };

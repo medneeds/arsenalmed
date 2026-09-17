@@ -49,11 +49,13 @@ export const Route = createFileRoute("/api/public/download")({
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
         const selectCols =
-          "id, expira_em, status, arquivo_path, catalogo_path, downloads_manual, downloads_catalogo";
+          "id, email, cpf, expira_em, status, arquivo_path, catalogo_path, downloads_manual, downloads_catalogo";
 
         let compra:
           | {
               id: string;
+              email: string;
+              cpf: string | null;
               expira_em: string;
               status: string;
               arquivo_path: string | null;
@@ -107,15 +109,46 @@ export const Route = createFileRoute("/api/public/download")({
           );
         }
 
-        const storagePath = compra[config.pathColumn] as string | null;
+        let storagePath = compra[config.pathColumn] as string | null;
+
+        // Auto-reparo: se a cópia identificada ainda não existe (webhook lento
+        // ou falha temporária), ela é gerada agora. Nunca entregamos o mestre.
         if (!storagePath) {
-          return Response.json(
-            {
-              error:
-                "Sua cópia identificada ainda está sendo preparada. Tente novamente em instantes ou escreva para suporte@arsenalmed.com.br.",
-            },
-            { status: 409 },
-          );
+          const cpf = (compra.cpf ?? "").replace(/\D/g, "");
+          if (cpf.length !== 11) {
+            return Response.json(
+              {
+                error:
+                  "Não conseguimos identificar seus arquivos. Escreva para suporte@arsenalmed.com.br e liberamos o acesso.",
+              },
+              { status: 409 },
+            );
+          }
+          try {
+            const { generatePersonalizedPdfWithRetry } = await import("@/lib/pdf-personalize.server");
+            storagePath = await generatePersonalizedPdfWithRetry({
+              compraId: compra.id,
+              email: compra.email,
+              cpf,
+              kind,
+            });
+            await supabaseAdmin
+              .from("compras")
+              .update({ [config.pathColumn]: storagePath } as {
+                arquivo_path?: string;
+                catalogo_path?: string;
+              })
+              .eq("id", compra.id);
+          } catch (e) {
+            console.error(`falha ao regerar PDF personalizado ${kind}:`, e);
+            return Response.json(
+              {
+                error:
+                  "Sua cópia identificada está sendo preparada. Tente novamente em instantes ou escreva para suporte@arsenalmed.com.br.",
+              },
+              { status: 409 },
+            );
+          }
         }
         const { data: signed, error: signError } = await supabaseAdmin.storage
           .from(BUCKET)

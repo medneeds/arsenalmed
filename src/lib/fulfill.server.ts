@@ -39,19 +39,19 @@ export async function fulfillArsenalSession(
     console.error("checkout session sem e-mail do comprador:", session.id);
     return null;
   }
-  const cpf = session.metadata?.["cpf"] ?? null;
-  if (!cpf || cpf.replace(/\D/g, "").length !== 11) {
-    throw new Error(`Compra ${session.id} sem CPF: entrega bloqueada até a identificação ser corrigida.`);
-  }
+  const cpfMetadata = (session.metadata?.["cpf"] ?? "").replace(/\D/g, "");
+  const cpfSessao = cpfMetadata.length === 11 ? cpfMetadata : null;
 
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+
+  const COLUNAS = "id, cpf, token_download, arquivo_path, catalogo_path, email_enviado_em";
 
   const { data, error } = await supabaseAdmin
     .from("compras")
     .upsert(
       {
         email,
-        cpf,
+        cpf: cpfSessao,
         stripe_session_id: session.id,
         stripe_payment_intent: sessionPaymentIntent(session),
         valor_centavos: session.amount_total ?? ARSENAL_PRODUCT.priceCents,
@@ -60,7 +60,7 @@ export async function fulfillArsenalSession(
       },
       { onConflict: "stripe_session_id", ignoreDuplicates: true },
     )
-    .select("id, token_download, arquivo_path, catalogo_path, email_enviado_em")
+    .select(COLUNAS)
     .maybeSingle();
 
   if (error) {
@@ -73,7 +73,7 @@ export async function fulfillArsenalSession(
   if (!compra) {
     const { data: existing, error: existingError } = await supabaseAdmin
       .from("compras")
-      .select("id, token_download, arquivo_path, catalogo_path, email_enviado_em")
+      .select(COLUNAS)
       .eq("stripe_session_id", session.id)
       .maybeSingle();
     if (existingError) throw existingError;
@@ -85,16 +85,29 @@ export async function fulfillArsenalSession(
     throw new Error(`Compra paga sem token/id disponível: ${session.id}`);
   }
 
-  const { generatePersonalizedPdf } = await import("@/lib/pdf-personalize.server");
+  // O CPF da sessão é a fonte principal; o registro já gravado serve de reserva
+  // para reprocessamentos (webhook repetido, fallback da página /obrigado).
+  const cpfGravado = (compra.cpf ?? "").replace(/\D/g, "");
+  const cpf = cpfSessao ?? (cpfGravado.length === 11 ? cpfGravado : null);
+  if (!cpf) {
+    throw new Error(`Compra ${session.id} sem CPF: entrega bloqueada até a identificação ser corrigida.`);
+  }
+  if (!cpfSessao && cpfGravado) {
+    // mantém coerência entre sessão e registro
+  } else if (cpfSessao && cpfGravado !== cpfSessao) {
+    await supabaseAdmin.from("compras").update({ cpf: cpfSessao }).eq("id", compra.id);
+  }
+
+  const { generatePersonalizedPdfWithRetry } = await import("@/lib/pdf-personalize.server");
 
   let manualPath = compra.arquivo_path as string | null;
   let catalogPath = compra.catalogo_path as string | null;
 
   if (!manualPath) {
-    manualPath = await generatePersonalizedPdf({ compraId: compra.id, email, cpf, kind: "manual" });
+    manualPath = await generatePersonalizedPdfWithRetry({ compraId: compra.id, email, cpf, kind: "manual" });
   }
   if (!catalogPath) {
-    catalogPath = await generatePersonalizedPdf({ compraId: compra.id, email, cpf, kind: "catalogo" });
+    catalogPath = await generatePersonalizedPdfWithRetry({ compraId: compra.id, email, cpf, kind: "catalogo" });
   }
 
   if (!manualPath || !catalogPath) {
@@ -111,12 +124,14 @@ export async function fulfillArsenalSession(
 
   const jaEnviado = Boolean((compra as { email_enviado_em?: string | null }).email_enviado_em);
   if (novaCompra || !jaEnviado) {
-    await sendDeliveryEmail(email, compra.token_download);
-    const { error: marcaError } = await supabaseAdmin
-      .from("compras")
-      .update({ email_enviado_em: new Date().toISOString() })
-      .eq("id", compra.id);
-    if (marcaError) console.error("falha ao marcar e-mail enviado:", marcaError);
+    const enviado = await sendDeliveryEmail(email, compra.token_download);
+    if (enviado) {
+      const { error: marcaError } = await supabaseAdmin
+        .from("compras")
+        .update({ email_enviado_em: new Date().toISOString() })
+        .eq("id", compra.id);
+      if (marcaError) console.error("falha ao marcar e-mail enviado:", marcaError);
+    }
   }
 
   return compra.token_download;
