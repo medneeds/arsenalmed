@@ -106,12 +106,20 @@ async function fulfill(session: CheckoutSession): Promise<void> {
   await sendDeliveryEmail(email, compra.token_download);
 }
 
+function isArsenalSession(session: CheckoutSession): boolean {
+  const product = session.metadata?.["product"];
+  if (product === "arsenal_med_3") return true;
+  console.log("sessão ignorada (não é Arsenal Med):", session.id, product ?? "sem metadata");
+  return false;
+}
+
 async function handleWebhook(req: Request, env: StripeEnv) {
   const event = await verifyWebhook(req, env);
 
   switch (event.type) {
     case "checkout.session.completed": {
       const session = event.data.object as CheckoutSession;
+      if (!isArsenalSession(session)) break;
       if (session.payment_status !== "unpaid") {
         await fulfill(session);
       } else {
@@ -120,7 +128,9 @@ async function handleWebhook(req: Request, env: StripeEnv) {
       break;
     }
     case "checkout.session.async_payment_succeeded": {
-      await fulfill(event.data.object as CheckoutSession);
+      const session = event.data.object as CheckoutSession;
+      if (!isArsenalSession(session)) break;
+      await fulfill(session);
       break;
     }
     case "checkout.session.async_payment_failed": {
