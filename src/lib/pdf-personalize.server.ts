@@ -69,13 +69,12 @@ export async function generatePersonalizedPdf(params: {
       .from(BUCKET)
       .upload(path, bytes, { contentType: "application/pdf", upsert: true });
     if (uploadError) {
-      console.error(`falha ao gravar PDF personalizado ${params.kind}:`, uploadError);
-      return null;
+      throw new Error(`falha ao gravar PDF personalizado ${params.kind}: ${uploadError.message}`);
     }
 
     return path;
   } catch (error) {
     console.error(`falha ao personalizar PDF ${params.kind}:`, error);
-    return null;
+    throw error instanceof Error ? error : new Error(String(error));
   }
 }
