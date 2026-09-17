@@ -27,9 +27,18 @@ export const Route = createFileRoute("/api/public/download")({
       GET: async ({ request }) => {
         const url = new URL(request.url);
         const token = url.searchParams.get("token");
+        const compraId = url.searchParams.get("compra");
+        const bearer = request.headers.get("authorization")?.replace(/^Bearer\s+/i, "") ?? "";
         const kindRaw = url.searchParams.get("arquivo") ?? "manual";
-        if (!token || !/^[0-9a-f-]{36}$/i.test(token)) {
+
+        const UUID = /^[0-9a-f-]{36}$/i;
+        const usaSessao = !token && Boolean(compraId);
+
+        if (!usaSessao && (!token || !UUID.test(token))) {
           return Response.json({ error: "Link de download inválido." }, { status: 400 });
+        }
+        if (usaSessao && (!UUID.test(compraId!) || !bearer)) {
+          return Response.json({ error: "Sessão inválida. Entre novamente." }, { status: 401 });
         }
         if (kindRaw !== "manual" && kindRaw !== "catalogo") {
           return Response.json({ error: "Arquivo inválido." }, { status: 400 });
@@ -39,14 +48,46 @@ export const Route = createFileRoute("/api/public/download")({
 
         const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-        const { data: compra, error } = await supabaseAdmin
-          .from("compras")
-          .select("id, expira_em, status, arquivo_path, catalogo_path, downloads_manual, downloads_catalogo")
-          .eq("token_download", token)
-          .maybeSingle();
+        const selectCols =
+          "id, expira_em, status, arquivo_path, catalogo_path, downloads_manual, downloads_catalogo";
 
-        if (error || !compra) {
-          return Response.json({ error: "Link de download inválido." }, { status: 404 });
+        let compra:
+          | {
+              id: string;
+              expira_em: string;
+              status: string;
+              arquivo_path: string | null;
+              catalogo_path: string | null;
+              downloads_manual: number;
+              downloads_catalogo: number;
+            }
+          | null = null;
+
+        if (usaSessao) {
+          const { data: userData, error: userError } = await supabaseAdmin.auth.getUser(bearer);
+          if (userError || !userData?.user) {
+            return Response.json({ error: "Sessão expirada. Entre novamente." }, { status: 401 });
+          }
+          const { data, error } = await supabaseAdmin
+            .from("compras")
+            .select(selectCols)
+            .eq("id", compraId!)
+            .eq("user_id", userData.user.id)
+            .maybeSingle();
+          if (error || !data) {
+            return Response.json({ error: "Compra não encontrada nesta conta." }, { status: 404 });
+          }
+          compra = data;
+        } else {
+          const { data, error } = await supabaseAdmin
+            .from("compras")
+            .select(selectCols)
+            .eq("token_download", token!)
+            .maybeSingle();
+          if (error || !data) {
+            return Response.json({ error: "Link de download inválido." }, { status: 404 });
+          }
+          compra = data;
         }
         if (compra.status !== "pago") {
           return Response.json({ error: "Pagamento ainda não confirmado." }, { status: 402 });

@@ -15,9 +15,12 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CompactoRouteImport } from './routes/compacto'
 import { Route as ComprarRouteImport } from './routes/comprar'
 import { Route as DownloadRouteImport } from './routes/download'
+import { Route as EntrarRouteImport } from './routes/entrar'
+import { Route as NovaSenhaRouteImport } from './routes/nova-senha'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedMinhaContaRouteImport } from './routes/_authenticated/minha-conta'
 import { Route as ApiPublicDownloadRouteImport } from './routes/api/public/download'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
@@ -51,6 +54,16 @@ const DownloadRoute = DownloadRouteImport.update({
   path: '/download',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EntrarRoute = EntrarRouteImport.update({
+  id: '/entrar',
+  path: '/entrar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NovaSenhaRoute = NovaSenhaRouteImport.update({
+  id: '/nova-senha',
+  path: '/nova-senha',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ObrigadoRoute = ObrigadoRouteImport.update({
   id: '/obrigado',
   path: '/obrigado',
@@ -64,6 +77,11 @@ const PrivacidadeRoute = PrivacidadeRouteImport.update({
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMinhaContaRoute = AuthenticatedMinhaContaRouteImport.update({
+  id: '/minha-conta',
+  path: '/minha-conta',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const ApiPublicDownloadRoute = ApiPublicDownloadRouteImport.update({
@@ -90,9 +108,12 @@ export interface FileRoutesByFullPath {
   '/compacto': typeof CompactoRoute
   '/comprar': typeof ComprarRoute
   '/download': typeof DownloadRoute
+  '/entrar': typeof EntrarRoute
+  '/nova-senha': typeof NovaSenhaRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/minha-conta': typeof AuthenticatedMinhaContaRoute
   '/api/public/download': typeof ApiPublicDownloadRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -103,9 +124,12 @@ export interface FileRoutesByTo {
   '/compacto': typeof CompactoRoute
   '/comprar': typeof ComprarRoute
   '/download': typeof DownloadRoute
+  '/entrar': typeof EntrarRoute
+  '/nova-senha': typeof NovaSenhaRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/admin': typeof AuthenticatedAdminRoute
+  '/minha-conta': typeof AuthenticatedMinhaContaRoute
   '/api/public/download': typeof ApiPublicDownloadRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -118,9 +142,12 @@ export interface FileRoutesById {
   '/compacto': typeof CompactoRoute
   '/comprar': typeof ComprarRoute
   '/download': typeof DownloadRoute
+  '/entrar': typeof EntrarRoute
+  '/nova-senha': typeof NovaSenhaRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/minha-conta': typeof AuthenticatedMinhaContaRoute
   '/api/public/download': typeof ApiPublicDownloadRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
@@ -133,9 +160,12 @@ export interface FileRouteTypes {
     | '/compacto'
     | '/comprar'
     | '/download'
+    | '/entrar'
+    | '/nova-senha'
     | '/obrigado'
     | '/privacidade'
     | '/admin'
+    | '/minha-conta'
     | '/api/public/download'
     | '/api/public/payments/webhook'
     | '/lovable/email/transactional/preview'
@@ -146,9 +176,12 @@ export interface FileRouteTypes {
     | '/compacto'
     | '/comprar'
     | '/download'
+    | '/entrar'
+    | '/nova-senha'
     | '/obrigado'
     | '/privacidade'
     | '/admin'
+    | '/minha-conta'
     | '/api/public/download'
     | '/api/public/payments/webhook'
     | '/lovable/email/transactional/preview'
@@ -160,9 +193,12 @@ export interface FileRouteTypes {
     | '/compacto'
     | '/comprar'
     | '/download'
+    | '/entrar'
+    | '/nova-senha'
     | '/obrigado'
     | '/privacidade'
     | '/_authenticated/admin'
+    | '/_authenticated/minha-conta'
     | '/api/public/download'
     | '/api/public/payments/webhook'
     | '/lovable/email/transactional/preview'
@@ -175,6 +211,8 @@ export interface RootRouteChildren {
   CompactoRoute: typeof CompactoRoute
   ComprarRoute: typeof ComprarRoute
   DownloadRoute: typeof DownloadRoute
+  EntrarRoute: typeof EntrarRoute
+  NovaSenhaRoute: typeof NovaSenhaRoute
   ObrigadoRoute: typeof ObrigadoRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
   ApiPublicDownloadRoute: typeof ApiPublicDownloadRoute
@@ -226,6 +264,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DownloadRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/entrar': {
+      id: '/entrar'
+      path: '/entrar'
+      fullPath: '/entrar'
+      preLoaderRoute: typeof EntrarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nova-senha': {
+      id: '/nova-senha'
+      path: '/nova-senha'
+      fullPath: '/nova-senha'
+      preLoaderRoute: typeof NovaSenhaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/obrigado': {
       id: '/obrigado'
       path: '/obrigado'
@@ -245,6 +297,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/minha-conta': {
+      id: '/_authenticated/minha-conta'
+      path: '/minha-conta'
+      fullPath: '/minha-conta'
+      preLoaderRoute: typeof AuthenticatedMinhaContaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/api/public/download': {
@@ -273,10 +332,12 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedMinhaContaRoute: typeof AuthenticatedMinhaContaRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedMinhaContaRoute: AuthenticatedMinhaContaRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -289,6 +350,8 @@ const rootRouteChildren: RootRouteChildren = {
   CompactoRoute: CompactoRoute,
   ComprarRoute: ComprarRoute,
   DownloadRoute: DownloadRoute,
+  EntrarRoute: EntrarRoute,
+  NovaSenhaRoute: NovaSenhaRoute,
   ObrigadoRoute: ObrigadoRoute,
   PrivacidadeRoute: PrivacidadeRoute,
   ApiPublicDownloadRoute: ApiPublicDownloadRoute,

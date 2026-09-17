@@ -73,6 +73,15 @@ function CompraEmail({ accessUrl = 'https://arsenalmed.com.br' }: CompraEmailPro
           <Link href={accessUrl} style={{ color: musgo700, fontSize: 12, wordBreak: 'break-all' }}>
             {accessUrl}
           </Link>
+          <Text style={{ color: musgo700, fontSize: 12, lineHeight: '18px', margin: '20px 0 4px' }}>
+            Prefere entrar com e-mail e senha? Crie seu acesso em
+            {' '}
+            <Link href="https://arsenalmed.com.br/entrar" style={{ color: musgo700 }}>
+              arsenalmed.com.br/entrar
+            </Link>
+            {' '}
+            usando este mesmo e-mail — os dois volumes ficam disponíveis lá.
+          </Text>
           <Text style={{ color: musgo700, fontSize: 11, lineHeight: '17px', margin: '28px 0 0' }}>
             Material destinado a médicos. Doses de referência não substituem bula, julgamento clínico ou padronização institucional.
           </Text>
