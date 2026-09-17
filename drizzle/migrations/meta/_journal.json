@@ -15,6 +15,13 @@
       "when": 1789665507477,
       "tag": "0001_add_user_id_to_compras",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789679882303,
+      "tag": "0002_add_email_enviado_em_compras",
+      "breakpoints": true
     }
   ]
 }

@@ -24,6 +24,7 @@ export type Database = {
           downloads_catalogo: number
           downloads_manual: number
           email: string
+          email_enviado_em: string | null
           expira_em: string
           id: string
           produto: string
@@ -43,6 +44,7 @@ export type Database = {
           downloads_catalogo?: number
           downloads_manual?: number
           email: string
+          email_enviado_em?: string | null
           expira_em?: string
           id?: string
           produto?: string
@@ -62,6 +64,7 @@ export type Database = {
           downloads_catalogo?: number
           downloads_manual?: number
           email?: string
+          email_enviado_em?: string | null
           expira_em?: string
           id?: string
           produto?: string
