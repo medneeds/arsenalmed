@@ -23,7 +23,7 @@ const musgo700 = '#3E4A30'
 const musgo300 = '#C3CAB2'
 const ocre = '#B8860B'
 
-function CompraEmail({ accessUrl = 'https://www.arsenalmed.com.br' }: CompraEmailProps) {
+function CompraEmail({ accessUrl = 'https://arsenalmed.com.br' }: CompraEmailProps) {
   return (
     <Html lang="pt-BR">
       <Head />
@@ -86,5 +86,5 @@ export const template: TemplateEntry = {
   component: CompraEmail,
   subject: 'Arsenal Med 3.0 — seus arquivos estão liberados',
   displayName: 'Entrega da compra',
-  previewData: { accessUrl: 'https://www.arsenalmed.com.br/download?token=exemplo' },
+  previewData: { accessUrl: 'https://arsenalmed.com.br/download?token=exemplo' },
 }

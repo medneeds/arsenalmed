@@ -29,7 +29,7 @@ const ocre = '#B8860B'
 function CompactoEmail({
   nome = 'Doutor(a)',
   downloadUrl = 'https://arsenalmed.com.br',
-  salesUrl = 'https://www.arsenalmed.com.br',
+  salesUrl = 'https://arsenalmed.com.br',
 }: CompactoEmailProps) {
   return (
     <Html lang="pt-BR">
@@ -141,6 +141,6 @@ export const template = {
   previewData: {
     nome: 'Artur Batista',
     downloadUrl: 'https://example.com/download/compacto',
-    salesUrl: 'https://www.arsenalmed.com.br',
+    salesUrl: 'https://arsenalmed.com.br',
   },
 } satisfies TemplateEntry

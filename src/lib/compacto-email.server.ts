@@ -1,7 +1,7 @@
 // Envio do e-mail do Arsenal Compacto: link assinado do PDF + oferta do 3.0.
 import { sendTemplateEmail } from "@/lib/email-templates/send-email";
 
-const SALES_URL = "https://www.arsenalmed.com.br";
+const SALES_URL = "https://arsenalmed.com.br";
 
 export async function sendCompactoEmail(
   nome: string,
