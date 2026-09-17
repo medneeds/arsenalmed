@@ -31,6 +31,7 @@ export type Database = {
           stripe_payment_intent: string | null
           stripe_session_id: string
           token_download: string | null
+          user_id: string | null
           valor_centavos: number
         }
         Insert: {
@@ -49,6 +50,7 @@ export type Database = {
           stripe_payment_intent?: string | null
           stripe_session_id: string
           token_download?: string | null
+          user_id?: string | null
           valor_centavos: number
         }
         Update: {
@@ -67,6 +69,7 @@ export type Database = {
           stripe_payment_intent?: string | null
           stripe_session_id?: string
           token_download?: string | null
+          user_id?: string | null
           valor_centavos?: number
         }
         Relationships: []
