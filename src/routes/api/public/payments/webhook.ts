@@ -137,6 +137,7 @@ async function handleWebhook(req: Request, env: StripeEnv) {
     }
     case "checkout.session.async_payment_failed": {
       const session = event.data.object as CheckoutSession;
+      if (!isArsenalSession(session)) break;
       console.log("pagamento assíncrono falhou:", session.id);
       const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
       await supabaseAdmin
