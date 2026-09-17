@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1789664837740,
+      "tag": "0000_purge_non_arsenal_purchases_and_add_product_column",
+      "breakpoints": true
+    }
+  ]
+}

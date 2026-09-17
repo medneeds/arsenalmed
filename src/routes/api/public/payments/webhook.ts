@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { type StripeEnv, verifyWebhook } from "@/lib/stripe.server";
 import { sendDeliveryEmail } from "@/lib/delivery-email.server";
+import { ARSENAL_PRODUCT } from "@/lib/product";
 
 
 type CheckoutSession = {
@@ -41,7 +42,8 @@ async function fulfill(session: CheckoutSession): Promise<void> {
         cpf,
         stripe_session_id: session.id,
         stripe_payment_intent: sessionPaymentIntent(session),
-        valor_centavos: session.amount_total ?? 9990,
+        valor_centavos: session.amount_total ?? ARSENAL_PRODUCT.priceCents,
+        produto: "arsenal_med_3",
         status: "pago",
       },
       { onConflict: "stripe_session_id", ignoreDuplicates: true },
@@ -135,6 +137,7 @@ async function handleWebhook(req: Request, env: StripeEnv) {
     }
     case "checkout.session.async_payment_failed": {
       const session = event.data.object as CheckoutSession;
+      if (!isArsenalSession(session)) break;
       console.log("pagamento assíncrono falhou:", session.id);
       const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
       await supabaseAdmin
