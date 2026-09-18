@@ -41,9 +41,20 @@ export const registrarLead = createServerFn({ method: "POST" })
       return { ok: false, error: "Não conseguimos registrar seu e-mail agora. Tente novamente." };
     }
 
+    // O gratuito também sai identificado: e-mail do lead no rodapé de todas as
+    // páginas. Se a personalização falhar, entregamos o arquivo original para
+    // não travar a captação.
+    let caminho = "arsenal-compacto.pdf";
+    try {
+      const { generateCompactoPdf } = await import("@/lib/pdf-personalize.server");
+      caminho = await generateCompactoPdf(email);
+    } catch (e) {
+      console.error("[compacto] falha ao personalizar; entregando original:", e);
+    }
+
     const { data: signed } = await supabaseAdmin.storage
       .from("downloads")
-      .createSignedUrl("arsenal-compacto.pdf", 60 * 60 * 24, {
+      .createSignedUrl(caminho, 60 * 60 * 24, {
         download: "ArsenalMed-Compacto-Manual-de-Plantao.pdf",
       });
     const url = signed?.signedUrl ?? null;

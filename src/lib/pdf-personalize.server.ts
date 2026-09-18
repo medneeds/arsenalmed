@@ -98,3 +98,61 @@ export async function generatePersonalizedPdfWithRetry(
   }
   throw lastError instanceof Error ? lastError : new Error(String(lastError));
 }
+
+const COMPACTO_MASTER = "arsenal-compacto.pdf";
+
+function compactoPath(email: string): string {
+  const slug = email.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return `personalizados/compacto/${slug}.pdf`;
+}
+
+/**
+ * Personaliza o Arsenal Compacto (material gratuito) com o e-mail do lead no
+ * rodapé de todas as páginas. O formulário gratuito não coleta CPF, então aqui
+ * a identificação é apenas o e-mail. Reaproveita a cópia já gerada.
+ */
+export async function generateCompactoPdf(email: string): Promise<string> {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const path = compactoPath(email);
+
+  const { data: existing } = await supabaseAdmin.storage
+    .from(BUCKET)
+    .list("personalizados/compacto", { search: path.split("/").pop() ?? "" });
+  if (existing?.some((f) => `personalizados/compacto/${f.name}` === path)) {
+    return path;
+  }
+
+  const { data: file, error: downloadError } = await supabaseAdmin.storage
+    .from(BUCKET)
+    .download(COMPACTO_MASTER);
+  if (downloadError || !file) {
+    throw new Error("PDF do Arsenal Compacto indisponível para personalização.");
+  }
+
+  const pdf = await PDFDocument.load(await file.arrayBuffer());
+  const font = await pdf.embedFont(StandardFonts.Helvetica);
+  const identidade = `Copia pessoal  ·  ${email}  ·  arsenalmed.com.br`;
+  const size = 7;
+  const color = rgb(0.42, 0.45, 0.38);
+
+  for (const page of pdf.getPages()) {
+    const { width } = page.getSize();
+    const textWidth = font.widthOfTextAtSize(identidade, size);
+    page.drawText(identidade, {
+      x: Math.max(16, (width - textWidth) / 2),
+      y: 14,
+      size,
+      font,
+      color,
+    });
+  }
+
+  const bytes = await pdf.save();
+  const { error: uploadError } = await supabaseAdmin.storage
+    .from(BUCKET)
+    .upload(path, bytes, { contentType: "application/pdf", upsert: true });
+  if (uploadError) {
+    throw new Error(`falha ao gravar Compacto personalizado: ${uploadError.message}`);
+  }
+  return path;
+}
