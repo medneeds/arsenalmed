@@ -63,7 +63,7 @@ export function SenhaCampo({ id, label, value, onChange, autoComplete, orientar 
             {itens.map((item) => (
               <li
                 key={item.texto}
-                className={`flex items-center gap-2 ${item.ok ? "text-tinta" : "text-musgo-500"}`}
+                className={`flex items-center gap-2 ${item.ok ? "text-tinta" : "text-musgo-600"}`}
               >
                 <span
                   className={`flex h-4 w-4 shrink-0 items-center justify-center rounded-[2px] border ${
@@ -80,8 +80,8 @@ export function SenhaCampo({ id, label, value, onChange, autoComplete, orientar 
               </li>
             ))}
           </ul>
-          <p className="mt-3 text-xs leading-relaxed text-musgo-500">
-            Dica: uma frase curta fica forte e fácil de lembrar — por exemplo, “Plantao-noturno#2026”.
+          <p className="mt-3 text-xs leading-relaxed text-musgo-600">
+            Dica: junte três palavras que só você associa, com números e símbolos entre elas. Fica forte e fácil de lembrar.
           </p>
         </div>
       )}
