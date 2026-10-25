@@ -1,6 +1,12 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { isValidCpf, onlyDigits } from "@/lib/cpf";
+import {
+  describeAuthError,
+  isAlreadyRegisteredError,
+  isWeakPasswordError,
+  MENSAGEM_SENHA_FRACA,
+} from "@/lib/auth-errors";
 
 export type VolumeStatus = {
   downloadsRestantes: number;
@@ -79,13 +85,23 @@ export const criarAcessoComprador = createServerFn({ method: "POST" })
     });
 
     if (createError || !created?.user) {
-      const msg = createError?.message ?? "";
-      if (/already been registered|already exists/i.test(msg)) {
+      if (isWeakPasswordError(createError)) {
+        console.warn("criarAcessoComprador: senha recusada", describeAuthError(createError));
+        throw new Error(MENSAGEM_SENHA_FRACA);
+      }
+      if (isAlreadyRegisteredError(createError)) {
         throw new Error(
           "Este e-mail já tem acesso criado. Entre com a sua senha ou use \"Esqueci minha senha\".",
         );
       }
-      console.error("criarAcessoComprador: falha ao criar usuário", createError);
+      console.error(
+        "criarAcessoComprador: falha ao criar usuário",
+        JSON.stringify({
+          ...describeAuthError(createError),
+          ...(createError ? {} : { message: "Resposta sem usuário criado" }),
+          compras: pagas.map((c) => c.id),
+        }),
+      );
       throw new Error("Não foi possível criar o acesso agora. Tente novamente em instantes.");
     }
 
