@@ -4,10 +4,10 @@ export const MENSAGEM_SENHA_FRACA =
   "Essa senha é muito comum ou já apareceu em vazamentos. Escolha outra, com 12 caracteres ou mais, misturando letras, números e símbolos.";
 
 export type AuthErrorLike = {
-  message?: string | null;
-  code?: string | null;
-  status?: number | null;
-  name?: string | null;
+  message?: string | null | undefined;
+  code?: string | null | undefined;
+  status?: number | null | undefined;
+  name?: string | null | undefined;
 } | null | undefined;
 
 /** Senha recusada por ser fraca, comum ou presente em vazamentos (HIBP). */
