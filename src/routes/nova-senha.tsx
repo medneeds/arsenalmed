@@ -3,6 +3,8 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "../components/Header";
 import { Logo } from "../components/Logo";
+import { SenhaCampo } from "../components/SenhaCampo";
+import { describeAuthError, isWeakPasswordError, MENSAGEM_SENHA_FRACA } from "@/lib/auth-errors";
 
 export const Route = createFileRoute("/nova-senha")({
   ssr: false,
@@ -47,7 +49,11 @@ function NovaSenhaPage() {
     setCarregando(true);
     try {
       const { error } = await supabase.auth.updateUser({ password: senha });
-      if (error) throw error;
+      if (error) {
+        if (isWeakPasswordError(error)) throw new Error(MENSAGEM_SENHA_FRACA);
+        console.error("nova-senha: falha ao alterar senha", describeAuthError(error));
+        throw new Error("Não foi possível alterar a senha agora. Tente novamente em instantes.");
+      }
       await navigate({ to: "/minha-conta", replace: true });
     } catch (e) {
       setErro(e instanceof Error ? e.message : "Não foi possível alterar a senha.");
@@ -74,21 +80,14 @@ function NovaSenhaPage() {
             </p>
           ) : (
             <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-              <div>
-                <label htmlFor="senha" className="label block text-musgo-600">
-                  Nova senha (mín. 8 caracteres)
-                </label>
-                <input
-                  id="senha"
-                  type="password"
-                  required
-                  minLength={8}
-                  autoComplete="new-password"
-                  value={senha}
-                  onChange={(e) => setSenha(e.target.value)}
-                  className="mt-2 h-12 w-full rounded-[2px] border-2 border-musgo-300 bg-papel px-3 font-mono text-sm text-tinta outline-none focus-visible:border-ocre"
-                />
-              </div>
+              <SenhaCampo
+                id="senha"
+                label="Nova senha"
+                value={senha}
+                onChange={setSenha}
+                autoComplete="new-password"
+                orientar
+              />
               {erro ? (
                 <p role="alert" className="border border-alerta/40 bg-alerta/5 p-3 text-sm text-alerta">
                   {erro}

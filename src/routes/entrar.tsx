@@ -5,6 +5,7 @@ import { criarAcessoComprador } from "@/lib/conta.functions";
 import { formatCpf, isValidCpf, onlyDigits } from "@/lib/cpf";
 import { Header } from "../components/Header";
 import { Logo } from "../components/Logo";
+import { SenhaCampo } from "../components/SenhaCampo";
 
 export const Route = createFileRoute("/entrar")({
   head: () => ({
@@ -133,21 +134,14 @@ function EntrarPage() {
             </div>
 
             {modo !== "recuperar" && (
-              <div>
-                <label htmlFor="senha" className="label block text-musgo-600">
-                  {modo === "criar" ? "Crie uma senha (mín. 8 caracteres)" : "Senha"}
-                </label>
-                <input
-                  id="senha"
-                  type="password"
-                  required
-                  minLength={8}
-                  autoComplete={modo === "criar" ? "new-password" : "current-password"}
-                  value={senha}
-                  onChange={(e) => setSenha(e.target.value)}
-                  className={inputClass}
-                />
-              </div>
+              <SenhaCampo
+                id="senha"
+                label={modo === "criar" ? "Crie uma senha" : "Senha"}
+                value={senha}
+                onChange={setSenha}
+                autoComplete={modo === "criar" ? "new-password" : "current-password"}
+                orientar={modo === "criar"}
+              />
             )}
 
             {modo === "criar" && (
