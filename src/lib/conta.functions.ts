@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { isValidCpf, onlyDigits } from "@/lib/cpf";
 
 export type VolumeStatus = {
   downloadsRestantes: number;
@@ -22,23 +23,27 @@ const MAX_DOWNLOADS_PER_FILE = 5;
  * compra paga do Arsenal Med com aquele e-mail. Não há cadastro aberto.
  */
 export const criarAcessoComprador = createServerFn({ method: "POST" })
-  .inputValidator((input: { email: string; senha: string }) => {
+  .inputValidator((input: { email: string; senha: string; cpf?: string }) => {
     const email = String(input?.email ?? "").trim().toLowerCase();
     const senha = String(input?.senha ?? "");
+    const cpf = onlyDigits(String(input?.cpf ?? ""));
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
       throw new Error("Informe um e-mail válido.");
     }
     if (senha.length < 8) {
       throw new Error("A senha precisa ter pelo menos 8 caracteres.");
     }
-    return { email, senha };
+    if (cpf && !isValidCpf(cpf)) {
+      throw new Error("CPF inválido. Confira os 11 dígitos.");
+    }
+    return { email, senha, cpf: cpf || null };
   })
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     const { data: compras, error } = await supabaseAdmin
       .from("compras")
-      .select("id, email, status, user_id")
+      .select("id, email, status, user_id, cpf")
       .ilike("email", data.email);
 
     if (error) {
@@ -58,6 +63,13 @@ export const criarAcessoComprador = createServerFn({ method: "POST" })
       throw new Error(
         "Este e-mail já tem acesso criado. Entre com a sua senha ou use \"Esqueci minha senha\".",
       );
+    }
+
+    // Compras sem CPF (ex.: bônus MedStation) exigem o CPF agora: ele identifica
+    // a licença nos PDFs personalizados gerados no primeiro download.
+    const semCpf = pagas.filter((c) => onlyDigits(c.cpf ?? "").length !== 11);
+    if (semCpf.length > 0 && !data.cpf) {
+      throw new Error("Informe seu CPF para criar o acesso. Ele identifica sua licença pessoal nos arquivos.");
     }
 
     const { data: created, error: createError } = await supabaseAdmin.auth.admin.createUser({
@@ -88,6 +100,20 @@ export const criarAcessoComprador = createServerFn({ method: "POST" })
     if (linkError) {
       console.error("criarAcessoComprador: falha ao vincular compras", linkError);
       throw new Error("Acesso criado, mas houve falha ao vincular a compra. Escreva para suporte@arsenalmed.com.br.");
+    }
+
+    if (semCpf.length > 0 && data.cpf) {
+      const { error: cpfError } = await supabaseAdmin
+        .from("compras")
+        .update({ cpf: data.cpf })
+        .in(
+          "id",
+          semCpf.map((c) => c.id),
+        );
+      if (cpfError) {
+        console.error("criarAcessoComprador: falha ao gravar CPF", cpfError);
+        throw new Error("Acesso criado, mas houve falha ao gravar o CPF. Escreva para suporte@arsenalmed.com.br.");
+      }
     }
 
     return { ok: true as const };
