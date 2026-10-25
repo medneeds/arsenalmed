@@ -20,7 +20,7 @@ export function SenhaCampo({ id, label, value, onChange, autoComplete, orientar 
   const itens = [
     { ok: av.tamanho, texto: `${SENHA_RECOMENDADO} caracteres ou mais` },
     { ok: av.letrasENumeros, texto: "Letras e números" },
-    { ok: av.simbolo, texto: "Pelo menos um símbolo (ex.: ! @ # * -)" },
+    { ok: av.simbolo, texto: "Um símbolo (! @ # * -)" },
   ];
 
   return (
