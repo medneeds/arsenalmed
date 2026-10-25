@@ -22,6 +22,7 @@ import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedMinhaContaRouteImport } from './routes/_authenticated/minha-conta'
 import { Route as ApiPublicDownloadRouteImport } from './routes/api/public/download'
+import { Route as ApiPublicMedstationBonusRouteImport } from './routes/api/public/medstation-bonus'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
@@ -89,6 +90,12 @@ const ApiPublicDownloadRoute = ApiPublicDownloadRouteImport.update({
   path: '/api/public/download',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiPublicMedstationBonusRoute =
+  ApiPublicMedstationBonusRouteImport.update({
+    id: '/api/public/medstation-bonus',
+    path: '/api/public/medstation-bonus',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiPublicPaymentsWebhookRoute =
   ApiPublicPaymentsWebhookRouteImport.update({
     id: '/api/public/payments/webhook',
@@ -115,6 +122,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRoute
   '/minha-conta': typeof AuthenticatedMinhaContaRoute
   '/api/public/download': typeof ApiPublicDownloadRoute
+  '/api/public/medstation-bonus': typeof ApiPublicMedstationBonusRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
@@ -131,6 +139,7 @@ export interface FileRoutesByTo {
   '/admin': typeof AuthenticatedAdminRoute
   '/minha-conta': typeof AuthenticatedMinhaContaRoute
   '/api/public/download': typeof ApiPublicDownloadRoute
+  '/api/public/medstation-bonus': typeof ApiPublicMedstationBonusRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
@@ -149,6 +158,7 @@ export interface FileRoutesById {
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/minha-conta': typeof AuthenticatedMinhaContaRoute
   '/api/public/download': typeof ApiPublicDownloadRoute
+  '/api/public/medstation-bonus': typeof ApiPublicMedstationBonusRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
@@ -167,6 +177,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/minha-conta'
     | '/api/public/download'
+    | '/api/public/medstation-bonus'
     | '/api/public/payments/webhook'
     | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
@@ -183,6 +194,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/minha-conta'
     | '/api/public/download'
+    | '/api/public/medstation-bonus'
     | '/api/public/payments/webhook'
     | '/lovable/email/transactional/preview'
   id:
@@ -200,6 +212,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin'
     | '/_authenticated/minha-conta'
     | '/api/public/download'
+    | '/api/public/medstation-bonus'
     | '/api/public/payments/webhook'
     | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
@@ -216,6 +229,7 @@ export interface RootRouteChildren {
   ObrigadoRoute: typeof ObrigadoRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
   ApiPublicDownloadRoute: typeof ApiPublicDownloadRoute
+  ApiPublicMedstationBonusRoute: typeof ApiPublicMedstationBonusRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
 }
@@ -313,6 +327,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicDownloadRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/public/medstation-bonus': {
+      id: '/api/public/medstation-bonus'
+      path: '/api/public/medstation-bonus'
+      fullPath: '/api/public/medstation-bonus'
+      preLoaderRoute: typeof ApiPublicMedstationBonusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/payments/webhook': {
       id: '/api/public/payments/webhook'
       path: '/api/public/payments/webhook'
@@ -355,6 +376,7 @@ const rootRouteChildren: RootRouteChildren = {
   ObrigadoRoute: ObrigadoRoute,
   PrivacidadeRoute: PrivacidadeRoute,
   ApiPublicDownloadRoute: ApiPublicDownloadRoute,
+  ApiPublicMedstationBonusRoute: ApiPublicMedstationBonusRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
 }

@@ -7,7 +7,6 @@ import {
   novoPrazoRenovacao,
   parseBonusEligibility,
 } from "@/lib/medstation-bonus";
-import { ARSENAL_PRODUCT } from "@/lib/product";
 
 const notFound = () => Response.json({ error: "Referência não encontrada." }, { status: 404 });
 
@@ -114,7 +113,7 @@ export const Route = createFileRoute("/api/public/medstation-bonus")({
           email: bonus.email,
           stripe_session_id: sessionId,
           valor_centavos: 0,
-          produto: ARSENAL_PRODUCT.id,
+          produto: "arsenal_med_3",
           status: "pago",
           expira_em: bonus.accessUntil,
           origem: MEDSTATION_BONUS_ORIGEM,
