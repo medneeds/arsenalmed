@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
 import { criarAcessoComprador } from "@/lib/conta.functions";
+import { formatCpf, isValidCpf, onlyDigits } from "@/lib/cpf";
 import { Header } from "../components/Header";
 import { Logo } from "../components/Logo";
 
@@ -34,6 +35,7 @@ function EntrarPage() {
   const [modo, setModo] = useState<Modo>("entrar");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [cpf, setCpf] = useState("");
   const [erro, setErro] = useState<string | null>(null);
   const [aviso, setAviso] = useState<string | null>(null);
   const [carregando, setCarregando] = useState(false);
@@ -61,7 +63,11 @@ function EntrarPage() {
       }
 
       if (modo === "criar") {
-        await criarAcessoComprador({ data: { email, senha } });
+        const cpfDigits = onlyDigits(cpf);
+        if (cpfDigits && !isValidCpf(cpfDigits)) {
+          throw new Error("CPF inválido. Confira os 11 dígitos.");
+        }
+        await criarAcessoComprador({ data: { email, senha, ...(cpfDigits ? { cpf: cpfDigits } : {}) } });
         const { error } = await supabase.auth.signInWithPassword({
           email: email.trim().toLowerCase(),
           password: senha,
@@ -141,6 +147,28 @@ function EntrarPage() {
                   onChange={(e) => setSenha(e.target.value)}
                   className={inputClass}
                 />
+              </div>
+            )}
+
+            {modo === "criar" && (
+              <div>
+                <label htmlFor="cpf" className="label block text-musgo-600">
+                  CPF
+                </label>
+                <input
+                  id="cpf"
+                  inputMode="numeric"
+                  autoComplete="off"
+                  placeholder="000.000.000-00"
+                  maxLength={14}
+                  value={cpf}
+                  onChange={(e) => setCpf(formatCpf(e.target.value))}
+                  className={inputClass}
+                />
+                <p className="mt-2 text-sm leading-relaxed text-musgo-600">
+                  Obrigatório se a sua compra ainda não tem CPF — por exemplo, no bônus do plano anual MedStation.
+                  Ele identifica sua licença pessoal nos arquivos.
+                </p>
               </div>
             )}
 

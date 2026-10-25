@@ -641,6 +641,11 @@ function Dashboard({
                       <span className="font-heading text-[11px] font-bold uppercase tracking-[0.12em] text-ocre">
                         {c.status}
                       </span>
+                      {c.bonusMedstation ? (
+                        <span className="mt-1 block w-fit border border-ocre/60 px-1.5 py-0.5 font-heading text-[10px] font-bold uppercase tracking-[0.12em] text-papel">
+                          Bônus MedStation
+                        </span>
+                      ) : null}
                     </td>
                     <td className="py-3 pr-4 font-mono text-xs text-musgo-150">
                       {c.downloadsManual}/5

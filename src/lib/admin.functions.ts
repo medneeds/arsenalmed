@@ -18,6 +18,7 @@ export type CompraLinha = {
   downloadsManual: number;
   downloadsCatalogo: number;
   temCatalogo: boolean;
+  bonusMedstation: boolean;
 };
 
 export type DashboardData = {
@@ -71,7 +72,7 @@ export const getAdminDashboard = createServerFn({ method: "GET" })
       supabaseAdmin
         .from("compras")
         .select(
-          "id,email,criado_em,valor_centavos,status,expira_em,downloads_manual,downloads_catalogo,catalogo_path",
+          "id,email,criado_em,valor_centavos,status,expira_em,downloads_manual,downloads_catalogo,catalogo_path,origem",
         )
         .order("criado_em", { ascending: false }),
       supabaseAdmin.from("leads").select("email,criado_em").order("criado_em", { ascending: false }),
@@ -80,7 +81,10 @@ export const getAdminDashboard = createServerFn({ method: "GET" })
     if (comprasRes.error) throw new Error(comprasRes.error.message);
     if (leadsRes.error) throw new Error(leadsRes.error.message);
 
-    const comprasTodas = comprasRes.data ?? [];
+    const registros = comprasRes.data ?? [];
+    // Bônus MedStation não são vendas: ficam fora de faturamento, ticket e funil,
+    // mas aparecem na tabela de compras e downloads.
+    const comprasTodas = registros.filter((c) => c.origem !== "medstation_bonus");
     const leads = leadsRes.data ?? [];
     const pagas = comprasTodas.filter((c) => PAGOS.has(String(c.status).toLowerCase()));
 
@@ -142,7 +146,7 @@ export const getAdminDashboard = createServerFn({ method: "GET" })
           : 0,
       },
       serie: [...mapa.values()],
-      compras: comprasTodas.slice(0, 200).map((c) => ({
+      compras: registros.slice(0, 200).map((c) => ({
         id: c.id,
         email: c.email,
         criadoEm: c.criado_em,
@@ -152,6 +156,7 @@ export const getAdminDashboard = createServerFn({ method: "GET" })
         downloadsManual: c.downloads_manual ?? 0,
         downloadsCatalogo: c.downloads_catalogo ?? 0,
         temCatalogo: Boolean(c.catalogo_path),
+        bonusMedstation: c.origem === "medstation_bonus",
       })),
       periodoDias: data.dias,
     } satisfies DashboardData;
