@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { CompactoLeadForm } from "../components/CompactoLeadForm";
@@ -40,6 +41,11 @@ const CENARIOS = [
 ];
 
 function CompactoPage() {
+  // Página de destino da campanha de captação: conta como visita qualificada (ViewContent no Pixel).
+  useEffect(() => {
+    track("view_landing", { pagina: "compacto" });
+  }, []);
+
   return (
     <div className="min-h-screen bg-papel text-tinta">
       <Header />
