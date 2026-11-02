@@ -2,6 +2,16 @@
 // Nunca envie e-mail, CPF, nome ou token: apenas o nome do evento e
 // propriedades categóricas (ex.: origem do clique, tipo de arquivo).
 
+import { metaInitiateCheckout, metaLead, metaViewContent } from "@/lib/meta-pixel";
+
+// Eventos do funil que viram eventos padrão do Pixel da Meta. A compra fica
+// de fora: vai direto da página /obrigado, com o ID da sessão como eventID.
+const META_EVENTS: Partial<Record<FunnelEvent, () => void>> = {
+  view_landing: metaViewContent,
+  submit_compacto: metaLead,
+  checkout_started: metaInitiateCheckout,
+};
+
 export type FunnelEvent =
   | "view_landing"
   | "click_buy"
@@ -43,6 +53,7 @@ export function track(event: FunnelEvent, props?: Props): void {
     window.dataLayer = window.dataLayer ?? [];
     window.dataLayer.push(payload);
     window.dispatchEvent(new CustomEvent("arsenal:funnel", { detail: payload }));
+    META_EVENTS[event]?.();
   } catch {
     // Analytics nunca pode quebrar a experiência de compra.
   }

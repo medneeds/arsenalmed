@@ -5,6 +5,7 @@ import { Logo } from "../components/Logo";
 import { confirmPurchase } from "@/utils/payments.functions";
 import { getStripeEnvironment } from "@/lib/stripe";
 import { track } from "@/lib/analytics";
+import { metaPurchase } from "@/lib/meta-pixel";
 
 const POLL_INTERVAL_MS = 10_000;
 const POLL_TIMEOUT_MS = 5 * 60_000;
@@ -54,6 +55,7 @@ function ObrigadoPage() {
         if (result.status === "pago") {
           setState({ kind: "pago", token: result.token });
           track("payment_confirmed");
+          metaPurchase(sessionId!);
           return;
         }
         if (result.status === "erro") {

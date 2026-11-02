@@ -51,6 +51,10 @@ function Privacidade() {
             Utilizamos fornecedores de infraestrutura estritamente necessários para operar o serviço, como Stripe para pagamentos, Supabase para banco e armazenamento e o serviço de e-mail conectado ao projeto. Não vendemos listas nem comercializamos seus dados pessoais.
           </p>
 
+          <h2 className="mt-10 text-tinta">Medição de anúncios</h2>
+          <p className="mt-3 text-tinta">
+            Usamos o Pixel da Meta para medir visitas, pedidos do Arsenal Compacto, inícios de checkout e compras vindos de anúncios no Facebook e no Instagram, e para mostrar anúncios a quem já visitou o site. O pixel registra esses eventos e identificadores técnicos do navegador; não enviamos nome, e-mail nem CPF. Você pode limitar esse uso nas configurações de anúncios da Meta e de cookies do seu navegador.
+          </p>
           <h2 className="mt-10 text-tinta">Seus direitos</h2>
           <p className="mt-3 text-tinta">
             Você pode cancelar comunicações promocionais a qualquer momento e solicitar acesso, correção ou exclusão dos dados quando aplicável. Dados que precisem ser mantidos por obrigação legal, prevenção a fraude ou comprovação da transação podem ser conservados pelo período necessário.
