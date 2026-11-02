@@ -1,0 +1,25 @@
+name: fetch-media
+on:
+  push:
+    branches: [media-fetch]
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ads-assets
+      - name: Download final renders
+        run: |
+          mkdir -p ads/final
+          curl -fsSL -o ads/final/arsenal-med-vsl-site-16x9.mp4 "https://elevenlabsusercontent.com/database/workspace/fdc59b2b7cea468d82ce072314953f01/content_generation/DhbkOlp2Dor9bTGYynGj/ocjupbr4zJY57OCHa9KV/content.mp4?Expires=1793671200&KeyName=assets-cdn-key-1&Signature=yMg4y_duWMctHY4MupyiKylUOOA="
+          curl -fsSL -o ads/final/arsenal-compacto-captacao.mp4 "https://elevenlabsusercontent.com/database/workspace/fdc59b2b7cea468d82ce072314953f01/content_generation/6EQuFsdUxE8qRKdQKdiM/hyKPqPMeX3XKVzsq4Q1X/content.mp4?Expires=1793671200&KeyName=assets-cdn-key-1&Signature=uUGhbfjZCgVe2wdxnyXiLnZfAUU="
+          curl -fsSL -o ads/final/voz-vsl-take1.mp3 "https://elevenlabsusercontent.com/database/workspace/fdc59b2b7cea468d82ce072314953f01/content_generation/T6MM0P7w6gJtF6stkMea/m7Luj9HgBkm6iyKG3Xun/content.mp3?Expires=1793671200&KeyName=assets-cdn-key-1&Signature=ChYg99eupz2kj3iX2-pXxiA5kCA="
+          curl -fsSL -o ads/final/voz-captacao-take1.mp3 "https://elevenlabsusercontent.com/database/workspace/fdc59b2b7cea468d82ce072314953f01/content_generation/gnUVTXDOGyIpSOoglEqy/O1erF77hJUUxp3BrvyIh/content.mp3?Expires=1793671200&KeyName=assets-cdn-key-1&Signature=hPewjCGYRxoNU0uX0rEyciLDZoE="
+          ls -la ads/final
+      - name: Commit
+        run: |
+          git config user.name "arsenal-media-bot"; git config user.email "actions@users.noreply.github.com"
+          git add ads/final && git commit -m "Renders finais com voz (ElevenLabs)" && git push origin HEAD:ads-assets
