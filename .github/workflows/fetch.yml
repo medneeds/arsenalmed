@@ -21,8 +21,9 @@ jobs:
           curl -sSL -A "Mozilla/5.0" -w "%{http_code} %{size_download} %{url_effective}\n" -o ads/final/voz-captacao-take1.mp3 "https://elevenlabsusercontent.com/database/workspace/fdc59b2b7cea468d82ce072314953f01/content_generation/gnUVTXDOGyIpSOoglEqy/O1erF77hJUUxp3BrvyIh/content.mp3?Expires=1793671200&KeyName=assets-cdn-key-1&Signature=hPewjCGYRxoNU0uX0rEyciLDZoE="
           ls -la ads/final
           for f in ads/final/*; do file "$f"; done > ads/final/_log.txt 2>&1; ls -la ads/final >> ads/final/_log.txt
+          while read l; do echo "::warning::DL $l"; done < ads/final/_log.txt
           exit 0
       - name: Commit
         run: |
           git config user.name "arsenal-media-bot"; git config user.email "actions@users.noreply.github.com"
-          git add ads/final && git commit -m "Renders finais com voz (ElevenLabs)"; git push origin HEAD:ads-assets 2>&1 | tee push.log; git push https://x-access-token:${{ github.token }}@github.com/${{ github.repository }} HEAD:refs/heads/media-log -f
+          git add ads/final && git commit -m "Renders finais com voz (ElevenLabs)"; git push origin HEAD:ads-assets > push.log 2>&1; echo "::warning::PUSH rc=$? $(tr '\n' ' ' < push.log | cut -c1-300)"; git push https://x-access-token:${{ github.token }}@github.com/${{ github.repository }} HEAD:refs/heads/media-log -f
