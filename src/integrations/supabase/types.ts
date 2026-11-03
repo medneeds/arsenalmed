@@ -80,11 +80,30 @@ export type Database = {
         }
         Relationships: []
       }
+      lead_emails: {
+        Row: {
+          email: string
+          enviado_em: string
+          etapa: string
+        }
+        Insert: {
+          email: string
+          enviado_em?: string
+          etapa: string
+        }
+        Update: {
+          email?: string
+          enviado_em?: string
+          etapa?: string
+        }
+        Relationships: []
+      }
       leads: {
         Row: {
           consentimento_em: string
           consentimento_texto: string
           criado_em: string
+          descadastrado_em: string | null
           email: string
           id: string
           nome: string
@@ -95,6 +114,7 @@ export type Database = {
           consentimento_em?: string
           consentimento_texto: string
           criado_em?: string
+          descadastrado_em?: string | null
           email: string
           id?: string
           nome: string
@@ -105,6 +125,7 @@ export type Database = {
           consentimento_em?: string
           consentimento_texto?: string
           criado_em?: string
+          descadastrado_em?: string | null
           email?: string
           id?: string
           nome?: string
