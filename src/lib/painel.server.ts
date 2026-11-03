@@ -1,7 +1,7 @@
 // Carrega e calcula os dados do painel de campanhas. Só servidor: usa o
 // cliente privilegiado. Chame somente depois de verificar o administrador
 // (server fn) ou o token do relatório (rota).
-import { normalizarPeriodo, limitesUtc, periodoAnterior, resolverPeriodo, type Periodo } from "@/lib/periodo";
+import { dentro, normalizarPeriodo, limitesUtc, periodoAnterior, resolverPeriodo, type Periodo } from "@/lib/periodo";
 import {
   ehVendaPaga,
   etapaAtual,
@@ -85,10 +85,7 @@ export async function carregarPainel(db: Admin, entrada: { desde?: unknown; ate?
   ]);
 
   const sessoes = resumirSessoes(eventos);
-  const leadsPeriodo = leads.filter((l) => {
-    const d = l.criado_em;
-    return d >= inicio && d < fim;
-  });
+  const leadsPeriodo = leads.filter((l) => dentro(periodo, l.criado_em));
 
   // Comportamento de cada lead: todos os eventos do session_id gravado nele.
   const sids = [...new Set(leadsPeriodo.map((l) => l.session_id).filter((s): s is string => !!s))];
