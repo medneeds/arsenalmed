@@ -133,7 +133,11 @@ function RootComponent() {
   useEffect(() => {
     metaPageView();
     capturarVisita();
-    if (!/^\/(admin|auth)(\/|$)/.test(pathname)) track("page_view");
+    if (!/^\/(admin|auth)(\/|$)/.test(pathname)) {
+      // chegada_utm marca a visita que chegou por um link com UTM (anúncio, e-mail).
+      const chegou = /[?&]utm_/.test(window.location.search);
+      track("page_view", chegou ? { chegada_utm: true } : undefined);
+    }
   }, [pathname]);
 
   return (
