@@ -17,6 +17,7 @@ export function CompactoLeadForm({ origem = "pagina_compacto" }: { origem?: stri
   const [erro, setErro] = useState<string | null>(null);
   const [enviado, setEnviado] = useState(false);
   const [url, setUrl] = useState<string | null>(null);
+  const [emailOk, setEmailOk] = useState(true);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -28,6 +29,7 @@ export function CompactoLeadForm({ origem = "pagina_compacto" }: { origem?: stri
       });
       if (res.ok) {
         setUrl(res.url);
+        setEmailOk(res.email === "enviado");
         setEnviado(true);
         track("submit_compacto", { origem });
       } else setErro(res.error);
@@ -42,9 +44,11 @@ export function CompactoLeadForm({ origem = "pagina_compacto" }: { origem?: stri
     return (
       <div>
         <p className="label text-musgo-500">ARSENAL COMPACTO</p>
-        <h3 className="mt-4 text-tinta">Enviado</h3>
+        <h3 className="mt-4 text-tinta">{emailOk ? "Enviado" : "Seu PDF está pronto"}</h3>
         <p className="mt-3 text-[16px] leading-relaxed text-tinta">
-          Confira sua caixa de entrada — e o spam, se não chegar em dois minutos.
+          {emailOk
+            ? "Confira sua caixa de entrada — e o spam ou a aba Promoções, se não chegar em dois minutos."
+            : "Não conseguimos enviar o e-mail agora. Baixe pelo botão abaixo — o link vale por 24 horas."}
         </p>
         {url && (
           <a

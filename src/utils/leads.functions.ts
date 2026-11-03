@@ -6,7 +6,9 @@ export const CONSENT_TEXT =
 
 const PERFIS = ["Estudante de medicina", "Interno", "Residente", "Médico(a)", "Outro"] as const;
 
-type LeadResult = { ok: true; url: string | null } | { ok: false; error: string };
+type LeadResult =
+  | { ok: true; url: string | null; email: "enviado" | "suprimido" | "sem_link" | "falhou" }
+  | { ok: false; error: string };
 
 export const registrarLead = createServerFn({ method: "POST" })
   .inputValidator(
@@ -60,7 +62,7 @@ export const registrarLead = createServerFn({ method: "POST" })
     const url = signed?.signedUrl ?? null;
 
     const { sendCompactoEmail } = await import("@/lib/compacto-email.server");
-    await sendCompactoEmail(data.nome, email, url);
+    const status = await sendCompactoEmail(data.nome, email, url);
 
-    return { ok: true, url };
+    return { ok: true, url, email: status };
   });
