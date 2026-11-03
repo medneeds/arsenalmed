@@ -55,6 +55,12 @@ function Privacidade() {
           <p className="mt-3 text-tinta">
             Usamos o Pixel da Meta para medir visitas, pedidos do Arsenal Compacto, inícios de checkout e compras vindos de anúncios no Facebook e no Instagram, e para mostrar anúncios a quem já visitou o site. O pixel registra esses eventos e identificadores técnicos do navegador; não enviamos nome, e-mail nem CPF. Você pode limitar esse uso nas configurações de anúncios da Meta e de cookies do seu navegador.
           </p>
+
+          <h2 className="mt-10 text-tinta">Navegação anônima e origem da visita</h2>
+          <p className="mt-3 text-tinta">
+            Para medir as campanhas, registramos de forma anônima a navegação no site (páginas vistas, quanto do vídeo foi assistido, cliques em comprar e início do checkout) e a origem da visita: o link de anúncio ou de e-mail usado para chegar (parâmetros UTM), o site de onde você veio e o tipo de aparelho. Para isso, guardamos no seu navegador um código aleatório e essa origem por até 30 dias. Esse registro não leva nome, e-mail nem CPF. Se você pedir o Arsenal Compacto ou comprar, esse código e a origem da visita ficam ligados ao seu cadastro para sabermos qual campanha trouxe você. Você pode apagar esse código limpando os dados do site no navegador.
+          </p>
+
           <h2 className="mt-10 text-tinta">Seus direitos</h2>
           <p className="mt-3 text-tinta">
             Você pode cancelar comunicações promocionais a qualquer momento e solicitar acesso, correção ou exclusão dos dados quando aplicável. Dados que precisem ser mantidos por obrigação legal, prevenção a fraude ou comprovação da transação podem ser conservados pelo período necessário.
