@@ -322,7 +322,8 @@ export function tabelaCampanhas(entrada: {
     const criativos = [...(cri.get(a.campanha)?.values() ?? [])]
       .map((x) => fechar(x, false))
       .sort((x, y) => y.leads - x.leads || y.visitas - x.visitas);
-    return fechar(a, true, criativos);
+    // Sem UTM não tem investimento lançado: custos e ROAS ficam vazios.
+    return fechar(a, a.campanha !== null, criativos);
   });
   return linhas.sort((x, y) => {
     if (x.campanha === null) return 1;
