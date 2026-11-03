@@ -5,6 +5,7 @@ import { Header } from "../components/Header";
 import { Logo } from "../components/Logo";
 import { SenhaCampo } from "../components/SenhaCampo";
 import { describeAuthError, isWeakPasswordError, MENSAGEM_SENHA_FRACA } from "@/lib/auth-errors";
+import { getMyAdminStatus } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/nova-senha")({
   ssr: false,
@@ -54,7 +55,13 @@ function NovaSenhaPage() {
         console.error("nova-senha: falha ao alterar senha", describeAuthError(error));
         throw new Error("Não foi possível alterar a senha agora. Tente novamente em instantes.");
       }
-      await navigate({ to: "/minha-conta", replace: true });
+      let ehAdmin = false;
+      try {
+        ehAdmin = (await getMyAdminStatus()).isAdmin;
+      } catch {
+        ehAdmin = false;
+      }
+      await navigate({ to: ehAdmin ? "/admin" : "/minha-conta", replace: true });
     } catch (e) {
       setErro(e instanceof Error ? e.message : "Não foi possível alterar a senha.");
     } finally {
