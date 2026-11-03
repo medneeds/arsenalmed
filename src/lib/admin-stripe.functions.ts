@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import { ARSENAL_PRODUCT } from "@/lib/product";
+import { dentro, diaLocal, diasDoPeriodo, normalizarPeriodo, qtdDias } from "@/lib/periodo";
 
 export type StripeVenda = {
   id: string;
@@ -30,14 +31,12 @@ export type StripeResumo = {
 
 export type StripeResumoResult = StripeResumo | { ok: false; error: string };
 
-function diaISO(ms: number): string {
-  return new Date(ms - 3 * 60 * 60 * 1000).toISOString().slice(0, 10);
-}
+const diaISO = (ms: number) => diaLocal(ms);
 
 export const getStripeArsenalResumo = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { dias?: number; environment: "sandbox" | "live" }) => ({
-    dias: Math.min(Math.max(Number(input?.dias ?? 30), 7), 180),
+  .inputValidator((input: { desde?: string; ate?: string; environment: "sandbox" | "live" }) => ({
+    periodo: normalizarPeriodo(input, new Date()),
     environment: input.environment === "sandbox" ? ("sandbox" as const) : ("live" as const),
   }))
   .handler(async ({ data, context }): Promise<StripeResumoResult> => {
@@ -127,9 +126,7 @@ export const getStripeArsenalResumo = createServerFn({ method: "POST" })
 
       vendas.sort((a, b) => (a.criadoEm < b.criadoEm ? 1 : -1));
 
-      const agora = Date.now();
-      const desde = agora - data.dias * 24 * 60 * 60 * 1000;
-      const noPeriodo = vendas.filter((v) => new Date(v.criadoEm).getTime() >= desde);
+      const noPeriodo = vendas.filter((v) => dentro(data.periodo, v.criadoEm));
       const soma = (rows: StripeVenda[]) => rows.reduce((a, v) => a + v.valorCentavos, 0);
 
       const mapaMetodo = new Map<string, { quantidade: number; totalCentavos: number }>();
@@ -141,8 +138,7 @@ export const getStripeArsenalResumo = createServerFn({ method: "POST" })
       }
 
       const serieMapa = new Map<string, { dia: string; vendas: number; receitaCentavos: number }>();
-      for (let i = data.dias - 1; i >= 0; i--) {
-        const dia = diaISO(agora - i * 24 * 60 * 60 * 1000);
+      for (const dia of diasDoPeriodo(data.periodo)) {
         serieMapa.set(dia, { dia, vendas: 0, receitaCentavos: 0 });
       }
       for (const v of noPeriodo) {
@@ -178,7 +174,7 @@ export const getStripeArsenalResumo = createServerFn({ method: "POST" })
           .sort((a, b) => b.totalCentavos - a.totalCentavos),
         serie: [...serieMapa.values()],
         vendas: vendas.slice(0, 100),
-        periodoDias: data.dias,
+        periodoDias: qtdDias(data.periodo),
         pixStatus,
       };
     } catch (error) {
