@@ -80,7 +80,7 @@ function dataHora(iso: string) {
   });
 }
 
-function tabela(cab: string[], linhas: string[][]): string {
+function tabela(cab: string[], linhas: (string | null | undefined)[][]): string {
   return [`| ${cab.join(" | ")} |`, `| ${cab.map(() => "---").join(" | ")} |`, ...linhas.map((l) => `| ${l.map(cel).join(" | ")} |`)].join("\n");
 }
 
