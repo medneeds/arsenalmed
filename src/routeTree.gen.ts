@@ -21,6 +21,7 @@ import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedMinhaContaRouteImport } from './routes/_authenticated/minha-conta'
+import { Route as ApiAdminInvestimentoRouteImport } from './routes/api/admin/investimento'
 import { Route as ApiAdminRelatorioRouteImport } from './routes/api/admin/relatorio'
 import { Route as ApiPublicDescadastrarRouteImport } from './routes/api/public/descadastrar'
 import { Route as ApiPublicDownloadRouteImport } from './routes/api/public/download'
@@ -88,6 +89,11 @@ const AuthenticatedMinhaContaRoute = AuthenticatedMinhaContaRouteImport.update({
   path: '/minha-conta',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const ApiAdminInvestimentoRoute = ApiAdminInvestimentoRouteImport.update({
+  id: '/api/admin/investimento',
+  path: '/api/admin/investimento',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAdminRelatorioRoute = ApiAdminRelatorioRouteImport.update({
   id: '/api/admin/relatorio',
   path: '/api/admin/relatorio',
@@ -140,6 +146,7 @@ export interface FileRoutesByFullPath {
   '/privacidade': typeof PrivacidadeRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/minha-conta': typeof AuthenticatedMinhaContaRoute
+  '/api/admin/investimento': typeof ApiAdminInvestimentoRoute
   '/api/admin/relatorio': typeof ApiAdminRelatorioRoute
   '/api/public/descadastrar': typeof ApiPublicDescadastrarRoute
   '/api/public/download': typeof ApiPublicDownloadRoute
@@ -160,6 +167,7 @@ export interface FileRoutesByTo {
   '/privacidade': typeof PrivacidadeRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/minha-conta': typeof AuthenticatedMinhaContaRoute
+  '/api/admin/investimento': typeof ApiAdminInvestimentoRoute
   '/api/admin/relatorio': typeof ApiAdminRelatorioRoute
   '/api/public/descadastrar': typeof ApiPublicDescadastrarRoute
   '/api/public/download': typeof ApiPublicDownloadRoute
@@ -182,6 +190,7 @@ export interface FileRoutesById {
   '/privacidade': typeof PrivacidadeRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/minha-conta': typeof AuthenticatedMinhaContaRoute
+  '/api/admin/investimento': typeof ApiAdminInvestimentoRoute
   '/api/admin/relatorio': typeof ApiAdminRelatorioRoute
   '/api/public/descadastrar': typeof ApiPublicDescadastrarRoute
   '/api/public/download': typeof ApiPublicDownloadRoute
@@ -204,6 +213,7 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/admin'
     | '/minha-conta'
+    | '/api/admin/investimento'
     | '/api/admin/relatorio'
     | '/api/public/descadastrar'
     | '/api/public/download'
@@ -224,6 +234,7 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/admin'
     | '/minha-conta'
+    | '/api/admin/investimento'
     | '/api/admin/relatorio'
     | '/api/public/descadastrar'
     | '/api/public/download'
@@ -245,6 +256,7 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/_authenticated/admin'
     | '/_authenticated/minha-conta'
+    | '/api/admin/investimento'
     | '/api/admin/relatorio'
     | '/api/public/descadastrar'
     | '/api/public/download'
@@ -265,6 +277,7 @@ export interface RootRouteChildren {
   NovaSenhaRoute: typeof NovaSenhaRoute
   ObrigadoRoute: typeof ObrigadoRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
+  ApiAdminInvestimentoRoute: typeof ApiAdminInvestimentoRoute
   ApiAdminRelatorioRoute: typeof ApiAdminRelatorioRoute
   ApiPublicDescadastrarRoute: typeof ApiPublicDescadastrarRoute
   ApiPublicDownloadRoute: typeof ApiPublicDownloadRoute
@@ -360,6 +373,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMinhaContaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/admin/investimento': {
+      id: '/api/admin/investimento'
+      path: '/api/admin/investimento'
+      fullPath: '/api/admin/investimento'
+      preLoaderRoute: typeof ApiAdminInvestimentoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/admin/relatorio': {
       id: '/api/admin/relatorio'
       path: '/api/admin/relatorio'
@@ -436,6 +456,7 @@ const rootRouteChildren: RootRouteChildren = {
   NovaSenhaRoute: NovaSenhaRoute,
   ObrigadoRoute: ObrigadoRoute,
   PrivacidadeRoute: PrivacidadeRoute,
+  ApiAdminInvestimentoRoute: ApiAdminInvestimentoRoute,
   ApiAdminRelatorioRoute: ApiAdminRelatorioRoute,
   ApiPublicDescadastrarRoute: ApiPublicDescadastrarRoute,
   ApiPublicDownloadRoute: ApiPublicDownloadRoute,

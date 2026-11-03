@@ -47,7 +47,7 @@ export const getLeadTimeline = createServerFn({ method: "POST" })
     return carregarTimeline(supabaseAdmin, data.email);
   });
 
-const investimentoSchema = z.object({
+export const investimentoSchema = z.object({
   dia: z.string().refine(ehDia, "Data inválida"),
   utm_campaign: z
     .string()
