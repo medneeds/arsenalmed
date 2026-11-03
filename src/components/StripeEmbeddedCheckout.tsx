@@ -1,6 +1,7 @@
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from "@stripe/react-stripe-js";
 import { getStripe, getStripeEnvironment } from "@/lib/stripe";
 import { createCheckoutSession } from "@/utils/payments.functions";
+import { rastreioParaEnvio } from "@/lib/visita";
 
 interface StripeEmbeddedCheckoutProps {
   customerEmail?: string;
@@ -15,6 +16,7 @@ export function StripeEmbeddedCheckout({ customerEmail, cpf }: StripeEmbeddedChe
         cpf,
         returnUrl: `${window.location.origin}/obrigado?session_id={CHECKOUT_SESSION_ID}`,
         environment: getStripeEnvironment(),
+        rastreio: rastreioParaEnvio(),
       },
     });
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { registrarLead, CONSENT_TEXT } from "@/utils/leads.functions";
 import { track } from "@/lib/analytics";
+import { rastreioParaEnvio } from "@/lib/visita";
 
 const PERFIS = ["Estudante de medicina", "Interno", "Residente", "Médico(a)", "Outro"];
 
@@ -25,7 +26,13 @@ export function CompactoLeadForm({ origem = "pagina_compacto" }: { origem?: stri
     setEnviando(true);
     try {
       const res = await registrarLead({
-        data: { nome: nome.trim(), email: email.trim(), perfil, consentimento: true },
+        data: {
+          nome: nome.trim(),
+          email: email.trim(),
+          perfil,
+          consentimento: true,
+          rastreio: rastreioParaEnvio(origem),
+        },
       });
       if (res.ok) {
         setUrl(res.url);

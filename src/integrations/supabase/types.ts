@@ -28,12 +28,19 @@ export type Database = {
           expira_em: string
           id: string
           origem: string
+          primeiro_utm: Json | null
           produto: string
+          session_id: string | null
           status: string
           stripe_payment_intent: string | null
           stripe_session_id: string
           token_download: string | null
           user_id: string | null
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          utm_term: string | null
           valor_centavos: number
         }
         Insert: {
@@ -49,12 +56,19 @@ export type Database = {
           expira_em?: string
           id?: string
           origem?: string
+          primeiro_utm?: Json | null
           produto?: string
+          session_id?: string | null
           status?: string
           stripe_payment_intent?: string | null
           stripe_session_id: string
           token_download?: string | null
           user_id?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
           valor_centavos: number
         }
         Update: {
@@ -70,12 +84,91 @@ export type Database = {
           expira_em?: string
           id?: string
           origem?: string
+          primeiro_utm?: Json | null
           produto?: string
+          session_id?: string | null
           status?: string
           stripe_payment_intent?: string | null
           stripe_session_id?: string
           token_download?: string | null
           user_id?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
+          valor_centavos?: number
+        }
+        Relationships: []
+      }
+      eventos_funil: {
+        Row: {
+          criado_em: string
+          dispositivo: string | null
+          evento: string
+          id: string
+          pagina: string | null
+          props: Json
+          session_id: string
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
+        }
+        Insert: {
+          criado_em?: string
+          dispositivo?: string | null
+          evento: string
+          id?: string
+          pagina?: string | null
+          props?: Json
+          session_id: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Update: {
+          criado_em?: string
+          dispositivo?: string | null
+          evento?: string
+          id?: string
+          pagina?: string | null
+          props?: Json
+          session_id?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+        }
+        Relationships: []
+      }
+      investimento_campanhas: {
+        Row: {
+          atualizado_em: string
+          criado_em: string
+          dia: string
+          id: string
+          observacao: string | null
+          utm_campaign: string
+          valor_centavos: number
+        }
+        Insert: {
+          atualizado_em?: string
+          criado_em?: string
+          dia: string
+          id?: string
+          observacao?: string | null
+          utm_campaign: string
+          valor_centavos: number
+        }
+        Update: {
+          atualizado_em?: string
+          criado_em?: string
+          dia?: string
+          id?: string
+          observacao?: string | null
+          utm_campaign?: string
           valor_centavos?: number
         }
         Relationships: []
@@ -104,33 +197,66 @@ export type Database = {
           consentimento_texto: string
           criado_em: string
           descadastrado_em: string | null
+          dispositivo: string | null
           email: string
           id: string
           nome: string
           origem: string
+          origem_formulario: string | null
+          pagina_entrada: string | null
           perfil: string
+          primeiro_utm: Json | null
+          referrer: string | null
+          session_id: string | null
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          utm_term: string | null
         }
         Insert: {
           consentimento_em?: string
           consentimento_texto: string
           criado_em?: string
           descadastrado_em?: string | null
+          dispositivo?: string | null
           email: string
           id?: string
           nome: string
           origem?: string
+          origem_formulario?: string | null
+          pagina_entrada?: string | null
           perfil: string
+          primeiro_utm?: Json | null
+          referrer?: string | null
+          session_id?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
         }
         Update: {
           consentimento_em?: string
           consentimento_texto?: string
           criado_em?: string
           descadastrado_em?: string | null
+          dispositivo?: string | null
           email?: string
           id?: string
           nome?: string
           origem?: string
+          origem_formulario?: string | null
+          pagina_entrada?: string | null
           perfil?: string
+          primeiro_utm?: Json | null
+          referrer?: string | null
+          session_id?: string | null
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
         }
         Relationships: []
       }

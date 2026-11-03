@@ -1,8 +1,10 @@
-// Tracking de funil — leve, sem dependências e sem dados pessoais.
+// Tracking de funil — leve e sem dados pessoais.
 // Nunca envie e-mail, CPF, nome ou token: apenas o nome do evento e
 // propriedades categóricas (ex.: origem do clique, tipo de arquivo).
 
 import { metaInitiateCheckout, metaLead, metaViewContent } from "@/lib/meta-pixel";
+import { registrarEvento } from "@/lib/eventos.functions";
+import { contextoDoEvento } from "@/lib/visita";
 
 // Eventos do funil que viram eventos padrão do Pixel da Meta. A compra fica
 // de fora: vai direto da página /obrigado, com o ID da sessão como eventID.
@@ -13,6 +15,7 @@ const META_EVENTS: Partial<Record<FunnelEvent, () => void>> = {
 };
 
 export type FunnelEvent =
+  | "page_view"
   | "view_landing"
   | "click_buy"
   | "explore_product"
@@ -48,9 +51,22 @@ declare global {
   }
 }
 
+function gravarNoServidor(event: FunnelEvent, props: Props): void {
+  try {
+    const ctx = contextoDoEvento();
+    if (!ctx.session_id) return;
+    void registrarEvento({
+      data: { evento: event, pagina: window.location.pathname, props, ...ctx, session_id: ctx.session_id },
+    }).catch(() => {});
+  } catch {
+    // ignore
+  }
+}
+
 export function track(event: FunnelEvent, props?: Props): void {
   if (typeof window === "undefined") return;
-  const payload = { event, ...sanitize(props) };
+  const limpos = sanitize(props);
+  const payload = { event, ...limpos };
   try {
     window.dataLayer = window.dataLayer ?? [];
     window.dataLayer.push(payload);
@@ -59,4 +75,5 @@ export function track(event: FunnelEvent, props?: Props): void {
   } catch {
     // Analytics nunca pode quebrar a experiência de compra.
   }
+  gravarNoServidor(event, limpos);
 }

@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { dentro, diaLocal, diasDoPeriodo, normalizarPeriodo, qtdDias } from "@/lib/periodo";
 
 export type DiaSerie = {
   dia: string;
@@ -42,20 +43,16 @@ export type DashboardData = {
   periodoDias: number;
 };
 
-function diaISO(value: string | Date): string {
-  const d = typeof value === "string" ? new Date(value) : value;
-  // Agrupa por dia no fuso de São Paulo (UTC-3)
-  const local = new Date(d.getTime() - 3 * 60 * 60 * 1000);
-  return local.toISOString().slice(0, 10);
-}
+// Agrupa por dia no fuso America/Fortaleza.
+const diaISO = (value: string | Date) => diaLocal(value);
 
 const PAGOS = new Set(["pago", "paid", "completed", "succeeded"]);
 
 export const getAdminDashboard = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { dias?: number } | undefined) => ({
-    dias: Math.min(Math.max(Number(input?.dias ?? 30), 7), 180),
-  }))
+  .inputValidator((input: { desde?: string; ate?: string } | undefined) =>
+    normalizarPeriodo(input, new Date()),
+  )
   .handler(async ({ data, context }) => {
     const { data: isAdmin, error: roleError } = await context.supabase.rpc("has_role", {
       _user_id: context.userId,
@@ -66,7 +63,7 @@ export const getAdminDashboard = createServerFn({ method: "GET" })
 
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const desde = new Date(Date.now() - data.dias * 24 * 60 * 60 * 1000);
+    const periodo = data;
 
     const [comprasRes, leadsRes] = await Promise.all([
       supabaseAdmin
@@ -107,8 +104,7 @@ export const getAdminDashboard = createServerFn({ method: "GET" })
 
     // Série diária
     const mapa = new Map<string, DiaSerie>();
-    for (let i = data.dias - 1; i >= 0; i--) {
-      const dia = diaISO(new Date(agora - i * 24 * 60 * 60 * 1000));
+    for (const dia of diasDoPeriodo(periodo)) {
       mapa.set(dia, { dia, leads: 0, compras: 0, receitaCentavos: 0 });
     }
     for (const l of leads) {
@@ -123,7 +119,7 @@ export const getAdminDashboard = createServerFn({ method: "GET" })
       }
     }
 
-    const dentroDoPeriodo = (iso: string) => new Date(iso).getTime() >= desde.getTime();
+    const dentroDoPeriodo = (iso: string) => dentro(periodo, iso);
 
     return {
       receita: {
@@ -158,7 +154,7 @@ export const getAdminDashboard = createServerFn({ method: "GET" })
         temCatalogo: Boolean(c.catalogo_path),
         bonusMedstation: c.origem === "medstation_bonus",
       })),
-      periodoDias: data.dias,
+      periodoDias: qtdDias(periodo),
     } satisfies DashboardData;
   });
 
