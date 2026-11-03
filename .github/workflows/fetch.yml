@@ -11,30 +11,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ads-assets
-      - name: Download final renders
+      - name: Baixar narração
         run: |
-          set +e
           mkdir -p ads/final
-          curl -sSL -A "Mozilla/5.0" -w "%{http_code} %{size_download} %{url_effective}\n" -o ads/final/arsenal-med-vsl-site-16x9.mp4 "https://elevenlabsusercontent.com/database/workspace/fdc59b2b7cea468d82ce072314953f01/content_generation/DhbkOlp2Dor9bTGYynGj/ocjupbr4zJY57OCHa9KV/content.mp4?Expires=1793671200&KeyName=assets-cdn-key-1&Signature=yMg4y_duWMctHY4MupyiKylUOOA="
-          curl -sSL -A "Mozilla/5.0" -w "%{http_code} %{size_download} %{url_effective}\n" -o ads/final/arsenal-compacto-captacao.mp4 "https://elevenlabsusercontent.com/database/workspace/fdc59b2b7cea468d82ce072314953f01/content_generation/6EQuFsdUxE8qRKdQKdiM/hyKPqPMeX3XKVzsq4Q1X/content.mp4?Expires=1793671200&KeyName=assets-cdn-key-1&Signature=uUGhbfjZCgVe2wdxnyXiLnZfAUU="
-          curl -sSL -A "Mozilla/5.0" -w "%{http_code} %{size_download} %{url_effective}\n" -o ads/final/voz-vsl-take1.mp3 "https://elevenlabsusercontent.com/database/workspace/fdc59b2b7cea468d82ce072314953f01/content_generation/T6MM0P7w6gJtF6stkMea/m7Luj9HgBkm6iyKG3Xun/content.mp3?Expires=1793671200&KeyName=assets-cdn-key-1&Signature=ChYg99eupz2kj3iX2-pXxiA5kCA="
-          curl -sSL -A "Mozilla/5.0" -w "%{http_code} %{size_download} %{url_effective}\n" -o ads/final/voz-captacao-take1.mp3 "https://elevenlabsusercontent.com/database/workspace/fdc59b2b7cea468d82ce072314953f01/content_generation/gnUVTXDOGyIpSOoglEqy/O1erF77hJUUxp3BrvyIh/content.mp3?Expires=1793671200&KeyName=assets-cdn-key-1&Signature=hPewjCGYRxoNU0uX0rEyciLDZoE="
-          ls -la ads/final
-          for f in ads/final/*; do file "$f"; done > ads/final/_log.txt 2>&1; ls -la ads/final >> ads/final/_log.txt
-          while read l; do echo "::warning::DL $l"; done < ads/final/_log.txt
-          exit 0
+          curl -sSL -A "Mozilla/5.0" -o ads/final/voz-video59-pode-falhar.mp3 "https://elevenlabsusercontent.com/database/workspace/fdc59b2b7cea468d82ce072314953f01/content_generation/bt3HyJzmKxAYsJekWoZ3/XkH1FX5XfRZ2Qwr9CLfe/content.mp3?Expires=1793718000&KeyName=assets-cdn-key-1&Signature=Vuc07vjV8hVG7ETBqg7y5SA3CJw="
+          echo "::warning::DL $(ls -la ads/final/voz-video59-pode-falhar.mp3)"
       - name: Commit
         run: |
           set +e
           git config user.name "arsenal-media-bot"; git config user.email "actions@users.noreply.github.com"
-          rm -f ads/final/_log.txt
-          sudo apt-get -qq update >/dev/null 2>&1; sudo apt-get -qq install -y ffmpeg >/dev/null 2>&1
-          cd ads/final
-          ffmpeg -v error -y -i arsenal-med-vsl-site-16x9.mp4 -c:v libx264 -preset slow -crf 21 -pix_fmt yuv420p -c:a aac -b:a 192k -movflags +faststart vsl-site.mp4; echo "::warning::FF1 rc=$? $(ls -la vsl-site.mp4)"
-          ffmpeg -v error -y -i arsenal-compacto-captacao.mp4 -c copy -movflags +faststart captacao.mp4; echo "::warning::FF2 rc=$? $(ls -la captacao.mp4)"
-          mv vsl-site.mp4 arsenal-med-vsl-site-16x9.mp4; mv captacao.mp4 arsenal-compacto-captacao.mp4
-          cd ../..
-          git add ads/final > o.log 2>&1; echo "::warning::ADD rc=$? $(tr '\n' ' ' < o.log | cut -c1-300)"
-          git commit -qm "Renders finais com voz (ElevenLabs)" > o.log 2>&1; echo "::warning::COMMIT rc=$? $(tr '\n' ' ' < o.log | cut -c1-300)"
-          git push origin HEAD:ads-assets > o.log 2>&1; echo "::warning::PUSH rc=$? $(tr '\n' ' ' < o.log | cut -c1-400)"
-          exit 0
+          git add ads/final/voz-video59-pode-falhar.mp3; git commit -qm "Narração do vídeo de 59 s com 'pode falhar'"
+          git push origin HEAD:ads-assets > o.log 2>&1; echo "::warning::PUSH rc=$? $(tr '\n' ' ' < o.log | cut -c1-300)"
