@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { rastreioSchema, type RastreioInput } from "@/lib/rastreio";
 
 export const CONSENT_TEXT =
   "Autorizo o envio do material e de comunicações sobre o Arsenal Med. Posso cancelar a qualquer momento.";
@@ -12,19 +13,35 @@ type LeadResult =
 
 export const registrarLead = createServerFn({ method: "POST" })
   .inputValidator(
-    (data: { nome: string; email: string; perfil: string; consentimento: boolean }) =>
+    (data: { nome: string; email: string; perfil: string; consentimento: boolean; rastreio?: RastreioInput }) =>
       z
         .object({
           nome: z.string().trim().min(2).max(120),
           email: z.string().trim().email().max(200),
           perfil: z.enum(PERFIS),
           consentimento: z.literal(true),
+          // Origem da visita: nunca bloqueia o cadastro se vier inválida.
+          rastreio: z
+            .unknown()
+            .optional()
+            .transform((v) => {
+              const r = rastreioSchema.safeParse(v ?? {});
+              return r.success ? r.data : {};
+            }),
         })
         .parse(data),
   )
   .handler(async ({ data }): Promise<LeadResult> => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const email = data.email.toLowerCase();
+    const r = data.rastreio;
+
+    // Novo cadastro do mesmo e-mail: atualiza o último toque e mantém o primeiro.
+    const { data: existente } = await supabaseAdmin
+      .from("leads")
+      .select("primeiro_utm")
+      .eq("email", email)
+      .maybeSingle();
 
     const { error } = await supabaseAdmin.from("leads").upsert(
       {
@@ -34,6 +51,17 @@ export const registrarLead = createServerFn({ method: "POST" })
         origem: "arsenal-compacto",
         consentimento_em: new Date().toISOString(),
         consentimento_texto: CONSENT_TEXT,
+        utm_source: r.utm_source ?? null,
+        utm_medium: r.utm_medium ?? null,
+        utm_campaign: r.utm_campaign ?? null,
+        utm_content: r.utm_content ?? null,
+        utm_term: r.utm_term ?? null,
+        primeiro_utm: existente?.primeiro_utm ?? r.primeiro_utm ?? null,
+        referrer: r.referrer ?? null,
+        pagina_entrada: r.pagina_entrada ?? null,
+        dispositivo: r.dispositivo ?? null,
+        origem_formulario: r.origem_formulario ?? null,
+        session_id: r.session_id ?? null,
       },
       { onConflict: "email" },
     );

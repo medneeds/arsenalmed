@@ -14,6 +14,8 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { metaPageView } from "../lib/meta-pixel";
+import { track } from "../lib/analytics";
+import { capturarVisita } from "../lib/visita";
 
 function NotFoundComponent() {
   return (
@@ -127,8 +129,11 @@ function RootComponent() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   // Pixel da Meta: um PageView por página aberta, inclusive nas navegações internas.
+  // O mesmo vale para o page_view anônimo do funil (fora das áreas internas).
   useEffect(() => {
     metaPageView();
+    capturarVisita();
+    if (!/^\/(admin|auth)(\/|$)/.test(pathname)) track("page_view");
   }, [pathname]);
 
   return (
