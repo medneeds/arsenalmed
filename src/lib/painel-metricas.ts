@@ -1,7 +1,7 @@
 // Regras de cálculo do painel de campanhas. Puro (sem I/O) — testado em
 // painel-metricas.test.ts. Bônus MedStation nunca conta como venda.
-import { ETAPAS } from "@/lib/sequencia-compacto";
-import { dentro, diaLocal, diasDoPeriodo, horaLocal, type Periodo } from "@/lib/periodo";
+import { ETAPAS } from "./sequencia-compacto";
+import { dentro, diaLocal, diasDoPeriodo, horaLocal, type Periodo } from "./periodo";
 
 export const SEM_UTM_LABEL = "Sem UTM / orgânico";
 const PAGOS = new Set(["pago", "paid", "completed", "succeeded"]);

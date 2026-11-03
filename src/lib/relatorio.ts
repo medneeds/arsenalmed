@@ -1,7 +1,7 @@
 // Relatório para análise externa (markdown e JSON). Puro. Nunca leva e-mail
 // completo, nome completo ou CPF: os leads saem com primeiro nome e e-mail
 // mascarado.
-import type { Periodo } from "@/lib/periodo";
+import type { Periodo } from "./periodo";
 import {
   SEM_UTM_LABEL,
   mascararEmail,
@@ -10,7 +10,7 @@ import {
   type LinhaCampanha,
   type MetricaEtapa,
   type Resumo,
-} from "@/lib/painel-metricas";
+} from "./painel-metricas";
 
 export type LeadPainel = {
   email: string;
