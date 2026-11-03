@@ -1,5 +1,6 @@
 import { sendDeliveryEmail } from "@/lib/delivery-email.server";
 import { ARSENAL_PRODUCT } from "@/lib/product";
+import { rastreioDoMetadata } from "@/lib/rastreio";
 
 export type ArsenalCheckoutSession = {
   id: string;
@@ -45,6 +46,8 @@ export async function fulfillArsenalSession(
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
   const COLUNAS = "id, cpf, token_download, arquivo_path, catalogo_path, email_enviado_em";
+  // Origem da visita enviada no início do checkout (UTM e session_id).
+  const origem = rastreioDoMetadata(session.metadata);
 
   const { data, error } = await supabaseAdmin
     .from("compras")
@@ -57,6 +60,13 @@ export async function fulfillArsenalSession(
         valor_centavos: session.amount_total ?? ARSENAL_PRODUCT.priceCents,
         produto: "arsenal_med_3",
         status: "pago",
+        utm_source: origem.utm_source,
+        utm_medium: origem.utm_medium,
+        utm_campaign: origem.utm_campaign,
+        utm_content: origem.utm_content,
+        utm_term: origem.utm_term,
+        primeiro_utm: origem.primeiro_utm as never,
+        session_id: origem.session_id,
       },
       { onConflict: "stripe_session_id", ignoreDuplicates: true },
     )

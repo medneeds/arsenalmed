@@ -2,24 +2,40 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { type StripeEnv, createStripeClient, getStripeErrorMessage } from "@/lib/stripe.server";
 import { ARSENAL_PRODUCT } from "@/lib/product";
+import { rastreioParaMetadata, rastreioSchema, type RastreioInput } from "@/lib/rastreio";
 
 type CheckoutSessionResult =
   | { clientSecret: string }
   | { error: string };
 
 export const createCheckoutSession = createServerFn({ method: "POST" })
-  .inputValidator((data: { customerEmail?: string; cpf: string; returnUrl: string; environment: StripeEnv }) =>
-    z
-      .object({
-        customerEmail: z.string().email().optional().or(z.literal("").transform(() => undefined)),
-        cpf: z
-          .string()
-          .transform((v) => v.replace(/\D/g, ""))
-          .refine((v) => v.length === 11, { message: "CPF inválido" }),
-        returnUrl: z.string().url(),
-        environment: z.enum(["sandbox", "live"]),
-      })
-      .parse(data),
+  .inputValidator(
+    (data: {
+      customerEmail?: string;
+      cpf: string;
+      returnUrl: string;
+      environment: StripeEnv;
+      rastreio?: RastreioInput;
+    }) =>
+      z
+        .object({
+          customerEmail: z.string().email().optional().or(z.literal("").transform(() => undefined)),
+          cpf: z
+            .string()
+            .transform((v) => v.replace(/\D/g, ""))
+            .refine((v) => v.length === 11, { message: "CPF inválido" }),
+          returnUrl: z.string().url(),
+          environment: z.enum(["sandbox", "live"]),
+          // Origem da visita: se vier inválida, o checkout segue sem ela.
+          rastreio: z
+            .unknown()
+            .optional()
+            .transform((v) => {
+              const r = rastreioSchema.safeParse(v ?? {});
+              return r.success ? r.data : {};
+            }),
+        })
+        .parse(data),
   )
   .handler(async ({ data }): Promise<CheckoutSessionResult> => {
     try {
@@ -49,6 +65,7 @@ export const createCheckoutSession = createServerFn({ method: "POST" })
       const product = await stripe.products.retrieve(productId);
 
       const metadata = {
+        ...rastreioParaMetadata(data.rastreio),
         managed_payments: "false",
         product: "arsenal_med_3",
         product_version: ARSENAL_PRODUCT.version,
