@@ -21,8 +21,10 @@ import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedMinhaContaRouteImport } from './routes/_authenticated/minha-conta'
+import { Route as ApiPublicDescadastrarRouteImport } from './routes/api/public/descadastrar'
 import { Route as ApiPublicDownloadRouteImport } from './routes/api/public/download'
 import { Route as ApiPublicMedstationBonusRouteImport } from './routes/api/public/medstation-bonus'
+import { Route as ApiPublicSequenciaCompactoRouteImport } from './routes/api/public/sequencia-compacto'
 import { Route as ApiPublicPaymentsWebhookRouteImport } from './routes/api/public/payments/webhook'
 import { Route as LovableEmailTransactionalPreviewRouteImport } from './routes/lovable/email/transactional/preview'
 
@@ -85,6 +87,11 @@ const AuthenticatedMinhaContaRoute = AuthenticatedMinhaContaRouteImport.update({
   path: '/minha-conta',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const ApiPublicDescadastrarRoute = ApiPublicDescadastrarRouteImport.update({
+  id: '/api/public/descadastrar',
+  path: '/api/public/descadastrar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicDownloadRoute = ApiPublicDownloadRouteImport.update({
   id: '/api/public/download',
   path: '/api/public/download',
@@ -94,6 +101,12 @@ const ApiPublicMedstationBonusRoute =
   ApiPublicMedstationBonusRouteImport.update({
     id: '/api/public/medstation-bonus',
     path: '/api/public/medstation-bonus',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicSequenciaCompactoRoute =
+  ApiPublicSequenciaCompactoRouteImport.update({
+    id: '/api/public/sequencia-compacto',
+    path: '/api/public/sequencia-compacto',
     getParentRoute: () => rootRouteImport,
   } as any)
 const ApiPublicPaymentsWebhookRoute =
@@ -121,8 +134,10 @@ export interface FileRoutesByFullPath {
   '/privacidade': typeof PrivacidadeRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/minha-conta': typeof AuthenticatedMinhaContaRoute
+  '/api/public/descadastrar': typeof ApiPublicDescadastrarRoute
   '/api/public/download': typeof ApiPublicDownloadRoute
   '/api/public/medstation-bonus': typeof ApiPublicMedstationBonusRoute
+  '/api/public/sequencia-compacto': typeof ApiPublicSequenciaCompactoRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
@@ -138,8 +153,10 @@ export interface FileRoutesByTo {
   '/privacidade': typeof PrivacidadeRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/minha-conta': typeof AuthenticatedMinhaContaRoute
+  '/api/public/descadastrar': typeof ApiPublicDescadastrarRoute
   '/api/public/download': typeof ApiPublicDownloadRoute
   '/api/public/medstation-bonus': typeof ApiPublicMedstationBonusRoute
+  '/api/public/sequencia-compacto': typeof ApiPublicSequenciaCompactoRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
@@ -157,8 +174,10 @@ export interface FileRoutesById {
   '/privacidade': typeof PrivacidadeRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/minha-conta': typeof AuthenticatedMinhaContaRoute
+  '/api/public/descadastrar': typeof ApiPublicDescadastrarRoute
   '/api/public/download': typeof ApiPublicDownloadRoute
   '/api/public/medstation-bonus': typeof ApiPublicMedstationBonusRoute
+  '/api/public/sequencia-compacto': typeof ApiPublicSequenciaCompactoRoute
   '/api/public/payments/webhook': typeof ApiPublicPaymentsWebhookRoute
   '/lovable/email/transactional/preview': typeof LovableEmailTransactionalPreviewRoute
 }
@@ -176,8 +195,10 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/admin'
     | '/minha-conta'
+    | '/api/public/descadastrar'
     | '/api/public/download'
     | '/api/public/medstation-bonus'
+    | '/api/public/sequencia-compacto'
     | '/api/public/payments/webhook'
     | '/lovable/email/transactional/preview'
   fileRoutesByTo: FileRoutesByTo
@@ -193,8 +214,10 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/admin'
     | '/minha-conta'
+    | '/api/public/descadastrar'
     | '/api/public/download'
     | '/api/public/medstation-bonus'
+    | '/api/public/sequencia-compacto'
     | '/api/public/payments/webhook'
     | '/lovable/email/transactional/preview'
   id:
@@ -211,8 +234,10 @@ export interface FileRouteTypes {
     | '/privacidade'
     | '/_authenticated/admin'
     | '/_authenticated/minha-conta'
+    | '/api/public/descadastrar'
     | '/api/public/download'
     | '/api/public/medstation-bonus'
+    | '/api/public/sequencia-compacto'
     | '/api/public/payments/webhook'
     | '/lovable/email/transactional/preview'
   fileRoutesById: FileRoutesById
@@ -228,8 +253,10 @@ export interface RootRouteChildren {
   NovaSenhaRoute: typeof NovaSenhaRoute
   ObrigadoRoute: typeof ObrigadoRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
+  ApiPublicDescadastrarRoute: typeof ApiPublicDescadastrarRoute
   ApiPublicDownloadRoute: typeof ApiPublicDownloadRoute
   ApiPublicMedstationBonusRoute: typeof ApiPublicMedstationBonusRoute
+  ApiPublicSequenciaCompactoRoute: typeof ApiPublicSequenciaCompactoRoute
   ApiPublicPaymentsWebhookRoute: typeof ApiPublicPaymentsWebhookRoute
   LovableEmailTransactionalPreviewRoute: typeof LovableEmailTransactionalPreviewRoute
 }
@@ -320,6 +347,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMinhaContaRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/public/descadastrar': {
+      id: '/api/public/descadastrar'
+      path: '/api/public/descadastrar'
+      fullPath: '/api/public/descadastrar'
+      preLoaderRoute: typeof ApiPublicDescadastrarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/download': {
       id: '/api/public/download'
       path: '/api/public/download'
@@ -332,6 +366,13 @@ declare module '@tanstack/react-router' {
       path: '/api/public/medstation-bonus'
       fullPath: '/api/public/medstation-bonus'
       preLoaderRoute: typeof ApiPublicMedstationBonusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/sequencia-compacto': {
+      id: '/api/public/sequencia-compacto'
+      path: '/api/public/sequencia-compacto'
+      fullPath: '/api/public/sequencia-compacto'
+      preLoaderRoute: typeof ApiPublicSequenciaCompactoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/payments/webhook': {
@@ -375,8 +416,10 @@ const rootRouteChildren: RootRouteChildren = {
   NovaSenhaRoute: NovaSenhaRoute,
   ObrigadoRoute: ObrigadoRoute,
   PrivacidadeRoute: PrivacidadeRoute,
+  ApiPublicDescadastrarRoute: ApiPublicDescadastrarRoute,
   ApiPublicDownloadRoute: ApiPublicDownloadRoute,
   ApiPublicMedstationBonusRoute: ApiPublicMedstationBonusRoute,
+  ApiPublicSequenciaCompactoRoute: ApiPublicSequenciaCompactoRoute,
   ApiPublicPaymentsWebhookRoute: ApiPublicPaymentsWebhookRoute,
   LovableEmailTransactionalPreviewRoute: LovableEmailTransactionalPreviewRoute,
 }

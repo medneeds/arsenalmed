@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { Header } from "../components/Header";
 import { Hero } from "../components/Hero";
 import { Problema } from "../components/Problema";
-import { Vsl } from "../components/Vsl";
 import { Anatomia } from "../components/Anatomia";
 import { Amostra } from "../components/Amostra";
 import { Conteudo } from "../components/Conteudo";
@@ -83,7 +82,6 @@ function Index() {
       <main className="pt-16">
         <PaymentTestModeBanner />
         <Hero />
-        <Vsl />
         <Problema />
         <Anatomia />
         <Amostra />
