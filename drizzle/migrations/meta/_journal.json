@@ -29,6 +29,13 @@
       "when": 1792944299329,
       "tag": "0003_add_origem_to_compras",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1793674406770,
+      "tag": "0004_sequencia_emails_compacto",
+      "breakpoints": true
     }
   ]
 }
