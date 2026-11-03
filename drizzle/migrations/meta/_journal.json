@@ -36,6 +36,13 @@
       "when": 1793674406770,
       "tag": "0004_sequencia_emails_compacto",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1793703164916,
+      "tag": "0005_painel_campanhas_rastreio",
+      "breakpoints": true
     }
   ]
 }
