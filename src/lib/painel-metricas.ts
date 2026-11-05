@@ -89,9 +89,23 @@ export function primeiroNome(nome: string): string {
   return String(nome).trim().split(/\s+/)[0] ?? "";
 }
 
-function chave(v: string | null | undefined): string | null {
+// O Meta às vezes preenche utm_campaign/utm_content com os IDs numéricos da
+// campanha e do anúncio (parâmetros dinâmicos do anúncio em carrossel). Aqui
+// eles viram os nomes usados no lançamento de investimento, para custo por
+// lead e por venda caírem na mesma linha.
+export const ALIAS_UTM: Record<string, string> = {
+  "120251092961250118": "captacao_compacto",
+  "120251092896070118": "trafego_quente",
+  "120251092962900118": "carrossel_5_cenarios",
+  "120251093859360118": "video_33s",
+  "120251093867260118": "vsl_2m34",
+  "120251104997970118": "video_59s_v2",
+};
+
+export function chave(v: string | null | undefined): string | null {
   const t = (v ?? "").trim().toLowerCase();
-  return t ? t : null;
+  if (!t) return null;
+  return ALIAS_UTM[t] ?? t;
 }
 
 // ---------- Sessões (comportamento) ----------
@@ -107,6 +121,7 @@ export type SessaoInfo = {
   viuVendas: boolean;
   play: boolean;
   vslMax: number | null;
+  vslMaxSom: number | null;
   clicouComprar: boolean;
   checkout: boolean;
   pagou: boolean;
@@ -137,6 +152,7 @@ export function resumirSessoes(eventos: EventoRow[]): Map<string, SessaoInfo> {
         viuVendas: false,
         play: false,
         vslMax: null,
+        vslMaxSom: null,
         clicouComprar: false,
         checkout: false,
         pagou: false,
@@ -154,8 +170,14 @@ export function resumirSessoes(eventos: EventoRow[]): Map<string, SessaoInfo> {
       s.vslMax = Math.max(s.vslMax ?? 0, 0);
     }
     if (e.evento === "vsl_progress") {
+      // vslMax: quanto assistiu, com ou sem som. vslMaxSom: só depois de
+      // ativar o som (eventos antigos, sem a prop "som", eram todos com som).
       const pct = Number(e.props?.["pct"]);
-      if (Number.isFinite(pct)) s.vslMax = Math.max(s.vslMax ?? 0, Math.min(100, pct));
+      if (Number.isFinite(pct)) {
+        const p = Math.min(100, pct);
+        s.vslMax = Math.max(s.vslMax ?? 0, p);
+        if (e.props?.["som"] !== false) s.vslMaxSom = Math.max(s.vslMaxSom ?? 0, p);
+      }
     }
     if (e.evento === "click_buy") s.clicouComprar = true;
     if (e.evento === "checkout_started") s.checkout = true;
@@ -170,11 +192,12 @@ export type EtapaFunil = { etapa: string; total: number; pct: number | null };
 
 const ETAPAS_VENDAS: [string, (s: SessaoInfo) => boolean][] = [
   ["Visitou", (s) => s.viuVendas],
-  ["Deu play na VSL", (s) => s.play],
-  ["VSL 25%", (s) => (s.vslMax ?? -1) >= 25],
-  ["VSL 50%", (s) => (s.vslMax ?? -1) >= 50],
-  ["VSL 75%", (s) => (s.vslMax ?? -1) >= 75],
-  ["VSL 95%", (s) => (s.vslMax ?? -1) >= 95],
+  ["VSL 25% (com ou sem som)", (s) => (s.vslMax ?? -1) >= 25],
+  ["VSL 50% (com ou sem som)", (s) => (s.vslMax ?? -1) >= 50],
+  ["VSL 75% (com ou sem som)", (s) => (s.vslMax ?? -1) >= 75],
+  ["VSL 95% (com ou sem som)", (s) => (s.vslMax ?? -1) >= 95],
+  ["Ativou o som da VSL", (s) => s.play],
+  ["VSL 50% com som", (s) => (s.vslMaxSom ?? -1) >= 50],
   ["Clicou em comprar", (s) => s.clicouComprar],
   ["Iniciou checkout", (s) => s.checkout],
   ["Pagou", (s) => s.pagou],

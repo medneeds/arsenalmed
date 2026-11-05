@@ -8,7 +8,7 @@ import { brl, dataHora } from "./painel-ui";
 const NOMES: Record<string, string> = {
   page_view: "Viu a página",
   view_landing: "Abriu a página",
-  vsl_play: "Deu play na VSL",
+  vsl_play: "Ativou o som da VSL",
   vsl_progress: "Assistiu a VSL",
   explore_product: "Clicou para conhecer o produto",
   click_buy: "Clicou em comprar",

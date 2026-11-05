@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  chave,
   custoPor,
   etapaAtual,
   funilCompacto,
@@ -108,10 +109,10 @@ describe("funis", () => {
     const f = funilVendas(resumirSessoes(eventos).values());
     const por = Object.fromEntries(f.map((e) => [e.etapa, e]));
     expect(por["Visitou"]!.total).toBe(2);
-    expect(por["Deu play na VSL"]!.total).toBe(1);
-    expect(por["VSL 50%"]!.total).toBe(1);
-    expect(por["VSL 50%"]!.pct).toBe(50);
-    expect(por["VSL 75%"]!.total).toBe(0);
+    expect(por["Ativou o som da VSL"]!.total).toBe(1);
+    expect(por["VSL 50% (com ou sem som)"]!.total).toBe(1);
+    expect(por["VSL 50% (com ou sem som)"]!.pct).toBe(50);
+    expect(por["VSL 75% (com ou sem som)"]!.total).toBe(0);
   });
 
   it("conversão da página /compacto = envios ÷ visitas", () => {
@@ -198,5 +199,27 @@ describe("sequência de e-mails", () => {
     expect(d3.cliques).toBe(1);
     expect(d3.comprasAtribuidas).toBe(1);
     expect(m.find((e) => e.etapa === "d1")!.comprasAtribuidas).toBe(0);
+  });
+});
+
+describe("aliases do Meta e VSL sem som", () => {
+  it("IDs numéricos do Meta viram os nomes de campanha e criativo", () => {
+    expect(chave("120251092961250118")).toBe("captacao_compacto");
+    expect(chave("120251092962900118")).toBe("carrossel_5_cenarios");
+    expect(chave(" Trafego_Quente ")).toBe("trafego_quente");
+    expect(chave("")).toBeNull();
+  });
+  it("progresso sem som conta em vslMax, não em vslMaxSom", () => {
+    const base = { session_id: "s1", pagina: "/", utm_source: null, utm_medium: null, utm_campaign: null, utm_content: null, dispositivo: "mobile" };
+    const m = resumirSessoes([
+      { ...base, evento: "page_view", criado_em: "2026-11-04T10:00:00Z", props: {} },
+      { ...base, evento: "vsl_progress", criado_em: "2026-11-04T10:00:30Z", props: { pct: 50, som: false } },
+      { ...base, evento: "vsl_play", criado_em: "2026-11-04T10:01:00Z", props: {} },
+      { ...base, evento: "vsl_progress", criado_em: "2026-11-04T10:01:40Z", props: { pct: 25, som: true } },
+    ] as never);
+    const s = m.get("s1")!;
+    expect(s.vslMax).toBe(50);
+    expect(s.vslMaxSom).toBe(25);
+    expect(s.play).toBe(true);
   });
 });

@@ -38,14 +38,19 @@ export function Vsl() {
     track("vsl_play", { modo: estado === "mudo" ? "ativou_som" : "play" });
   }
 
+  // Mede quanto foi assistido com e sem som (no celular, a maioria assiste
+  // sem som). Cada marco é registrado uma vez por modo.
+  const vistosMudo = useRef(new Set<number>());
   function progresso() {
     const v = ref.current;
-    if (!v || !v.duration || estado !== "com-som") return;
+    if (!v || !v.duration || estado === "parado") return;
     const pct = (v.currentTime / v.duration) * 100;
+    const comSom = estado === "com-som";
+    const conjunto = comSom ? vistos.current : vistosMudo.current;
     for (const m of MARCOS) {
-      if (pct >= m && !vistos.current.has(m)) {
-        vistos.current.add(m);
-        track("vsl_progress", { pct: m });
+      if (pct >= m && !conjunto.has(m)) {
+        conjunto.add(m);
+        track("vsl_progress", { pct: m, som: comSom });
       }
     }
   }
@@ -61,7 +66,7 @@ export function Vsl() {
         playsInline
         muted
         onTimeUpdate={progresso}
-        onEnded={() => track("vsl_progress", { pct: 100 })}
+        onEnded={() => track("vsl_progress", { pct: 100, som: estado === "com-som" })}
       />
       {estado !== "com-som" && (
         <button
