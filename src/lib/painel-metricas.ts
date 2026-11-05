@@ -100,6 +100,8 @@ export const ALIAS_UTM: Record<string, string> = {
   "120251093859360118": "video_33s",
   "120251093867260118": "vsl_2m34",
   "120251104997970118": "video_59s_v2",
+  "120251135863700118": "carrossel_v2_3h",
+  "120251135871310118": "carrossel_v3_armadilhas",
 };
 
 export function chave(v: string | null | undefined): string | null {
